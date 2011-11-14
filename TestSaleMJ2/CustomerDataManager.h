@@ -7,9 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <sqlite3.h>
 
 @interface CustomerDataManager : NSObject {
+    
+    //Database
+    sqlite3* contactDB;
+    NSString* databasePath_contactDB;
+    
+    //Local variable
+    
     NSArray* nameKeys;
     NSArray* nameList;
     

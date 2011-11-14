@@ -88,6 +88,41 @@ static CustomerDataManager* _sharedInstance = nil;
 - (NSArray*) GetCustomerNameKeys{
     
     if (_sharedInstance.nameKeys == nil) {
+        
+        //Create Database+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        
+        NSString* docsDir;
+        NSArray* dirPaths;
+        
+        //Get document directory
+        dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        docsDir = [dirPaths objectAtIndex:0];
+        
+        //Build path
+        databasePath_contactDB = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:@"contact.db"]];
+        
+        //Use filemanager to check file at path
+        NSFileManager *filemgr = [NSFileManager defaultManager];
+        if ([filemgr fileExistsAtPath:databasePath_contactDB] == NO) {
+            const char* dbpath = [databasePath_contactDB UTF8String];
+            if (sqlite3_open(dbpath, &contactDB) == SQLITE_OK) {
+                char*errmsg;
+                const char*sql_stmt = "CREATE TABLE IF NOT EXISTS CONTACTS(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT)";
+                if (sqlite3_exec(contactDB, sql_stmt, NULL, NULL, &errmsg) != SQLITE_OK) {
+                    NSLog(@"Failed to create table");
+                }
+                
+                sqlite3_close(contactDB);
+            }
+            else{
+                NSLog(@"Failed to open/create database");
+            }
+        }
+        [filemgr release];
+        
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        
         _sharedInstance.nameKeys = [[NSArray alloc] initWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
     }
     
@@ -156,6 +191,10 @@ static CustomerDataManager* _sharedInstance = nil;
     }
     
     return _sharedInstance.nameList;
+}
+
+- (NSString*) GetCustomerCurrentSelectName{
+    return @"";
 }
 
 - (NSArray*) GetCustomerType{

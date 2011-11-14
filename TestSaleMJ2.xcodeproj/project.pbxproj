@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		5501F99C145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5501F99A145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m */; };
 		5501F99D145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5501F99B145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib */; };
+		5519CA86147182FA00D8C555 /* ChildDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5519CA85147182FA00D8C555 /* ChildDetailViewController.m */; };
+		5519CA8B1471849500D8C555 /* HobbyTypePopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5519CA891471849500D8C555 /* HobbyTypePopOverViewController.m */; };
+		5519CA8C1471849500D8C555 /* HobbyTypePopOverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5519CA8A1471849500D8C555 /* HobbyTypePopOverViewController.xib */; };
+		5519CA8F14718D0200D8C555 /* WorkPlaceDetailEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5519CA8E14718D0200D8C555 /* WorkPlaceDetailEditViewController.m */; };
 		5543B06614706B6C002936D8 /* CustomerTypePopoverViewCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5543B06414706B6B002936D8 /* CustomerTypePopoverViewCTRL.m */; };
 		5543B06714706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5543B06514706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib */; };
 		559298C9144740B10090F36A /* HobbyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559298C8144740B00090F36A /* HobbyDetailViewController.m */; };
@@ -98,6 +102,13 @@
 		5501F999145C153F00966434 /* VisitCustomerDetailPopupVCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCustomerDetailPopupVCTRL.h; sourceTree = "<group>"; };
 		5501F99A145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCustomerDetailPopupVCTRL.m; sourceTree = "<group>"; };
 		5501F99B145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCustomerDetailPopupVCTRL.xib; sourceTree = "<group>"; };
+		5519CA84147182FA00D8C555 /* ChildDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildDetailViewController.h; sourceTree = "<group>"; };
+		5519CA85147182FA00D8C555 /* ChildDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildDetailViewController.m; sourceTree = "<group>"; };
+		5519CA881471849500D8C555 /* HobbyTypePopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyTypePopOverViewController.h; sourceTree = "<group>"; };
+		5519CA891471849500D8C555 /* HobbyTypePopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyTypePopOverViewController.m; sourceTree = "<group>"; };
+		5519CA8A1471849500D8C555 /* HobbyTypePopOverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HobbyTypePopOverViewController.xib; sourceTree = "<group>"; };
+		5519CA8D14718D0100D8C555 /* WorkPlaceDetailEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkPlaceDetailEditViewController.h; sourceTree = "<group>"; };
+		5519CA8E14718D0200D8C555 /* WorkPlaceDetailEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkPlaceDetailEditViewController.m; sourceTree = "<group>"; };
 		5543B06314706B6B002936D8 /* CustomerTypePopoverViewCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerTypePopoverViewCTRL.h; sourceTree = "<group>"; };
 		5543B06414706B6B002936D8 /* CustomerTypePopoverViewCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerTypePopoverViewCTRL.m; sourceTree = "<group>"; };
 		5543B06514706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerTypePopoverViewCTRL.xib; sourceTree = "<group>"; };
@@ -332,6 +343,9 @@
 				55A3D67D1446364B0064F4BB /* NewHobbyViewController.m */,
 				559298C7144740B00090F36A /* HobbyDetailViewController.h */,
 				559298C8144740B00090F36A /* HobbyDetailViewController.m */,
+				5519CA881471849500D8C555 /* HobbyTypePopOverViewController.h */,
+				5519CA891471849500D8C555 /* HobbyTypePopOverViewController.m */,
+				5519CA8A1471849500D8C555 /* HobbyTypePopOverViewController.xib */,
 			);
 			name = Hobby;
 			sourceTree = "<group>";
@@ -343,6 +357,8 @@
 				55A3D66D144635B10064F4BB /* ChildDetail.xib */,
 				55A3D679144636110064F4BB /* NewChildViewController.h */,
 				55A3D67A144636120064F4BB /* NewChildViewController.m */,
+				5519CA84147182FA00D8C555 /* ChildDetailViewController.h */,
+				5519CA85147182FA00D8C555 /* ChildDetailViewController.m */,
 			);
 			name = Child;
 			sourceTree = "<group>";
@@ -354,6 +370,8 @@
 				559504E11444D13A0002EF42 /* WorkplaceDetail.xib */,
 				55A3D66A1446319D0064F4BB /* NewWorkplaceViewController.h */,
 				55A3D66B1446319D0064F4BB /* NewWorkplaceViewController.m */,
+				5519CA8D14718D0100D8C555 /* WorkPlaceDetailEditViewController.h */,
+				5519CA8E14718D0200D8C555 /* WorkPlaceDetailEditViewController.m */,
 			);
 			name = Workplace;
 			sourceTree = "<group>";
@@ -633,6 +651,7 @@
 				5595CC921459E48900FD87E7 /* ProductAddDetailPopupVCTRL.xib in Resources */,
 				5501F99D145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib in Resources */,
 				5543B06714706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib in Resources */,
+				5519CA8C1471849500D8C555 /* HobbyTypePopOverViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +691,9 @@
 				5501F99C145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m in Sources */,
 				5594F6FA146FC7EB007393CD /* CustomerDataManager.m in Sources */,
 				5543B06614706B6C002936D8 /* CustomerTypePopoverViewCTRL.m in Sources */,
+				5519CA86147182FA00D8C555 /* ChildDetailViewController.m in Sources */,
+				5519CA8B1471849500D8C555 /* HobbyTypePopOverViewController.m in Sources */,
+				5519CA8F14718D0200D8C555 /* WorkPlaceDetailEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
