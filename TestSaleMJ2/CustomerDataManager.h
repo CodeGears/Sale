@@ -70,6 +70,8 @@
 
 - (NSArray*) GetCustomerType;
 
+- (NSString*) GetCustomerCurrentSelectName;
+
 //Customer Detail Tab
 - (NSString*) GetPictureProfilePath;
 - (NSString*) GetCustomerDetailName;

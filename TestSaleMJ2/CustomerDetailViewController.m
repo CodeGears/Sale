@@ -18,6 +18,8 @@
 #import "NewHobbyViewController.h"
 
 #import "HobbyDetailViewController.h"
+#import "ChildDetailViewController.h"
+#import "WorkPlaceDetailEditViewController.h"
 
 #import "CustomerDataManager.h"
 
@@ -124,7 +126,7 @@
 }
 
 - (IBAction) HitEditChildBt{
-    UIViewController* v = [[UIViewController alloc] initWithNibName:@"ChildDetail" bundle:nil];
+    ChildDetailViewController* v = [[ChildDetailViewController alloc] initWithNibName:@"ChildDetail" bundle:nil];
     [v setTitle:@"Child Detail"];
     
     [parentNavigator pushViewController:v animated:true];
@@ -145,7 +147,8 @@
 }
 
 - (IBAction) HitEditWorkPlaceBt{
-    UIViewController* v = [[UIViewController alloc] initWithNibName:@"WorkplaceDetail" bundle:nil];
+    WorkPlaceDetailEditViewController* v = [[WorkPlaceDetailEditViewController alloc] initWithNibName:@"WorkplaceDetail" bundle:nil];
+    
     [v setTitle:@"Workplace Detail"];
     
     [parentNavigator pushViewController:v animated:true];

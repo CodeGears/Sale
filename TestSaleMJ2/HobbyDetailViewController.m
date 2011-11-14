@@ -7,6 +7,7 @@
 //
 
 #import "HobbyDetailViewController.h"
+#import "HobbyTypePopOverViewController.h"
 
 #import "CustomerDataManager.h"
 
@@ -36,10 +37,15 @@
 }
 
 
+- (void) PerformPopupSelect:(id)text{
+    hobbyTypeTextField.text = (NSString*)text;
+}
+
 #pragma - POPOver Handle
 - (IBAction) CreatePopOverController:(id)sender{
     
-    UIViewController* viewCtrl = [[UIViewController alloc] init];
+    HobbyTypePopOverViewController* viewCtrl = [[HobbyTypePopOverViewController alloc] init];
+    
     if (!popOverCtrl) {
         popOverCtrl = [[UIPopoverController alloc] initWithContentViewController:viewCtrl];
         [popOverCtrl setDelegate:self];
@@ -48,7 +54,9 @@
     
     UIButton* bt = sender;
     
-    NSLog(@"%f %f", bt.frame.origin.x, bt.frame.origin.y);
+    //NSLog(@"%f %f", bt.frame.origin.x, bt.frame.origin.y);
+    [viewCtrl setParentPopup:popOverCtrl];
+    [viewCtrl setDelegate:self];
     
     [popOverCtrl presentPopoverFromRect:CGRectMake(bt.frame.origin.x/2, 0, bt.frame.origin.x, bt.frame.origin.y ) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:TRUE];
     
