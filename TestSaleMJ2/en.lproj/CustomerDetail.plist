@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Business</key>
+	<array>
+		<string>Emerald</string>
+		<string>Sapphire</string>
+	</array>
+	<key>Child Info</key>
+	<array>
+		<string>_Header</string>
+		<string>_Data</string>
+	</array>
+	<key>Clinic</key>
+	<array>
+		<string>Address1</string>
+		<string>Address2</string>
+		<string>Sub district</string>
+		<string>District</string>
+		<string>Province</string>
+		<string>Zip</string>
+		<string>Phone</string>
+		<string>Ext.</string>
+		<string>Fax</string>
+		<string>Convenient Time</string>
+	</array>
+	<key>Customer Detail</key>
+	<array>
+		<string>_PortaitInfo</string>
+	</array>
+	<key>Customer Patient</key>
+	<array>
+		<string>_Header</string>
+		<string>_Data</string>
+		<string>_Data</string>
+		<string>_Data</string>
+		<string>_Data</string>
+		<string>_Data</string>
+		<string>_Data</string>
+	</array>
+	<key>Education Info</key>
+	<array>
+		<string>Education Level</string>
+		<string>Education Major</string>
+		<string>Education Place</string>
+	</array>
+	<key>Family Info</key>
+	<array>
+		<string>Martial Stat</string>
+		<string>Spourse</string>
+		<string>Spourse Birth date</string>
+		<string>No. Child</string>
+		<string>Net Income</string>
+	</array>
+	<key>Hobby Info</key>
+	<array>
+		<string>_Header</string>
+		<string>_Data</string>
+	</array>
+	<key>Home</key>
+	<array>
+		<string>Address1</string>
+		<string>Address2</string>
+		<string>Sub district</string>
+		<string>District</string>
+		<string>Province</string>
+		<string>Zip</string>
+		<string>Phone</string>
+		<string>Ext.</string>
+		<string>Fax</string>
+		<string>Convenient Time</string>
+	</array>
+	<key>Location</key>
+	<array>
+		<string>Latitude</string>
+		<string>Longtitude</string>
+		<string>_MapGPS</string>
+	</array>
+	<key>Member Detail</key>
+	<array>
+		<string>_Header</string>
+		<string>_Data</string>
+	</array>
+	<key>Personal Info</key>
+	<array>
+		<string>Email</string>
+		<string>Tel</string>
+		<string>Sex</string>
+		<string>Birthday (mm/dd/yyyy)</string>
+		<string>ID Number(13 keys)</string>
+	</array>
+	<key>Product Recommendation</key>
+	<array>
+		<string>_Header</string>
+		<string>_Data</string>
+		<string>_Data</string>
+	</array>
+	<key>SES</key>
+	<array>
+		<string>High</string>
+		<string>Medium</string>
+	</array>
+	<key>Status</key>
+	<array>
+		<string>Recommender</string>
+		<string>Ro. Comm./PTC</string>
+		<string>Department head</string>
+		<string>KOL</string>
+		<string>End users</string>
+		<string>Director/Assistant Director</string>
+		<string>Ped/OB Nurse</string>
+		<string>Ped/OB Doctor</string>
+		<string>Depo</string>
+		<string>Preg-List</string>
+		<string>Edit date</string>
+	</array>
+	<key>System Info</key>
+	<array>
+		<string>Profile Code</string>
+		<string>Customer Code 1</string>
+		<string>Customer Code 2</string>
+		<string>Customer Code 3</string>
+	</array>
+	<key>Workplace Detail</key>
+	<array>
+		<string>_Header</string>
+		<string>_Data</string>
+	</array>
+</dict>
+</plist>

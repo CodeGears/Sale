@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Market intelligence</key>
+	<array>
+		<string>Document number</string>
+		<string>Profile code</string>
+		<string>Topic type</string>
+		<string>Company</string>
+		<string>Event detail</string>
+		<string>Action take</string>
+	</array>
+	<key>Photo</key>
+	<array>
+		<string>_photo</string>
+		<string>_photo</string>
+		<string>_photo</string>
+		<string>_photo</string>
+	</array>
+</dict>
+</plist>

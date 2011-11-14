@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Call history</key>
+	<array>
+		<string>Call No.</string>
+		<string>Call date</string>
+		<string>Objective</string>
+		<string>Product</string>
+		<string>Result</string>
+		<string>Complant</string>
+		<string>Sample</string>
+		<string>Remark</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Record call</key>
+	<array>
+		<string>Profile code</string>
+		<string>Hospital</string>
+		<string>Grade</string>
+		<string>Note.</string>
+	</array>
+	<key>Objective1</key>
+	<array>
+		<string>Objective</string>
+		<string>Product</string>
+		<string>Result</string>
+		<string>Com.</string>
+		<string>Samples</string>
+	</array>
+	<key>Objective2</key>
+	<array>
+		<string>Objective</string>
+		<string>Product</string>
+		<string>Result</string>
+		<string>Com.</string>
+		<string>Samples</string>
+	</array>
+	<key>Objective3</key>
+	<array>
+		<string>Objective</string>
+		<string>Product</string>
+		<string>Result</string>
+		<string>Com.</string>
+		<string>Samples</string>
+	</array>
+	<key>Supervisor</key>
+	<array>
+		<string>Supervisor 1</string>
+		<string>Supervisor 2</string>
+		<string>Supervisor 3</string>
+	</array>
+</dict>
+</plist>

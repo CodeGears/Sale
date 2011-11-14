@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Sponsor request</key>
+	<array>
+		<string>Document number</string>
+		<string>Profile code</string>
+		<string>Customer name</string>
+		<string>Description</string>
+		<string>Information</string>
+		<string>Pay to</string>
+		<string>Type</string>
+		<string>Amount</string>
+		<string>Require date</string>
+	</array>
+</dict>
+</plist>

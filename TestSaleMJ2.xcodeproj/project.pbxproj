@@ -1,0 +1,1058 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5501F99C145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5501F99A145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m */; };
+		5501F99D145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5501F99B145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib */; };
+		5543B06614706B6C002936D8 /* CustomerTypePopoverViewCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5543B06414706B6B002936D8 /* CustomerTypePopoverViewCTRL.m */; };
+		5543B06714706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5543B06514706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib */; };
+		559298C9144740B10090F36A /* HobbyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559298C8144740B00090F36A /* HobbyDetailViewController.m */; };
+		5594F6F6146FC183007393CD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5594F6F5146FC183007393CD /* libsqlite3.dylib */; };
+		5594F6FA146FC7EB007393CD /* CustomerDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5594F6F9146FC7EB007393CD /* CustomerDataManager.m */; };
+		559504DB1444B8870002EF42 /* th.png in Resources */ = {isa = PBXBuildFile; fileRef = 559504D91444B8870002EF42 /* th.png */; };
+		559504DD1444BBBB0002EF42 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559504DC1444BBBB0002EF42 /* MapKit.framework */; };
+		559504E01444C5D90002EF42 /* CallHistoryDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559504DE1444C5D90002EF42 /* CallHistoryDetail.xib */; };
+		559504E31444D13A0002EF42 /* WorkplaceDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559504E11444D13A0002EF42 /* WorkplaceDetail.xib */; };
+		559518BF144411F70003097D /* CustomerDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559518BD144411F70003097D /* CustomerDetail.xib */; };
+		559518C9144436790003097D /* CallHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559518C7144436790003097D /* CallHistory.xib */; };
+		559518CC144458920003097D /* NewCustomer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559518CA144458920003097D /* NewCustomer.xib */; };
+		559518CF14445A830003097D /* NewCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559518CE14445A820003097D /* NewCustomerViewController.m */; };
+		5595CC771459ADD200FD87E7 /* MarketSurvQuesViewCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595CC751459ADD200FD87E7 /* MarketSurvQuesViewCTRL.m */; };
+		5595CC781459ADD200FD87E7 /* MarketSurvQuesViewCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5595CC761459ADD200FD87E7 /* MarketSurvQuesViewCTRL.xib */; };
+		5595CC7D1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595CC7B1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.m */; };
+		5595CC7E1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5595CC7C1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.xib */; };
+		5595CC821459C2E200FD87E7 /* OrderAddProductDetailVCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595CC801459C2E000FD87E7 /* OrderAddProductDetailVCTRL.m */; };
+		5595CC831459C2E200FD87E7 /* OrderAddProductDetailVCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5595CC811459C2E100FD87E7 /* OrderAddProductDetailVCTRL.xib */; };
+		5595CC871459DB1C00FD87E7 /* CertifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595CC851459DB1B00FD87E7 /* CertifyViewController.m */; };
+		5595CC881459DB1C00FD87E7 /* CertifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5595CC861459DB1C00FD87E7 /* CertifyViewController.xib */; };
+		5595CC8C1459E2A200FD87E7 /* ProductAddPopupVCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595CC8A1459E29A00FD87E7 /* ProductAddPopupVCTRL.m */; };
+		5595CC8D1459E2A200FD87E7 /* ProductAddPopupVCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5595CC8B1459E29D00FD87E7 /* ProductAddPopupVCTRL.xib */; };
+		5595CC911459E48900FD87E7 /* ProductAddDetailPopupVCTRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 5595CC8F1459E47500FD87E7 /* ProductAddDetailPopupVCTRL.m */; };
+		5595CC921459E48900FD87E7 /* ProductAddDetailPopupVCTRL.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5595CC901459E48400FD87E7 /* ProductAddDetailPopupVCTRL.xib */; };
+		55995CD91438D4E10028B5FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55995CD81438D4E10028B5FC /* UIKit.framework */; };
+		55995CDB1438D4E10028B5FC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55995CDA1438D4E10028B5FC /* Foundation.framework */; };
+		55995CDD1438D4E10028B5FC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55995CDC1438D4E10028B5FC /* CoreGraphics.framework */; };
+		55995CE31438D4E20028B5FC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55995CE11438D4E20028B5FC /* InfoPlist.strings */; };
+		55995CE61438D4E20028B5FC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55995CE51438D4E20028B5FC /* main.m */; };
+		55995CE91438D4E20028B5FC /* TestSaleMJ2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55995CE81438D4E20028B5FC /* TestSaleMJ2AppDelegate.m */; };
+		55995CEC1438D4E20028B5FC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55995CEA1438D4E20028B5FC /* MainWindow.xib */; };
+		55995CEF1438D4E20028B5FC /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55995CEE1438D4E20028B5FC /* DetailViewController.m */; };
+		55995CF21438D4E20028B5FC /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55995CF01438D4E20028B5FC /* DetailView.xib */; };
+		55995CF51438D4E20028B5FC /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55995CF41438D4E20028B5FC /* RootViewController.m */; };
+		559B3EDC1443759600CDFF31 /* TestRootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559B3EDA1443759600CDFF31 /* TestRootView.xib */; };
+		559B5DBE14583A2100CF82FB /* VisitRecordCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559B5DBC14583A2100CF82FB /* VisitRecordCallViewController.m */; };
+		559B5DBF14583A2100CF82FB /* VisitRecordCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559B5DBD14583A2100CF82FB /* VisitRecordCallViewController.xib */; };
+		55A38B4A1459352900CB1763 /* CallHistoryTab.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B481459352900CB1763 /* CallHistoryTab.plist */; };
+		55A38B4E1459370600CB1763 /* TableCell_CallHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B4C1459370600CB1763 /* TableCell_CallHistory.xib */; };
+		55A38B5114593A3C00CB1763 /* CallHistoryDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A38B5014593A3C00CB1763 /* CallHistoryDetailViewController.m */; };
+		55A38B5414593A9600CB1763 /* CallHistoryDetail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B5214593A9600CB1763 /* CallHistoryDetail.plist */; };
+		55A38B58145952BC00CB1763 /* SellHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A38B56145952BC00CB1763 /* SellHistoryViewController.m */; };
+		55A38B59145952BC00CB1763 /* SellHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B57145952BC00CB1763 /* SellHistoryViewController.xib */; };
+		55A38B5C145953A700CB1763 /* SalesHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B5A145953A700CB1763 /* SalesHistory.plist */; };
+		55A38B5F145955E500CB1763 /* TableCell_SalesHistory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B5D145955E500CB1763 /* TableCell_SalesHistory.xib */; };
+		55A38B6214595C8800CB1763 /* TableCell_CustomerDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B6014595C8800CB1763 /* TableCell_CustomerDetail.xib */; };
+		55A38B6514595CA100CB1763 /* CustomerDetail.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55A38B6314595CA100CB1763 /* CustomerDetail.plist */; };
+		55A3D662144626060064F4BB /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3D661144626060064F4BB /* CustomerDetailViewController.m */; };
+		55A3D66614462AB60064F4BB /* CallHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3D66514462AB50064F4BB /* CallHistoryViewController.m */; };
+		55A3D669144630AF0064F4BB /* NewWorkPlace.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A3D667144630AF0064F4BB /* NewWorkPlace.xib */; };
+		55A3D66C1446319E0064F4BB /* NewWorkplaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3D66B1446319D0064F4BB /* NewWorkplaceViewController.m */; };
+		55A3D675144635B10064F4BB /* ChildDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A3D66D144635B10064F4BB /* ChildDetail.xib */; };
+		55A3D676144635B10064F4BB /* HobbyDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A3D66F144635B10064F4BB /* HobbyDetail.xib */; };
+		55A3D677144635B10064F4BB /* NewChild.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A3D671144635B10064F4BB /* NewChild.xib */; };
+		55A3D678144635B10064F4BB /* NewHobby.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A3D673144635B10064F4BB /* NewHobby.xib */; };
+		55A3D67B144636140064F4BB /* NewChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3D67A144636120064F4BB /* NewChildViewController.m */; };
+		55A3D67E1446364D0064F4BB /* NewHobbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A3D67D1446364B0064F4BB /* NewHobbyViewController.m */; };
+		55EBB2EE14585059004F71C0 /* RecordCall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB2EC14585059004F71C0 /* RecordCall.plist */; };
+		55EBB2F3145889AC004F71C0 /* VisitOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB2F1145889AC004F71C0 /* VisitOrderViewController.m */; };
+		55EBB2F4145889AC004F71C0 /* VisitOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB2F2145889AC004F71C0 /* VisitOrderViewController.xib */; };
+		55EBB2F7145889EE004F71C0 /* Order.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB2F5145889EE004F71C0 /* Order.plist */; };
+		55EBB2FA1458900A004F71C0 /* TableCell_Order.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB2F81458900A004F71C0 /* TableCell_Order.xib */; };
+		55EBB2FF1458B185004F71C0 /* VisitMarketIntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB2FD1458B185004F71C0 /* VisitMarketIntViewController.m */; };
+		55EBB3001458B185004F71C0 /* VisitMarketIntViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB2FE1458B185004F71C0 /* VisitMarketIntViewController.xib */; };
+		55EBB3031458B34E004F71C0 /* MarketIntelligence.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3011458B34D004F71C0 /* MarketIntelligence.plist */; };
+		55EBB3061458B4C6004F71C0 /* TableCell_Market.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3041458B4C6004F71C0 /* TableCell_Market.xib */; };
+		55EBB30A1458B7F4004F71C0 /* SponsorRequest.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3081458B7F4004F71C0 /* SponsorRequest.plist */; };
+		55EBB30E1458B87E004F71C0 /* VisitSponsorRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB30C1458B87E004F71C0 /* VisitSponsorRequestViewController.m */; };
+		55EBB30F1458B87E004F71C0 /* VisitSponsorRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB30D1458B87E004F71C0 /* VisitSponsorRequestViewController.xib */; };
+		55EBB3141458BA72004F71C0 /* VisitMarketSurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB3121458BA72004F71C0 /* VisitMarketSurveyViewController.m */; };
+		55EBB3151458BA72004F71C0 /* VisitMarketSurveyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3131458BA72004F71C0 /* VisitMarketSurveyViewController.xib */; };
+		55EBB3181458BAD1004F71C0 /* TableCell_MarketSurvey.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3161458BAD0004F71C0 /* TableCell_MarketSurvey.xib */; };
+		55EBB31B1458BF81004F71C0 /* MarketSurvey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3191458BF80004F71C0 /* MarketSurvey.plist */; };
+		55EBB31F1458C2BC004F71C0 /* CustomerComplaint.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB31D1458C2BC004F71C0 /* CustomerComplaint.plist */; };
+		55EBB3231458C34E004F71C0 /* VisitCustomerComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB3211458C34E004F71C0 /* VisitCustomerComplaintViewController.m */; };
+		55EBB3241458C34E004F71C0 /* VisitCustomerComplaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3221458C34E004F71C0 /* VisitCustomerComplaintViewController.xib */; };
+		55EBB3271458C3DE004F71C0 /* TableCell_CustomerComplaint.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3251458C3DE004F71C0 /* TableCell_CustomerComplaint.xib */; };
+		55EBB32B1458C579004F71C0 /* TableCell_Product.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3291458C579004F71C0 /* TableCell_Product.xib */; };
+		55EBB32E1458C5C2004F71C0 /* ProductEvaluationRequest.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB32C1458C5C2004F71C0 /* ProductEvaluationRequest.plist */; };
+		55EBB3321458C687004F71C0 /* VisitProductEvaluatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB3301458C687004F71C0 /* VisitProductEvaluatViewController.m */; };
+		55EBB3331458C687004F71C0 /* VisitProductEvaluatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3311458C687004F71C0 /* VisitProductEvaluatViewController.xib */; };
+		55F074111456290E001EC018 /* Blank.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F0740F1456290E001EC018 /* Blank.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5501F999145C153F00966434 /* VisitCustomerDetailPopupVCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCustomerDetailPopupVCTRL.h; sourceTree = "<group>"; };
+		5501F99A145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCustomerDetailPopupVCTRL.m; sourceTree = "<group>"; };
+		5501F99B145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCustomerDetailPopupVCTRL.xib; sourceTree = "<group>"; };
+		5543B06314706B6B002936D8 /* CustomerTypePopoverViewCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerTypePopoverViewCTRL.h; sourceTree = "<group>"; };
+		5543B06414706B6B002936D8 /* CustomerTypePopoverViewCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerTypePopoverViewCTRL.m; sourceTree = "<group>"; };
+		5543B06514706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerTypePopoverViewCTRL.xib; sourceTree = "<group>"; };
+		559298C7144740B00090F36A /* HobbyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyDetailViewController.h; sourceTree = "<group>"; };
+		559298C8144740B00090F36A /* HobbyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyDetailViewController.m; sourceTree = "<group>"; };
+		5594F6F5146FC183007393CD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		5594F6F8146FC7EB007393CD /* CustomerDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDataManager.h; sourceTree = "<group>"; };
+		5594F6F9146FC7EB007393CD /* CustomerDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDataManager.m; sourceTree = "<group>"; };
+		559504DA1444B8870002EF42 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/th.png; sourceTree = "<group>"; };
+		559504DC1444BBBB0002EF42 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		559504DF1444C5D90002EF42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CallHistoryDetail.xib; sourceTree = "<group>"; };
+		559504E21444D13A0002EF42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WorkplaceDetail.xib; sourceTree = "<group>"; };
+		559518BE144411F70003097D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CustomerDetail.xib; sourceTree = "<group>"; };
+		559518C8144436790003097D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CallHistory.xib; sourceTree = "<group>"; };
+		559518CB144458920003097D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewCustomer.xib; sourceTree = "<group>"; };
+		559518CD14445A820003097D /* NewCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCustomerViewController.h; sourceTree = "<group>"; };
+		559518CE14445A820003097D /* NewCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCustomerViewController.m; sourceTree = "<group>"; };
+		5595CC741459ADD200FD87E7 /* MarketSurvQuesViewCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketSurvQuesViewCTRL.h; sourceTree = "<group>"; };
+		5595CC751459ADD200FD87E7 /* MarketSurvQuesViewCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketSurvQuesViewCTRL.m; sourceTree = "<group>"; };
+		5595CC761459ADD200FD87E7 /* MarketSurvQuesViewCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketSurvQuesViewCTRL.xib; sourceTree = "<group>"; };
+		5595CC7A1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderAddProductPopOverViewCTRL.h; sourceTree = "<group>"; };
+		5595CC7B1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderAddProductPopOverViewCTRL.m; sourceTree = "<group>"; };
+		5595CC7C1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderAddProductPopOverViewCTRL.xib; sourceTree = "<group>"; };
+		5595CC7F1459C2DF00FD87E7 /* OrderAddProductDetailVCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderAddProductDetailVCTRL.h; sourceTree = "<group>"; };
+		5595CC801459C2E000FD87E7 /* OrderAddProductDetailVCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderAddProductDetailVCTRL.m; sourceTree = "<group>"; };
+		5595CC811459C2E100FD87E7 /* OrderAddProductDetailVCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderAddProductDetailVCTRL.xib; sourceTree = "<group>"; };
+		5595CC841459DB1B00FD87E7 /* CertifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertifyViewController.h; sourceTree = "<group>"; };
+		5595CC851459DB1B00FD87E7 /* CertifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertifyViewController.m; sourceTree = "<group>"; };
+		5595CC861459DB1C00FD87E7 /* CertifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertifyViewController.xib; sourceTree = "<group>"; };
+		5595CC891459E29800FD87E7 /* ProductAddPopupVCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductAddPopupVCTRL.h; sourceTree = "<group>"; };
+		5595CC8A1459E29A00FD87E7 /* ProductAddPopupVCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductAddPopupVCTRL.m; sourceTree = "<group>"; };
+		5595CC8B1459E29D00FD87E7 /* ProductAddPopupVCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductAddPopupVCTRL.xib; sourceTree = "<group>"; };
+		5595CC8E1459E47000FD87E7 /* ProductAddDetailPopupVCTRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductAddDetailPopupVCTRL.h; sourceTree = "<group>"; };
+		5595CC8F1459E47500FD87E7 /* ProductAddDetailPopupVCTRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductAddDetailPopupVCTRL.m; sourceTree = "<group>"; };
+		5595CC901459E48400FD87E7 /* ProductAddDetailPopupVCTRL.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductAddDetailPopupVCTRL.xib; sourceTree = "<group>"; };
+		55995CD41438D4E10028B5FC /* TestSaleMJ2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSaleMJ2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55995CD81438D4E10028B5FC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		55995CDA1438D4E10028B5FC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		55995CDC1438D4E10028B5FC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		55995CE01438D4E10028B5FC /* TestSaleMJ2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TestSaleMJ2-Info.plist"; sourceTree = "<group>"; };
+		55995CE21438D4E20028B5FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55995CE41438D4E20028B5FC /* TestSaleMJ2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestSaleMJ2-Prefix.pch"; sourceTree = "<group>"; };
+		55995CE51438D4E20028B5FC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		55995CE71438D4E20028B5FC /* TestSaleMJ2AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestSaleMJ2AppDelegate.h; sourceTree = "<group>"; };
+		55995CE81438D4E20028B5FC /* TestSaleMJ2AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSaleMJ2AppDelegate.m; sourceTree = "<group>"; };
+		55995CEB1438D4E20028B5FC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		55995CED1438D4E20028B5FC /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		55995CEE1438D4E20028B5FC /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		55995CF11438D4E20028B5FC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailView.xib; sourceTree = "<group>"; };
+		55995CF31438D4E20028B5FC /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		55995CF41438D4E20028B5FC /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		559B3EDB1443759600CDFF31 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TestRootView.xib; sourceTree = "<group>"; };
+		559B5DBB14583A2100CF82FB /* VisitRecordCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitRecordCallViewController.h; sourceTree = "<group>"; };
+		559B5DBC14583A2100CF82FB /* VisitRecordCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitRecordCallViewController.m; sourceTree = "<group>"; };
+		559B5DBD14583A2100CF82FB /* VisitRecordCallViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitRecordCallViewController.xib; sourceTree = "<group>"; };
+		55A38B491459352900CB1763 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/CallHistoryTab.plist; sourceTree = "<group>"; };
+		55A38B4D1459370600CB1763 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_CallHistory.xib; sourceTree = "<group>"; };
+		55A38B4F14593A3C00CB1763 /* CallHistoryDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallHistoryDetailViewController.h; sourceTree = "<group>"; };
+		55A38B5014593A3C00CB1763 /* CallHistoryDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallHistoryDetailViewController.m; sourceTree = "<group>"; };
+		55A38B5314593A9600CB1763 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/CallHistoryDetail.plist; sourceTree = "<group>"; };
+		55A38B55145952BC00CB1763 /* SellHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellHistoryViewController.h; sourceTree = "<group>"; };
+		55A38B56145952BC00CB1763 /* SellHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellHistoryViewController.m; sourceTree = "<group>"; };
+		55A38B57145952BC00CB1763 /* SellHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SellHistoryViewController.xib; sourceTree = "<group>"; };
+		55A38B5B145953A700CB1763 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/SalesHistory.plist; sourceTree = "<group>"; };
+		55A38B5E145955E500CB1763 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_SalesHistory.xib; sourceTree = "<group>"; };
+		55A38B6114595C8800CB1763 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_CustomerDetail.xib; sourceTree = "<group>"; };
+		55A38B6414595CA100CB1763 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/CustomerDetail.plist; sourceTree = "<group>"; };
+		55A3D660144626060064F4BB /* CustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDetailViewController.h; sourceTree = "<group>"; };
+		55A3D661144626060064F4BB /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
+		55A3D66414462AB50064F4BB /* CallHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallHistoryViewController.h; sourceTree = "<group>"; };
+		55A3D66514462AB50064F4BB /* CallHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallHistoryViewController.m; sourceTree = "<group>"; };
+		55A3D668144630AF0064F4BB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewWorkPlace.xib; sourceTree = "<group>"; };
+		55A3D66A1446319D0064F4BB /* NewWorkplaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewWorkplaceViewController.h; sourceTree = "<group>"; };
+		55A3D66B1446319D0064F4BB /* NewWorkplaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewWorkplaceViewController.m; sourceTree = "<group>"; };
+		55A3D66E144635B10064F4BB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ChildDetail.xib; sourceTree = "<group>"; };
+		55A3D670144635B10064F4BB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HobbyDetail.xib; sourceTree = "<group>"; };
+		55A3D672144635B10064F4BB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewChild.xib; sourceTree = "<group>"; };
+		55A3D674144635B10064F4BB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NewHobby.xib; sourceTree = "<group>"; };
+		55A3D679144636110064F4BB /* NewChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewChildViewController.h; sourceTree = "<group>"; };
+		55A3D67A144636120064F4BB /* NewChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewChildViewController.m; sourceTree = "<group>"; };
+		55A3D67C144636490064F4BB /* NewHobbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewHobbyViewController.h; sourceTree = "<group>"; };
+		55A3D67D1446364B0064F4BB /* NewHobbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewHobbyViewController.m; sourceTree = "<group>"; };
+		55EBB2ED14585059004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/RecordCall.plist; sourceTree = "<group>"; };
+		55EBB2F0145889AC004F71C0 /* VisitOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitOrderViewController.h; sourceTree = "<group>"; };
+		55EBB2F1145889AC004F71C0 /* VisitOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitOrderViewController.m; sourceTree = "<group>"; };
+		55EBB2F2145889AC004F71C0 /* VisitOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitOrderViewController.xib; sourceTree = "<group>"; };
+		55EBB2F6145889EE004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/Order.plist; sourceTree = "<group>"; };
+		55EBB2F91458900A004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_Order.xib; sourceTree = "<group>"; };
+		55EBB2FC1458B185004F71C0 /* VisitMarketIntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitMarketIntViewController.h; sourceTree = "<group>"; };
+		55EBB2FD1458B185004F71C0 /* VisitMarketIntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitMarketIntViewController.m; sourceTree = "<group>"; };
+		55EBB2FE1458B185004F71C0 /* VisitMarketIntViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitMarketIntViewController.xib; sourceTree = "<group>"; };
+		55EBB3021458B34E004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/MarketIntelligence.plist; sourceTree = "<group>"; };
+		55EBB3051458B4C6004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_Market.xib; sourceTree = "<group>"; };
+		55EBB3091458B7F4004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/SponsorRequest.plist; sourceTree = "<group>"; };
+		55EBB30B1458B87E004F71C0 /* VisitSponsorRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitSponsorRequestViewController.h; sourceTree = "<group>"; };
+		55EBB30C1458B87E004F71C0 /* VisitSponsorRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitSponsorRequestViewController.m; sourceTree = "<group>"; };
+		55EBB30D1458B87E004F71C0 /* VisitSponsorRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitSponsorRequestViewController.xib; sourceTree = "<group>"; };
+		55EBB3111458BA72004F71C0 /* VisitMarketSurveyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitMarketSurveyViewController.h; sourceTree = "<group>"; };
+		55EBB3121458BA72004F71C0 /* VisitMarketSurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitMarketSurveyViewController.m; sourceTree = "<group>"; };
+		55EBB3131458BA72004F71C0 /* VisitMarketSurveyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitMarketSurveyViewController.xib; sourceTree = "<group>"; };
+		55EBB3171458BAD1004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_MarketSurvey.xib; sourceTree = "<group>"; };
+		55EBB31A1458BF81004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/MarketSurvey.plist; sourceTree = "<group>"; };
+		55EBB31E1458C2BC004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/CustomerComplaint.plist; sourceTree = "<group>"; };
+		55EBB3201458C34E004F71C0 /* VisitCustomerComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCustomerComplaintViewController.h; sourceTree = "<group>"; };
+		55EBB3211458C34E004F71C0 /* VisitCustomerComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCustomerComplaintViewController.m; sourceTree = "<group>"; };
+		55EBB3221458C34E004F71C0 /* VisitCustomerComplaintViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitCustomerComplaintViewController.xib; sourceTree = "<group>"; };
+		55EBB3261458C3DE004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_CustomerComplaint.xib; sourceTree = "<group>"; };
+		55EBB32A1458C579004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TableCell_Product.xib; sourceTree = "<group>"; };
+		55EBB32D1458C5C2004F71C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/ProductEvaluationRequest.plist; sourceTree = "<group>"; };
+		55EBB32F1458C687004F71C0 /* VisitProductEvaluatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitProductEvaluatViewController.h; sourceTree = "<group>"; };
+		55EBB3301458C687004F71C0 /* VisitProductEvaluatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitProductEvaluatViewController.m; sourceTree = "<group>"; };
+		55EBB3311458C687004F71C0 /* VisitProductEvaluatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitProductEvaluatViewController.xib; sourceTree = "<group>"; };
+		55F074101456290E001EC018 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Blank.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		55995CD11438D4E10028B5FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5594F6F6146FC183007393CD /* libsqlite3.dylib in Frameworks */,
+				559504DD1444BBBB0002EF42 /* MapKit.framework in Frameworks */,
+				55995CD91438D4E10028B5FC /* UIKit.framework in Frameworks */,
+				55995CDB1438D4E10028B5FC /* Foundation.framework in Frameworks */,
+				55995CDD1438D4E10028B5FC /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5501F997145C14FE00966434 /* Main visit */ = {
+			isa = PBXGroup;
+			children = (
+				5501F999145C153F00966434 /* VisitCustomerDetailPopupVCTRL.h */,
+				5501F99A145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m */,
+				5501F99B145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib */,
+			);
+			name = "Main visit";
+			sourceTree = "<group>";
+		};
+		559504D51444B7790002EF42 /* Res */ = {
+			isa = PBXGroup;
+			children = (
+				559504D91444B8870002EF42 /* th.png */,
+			);
+			name = Res;
+			sourceTree = "<group>";
+		};
+		559518C11444180B0003097D /* Main App Files */ = {
+			isa = PBXGroup;
+			children = (
+				55995CE71438D4E20028B5FC /* TestSaleMJ2AppDelegate.h */,
+				55995CE81438D4E20028B5FC /* TestSaleMJ2AppDelegate.m */,
+				55F0740F1456290E001EC018 /* Blank.xib */,
+				55995CEA1438D4E20028B5FC /* MainWindow.xib */,
+				5594F6F8146FC7EB007393CD /* CustomerDataManager.h */,
+				5594F6F9146FC7EB007393CD /* CustomerDataManager.m */,
+			);
+			name = "Main App Files";
+			sourceTree = "<group>";
+		};
+		55995CC91438D4E10028B5FC = {
+			isa = PBXGroup;
+			children = (
+				55995CDE1438D4E10028B5FC /* TestSaleMJ2 */,
+				55995CD71438D4E10028B5FC /* Frameworks */,
+				55995CD51438D4E10028B5FC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		55995CD51438D4E10028B5FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55995CD41438D4E10028B5FC /* TestSaleMJ2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		55995CD71438D4E10028B5FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5594F6F5146FC183007393CD /* libsqlite3.dylib */,
+				559504DC1444BBBB0002EF42 /* MapKit.framework */,
+				55995CD81438D4E10028B5FC /* UIKit.framework */,
+				55995CDA1438D4E10028B5FC /* Foundation.framework */,
+				55995CDC1438D4E10028B5FC /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55995CDE1438D4E10028B5FC /* TestSaleMJ2 */ = {
+			isa = PBXGroup;
+			children = (
+				559BFAED145740EA001D28EC /* Customer Tab */,
+				559BFAEB145740C4001D28EC /* Spilt Main File */,
+				559518C11444180B0003097D /* Main App Files */,
+				55995CDF1438D4E10028B5FC /* Supporting Files */,
+				559504D51444B7790002EF42 /* Res */,
+			);
+			path = TestSaleMJ2;
+			sourceTree = "<group>";
+		};
+		55995CDF1438D4E10028B5FC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				55995CE01438D4E10028B5FC /* TestSaleMJ2-Info.plist */,
+				55995CE11438D4E20028B5FC /* InfoPlist.strings */,
+				55995CE41438D4E20028B5FC /* TestSaleMJ2-Prefix.pch */,
+				55995CE51438D4E20028B5FC /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		559B5DC114583C0100CF82FB /* Record Call */ = {
+			isa = PBXGroup;
+			children = (
+				559B5DBB14583A2100CF82FB /* VisitRecordCallViewController.h */,
+				559B5DBC14583A2100CF82FB /* VisitRecordCallViewController.m */,
+				559B5DBD14583A2100CF82FB /* VisitRecordCallViewController.xib */,
+				55EBB2EC14585059004F71C0 /* RecordCall.plist */,
+			);
+			name = "Record Call";
+			sourceTree = "<group>";
+		};
+		559B5DC214583C1900CF82FB /* Hobby */ = {
+			isa = PBXGroup;
+			children = (
+				55A3D673144635B10064F4BB /* NewHobby.xib */,
+				55A3D66F144635B10064F4BB /* HobbyDetail.xib */,
+				55A3D67C144636490064F4BB /* NewHobbyViewController.h */,
+				55A3D67D1446364B0064F4BB /* NewHobbyViewController.m */,
+				559298C7144740B00090F36A /* HobbyDetailViewController.h */,
+				559298C8144740B00090F36A /* HobbyDetailViewController.m */,
+			);
+			name = Hobby;
+			sourceTree = "<group>";
+		};
+		559B5DC314583C3000CF82FB /* Child */ = {
+			isa = PBXGroup;
+			children = (
+				55A3D671144635B10064F4BB /* NewChild.xib */,
+				55A3D66D144635B10064F4BB /* ChildDetail.xib */,
+				55A3D679144636110064F4BB /* NewChildViewController.h */,
+				55A3D67A144636120064F4BB /* NewChildViewController.m */,
+			);
+			name = Child;
+			sourceTree = "<group>";
+		};
+		559B5DC414583C4A00CF82FB /* Workplace */ = {
+			isa = PBXGroup;
+			children = (
+				55A3D667144630AF0064F4BB /* NewWorkPlace.xib */,
+				559504E11444D13A0002EF42 /* WorkplaceDetail.xib */,
+				55A3D66A1446319D0064F4BB /* NewWorkplaceViewController.h */,
+				55A3D66B1446319D0064F4BB /* NewWorkplaceViewController.m */,
+			);
+			name = Workplace;
+			sourceTree = "<group>";
+		};
+		559B5DC514583C6700CF82FB /* Call History Tab */ = {
+			isa = PBXGroup;
+			children = (
+				55A3D66414462AB50064F4BB /* CallHistoryViewController.h */,
+				55A3D66514462AB50064F4BB /* CallHistoryViewController.m */,
+				559518C7144436790003097D /* CallHistory.xib */,
+				55A38B481459352900CB1763 /* CallHistoryTab.plist */,
+				55A38B4C1459370600CB1763 /* TableCell_CallHistory.xib */,
+				55A38B4F14593A3C00CB1763 /* CallHistoryDetailViewController.h */,
+				55A38B5014593A3C00CB1763 /* CallHistoryDetailViewController.m */,
+				559504DE1444C5D90002EF42 /* CallHistoryDetail.xib */,
+				55A38B5214593A9600CB1763 /* CallHistoryDetail.plist */,
+			);
+			name = "Call History Tab";
+			sourceTree = "<group>";
+		};
+		559B5DC614583C9800CF82FB /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				55A3D660144626060064F4BB /* CustomerDetailViewController.h */,
+				55A3D661144626060064F4BB /* CustomerDetailViewController.m */,
+				559518BD144411F70003097D /* CustomerDetail.xib */,
+				559518CD14445A820003097D /* NewCustomerViewController.h */,
+				559518CE14445A820003097D /* NewCustomerViewController.m */,
+				559518CA144458920003097D /* NewCustomer.xib */,
+				55A38B6014595C8800CB1763 /* TableCell_CustomerDetail.xib */,
+				55A38B6314595CA100CB1763 /* CustomerDetail.plist */,
+				5543B06314706B6B002936D8 /* CustomerTypePopoverViewCTRL.h */,
+				5543B06414706B6B002936D8 /* CustomerTypePopoverViewCTRL.m */,
+				5543B06514706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		559BFAEB145740C4001D28EC /* Spilt Main File */ = {
+			isa = PBXGroup;
+			children = (
+				559B3EDA1443759600CDFF31 /* TestRootView.xib */,
+				55995CF01438D4E20028B5FC /* DetailView.xib */,
+				55995CED1438D4E20028B5FC /* DetailViewController.h */,
+				55995CEE1438D4E20028B5FC /* DetailViewController.m */,
+				55995CF31438D4E20028B5FC /* RootViewController.h */,
+				55995CF41438D4E20028B5FC /* RootViewController.m */,
+			);
+			name = "Spilt Main File";
+			sourceTree = "<group>";
+		};
+		559BFAED145740EA001D28EC /* Customer Tab */ = {
+			isa = PBXGroup;
+			children = (
+				55EBB2EB14583D49004F71C0 /* Sell History Tab */,
+				559B5DC514583C6700CF82FB /* Call History Tab */,
+				559B5DC614583C9800CF82FB /* Main */,
+				559B5DC414583C4A00CF82FB /* Workplace */,
+				559B5DC314583C3000CF82FB /* Child */,
+				559B5DC214583C1900CF82FB /* Hobby */,
+				559BFAEE14574AD9001D28EC /* visit */,
+			);
+			name = "Customer Tab";
+			sourceTree = "<group>";
+		};
+		559BFAEE14574AD9001D28EC /* visit */ = {
+			isa = PBXGroup;
+			children = (
+				5501F997145C14FE00966434 /* Main visit */,
+				559B5DC114583C0100CF82FB /* Record Call */,
+				55EBB2EF14588934004F71C0 /* Order */,
+				55EBB3281458C53B004F71C0 /* Product evaluation request */,
+				55EBB2FB1458B132004F71C0 /* Market intelligence */,
+				55EBB31C1458C27F004F71C0 /* Customer complaint */,
+				55EBB3071458B7C6004F71C0 /* Sponsor request */,
+				55EBB3101458BA0B004F71C0 /* Market Survey */,
+			);
+			name = visit;
+			sourceTree = "<group>";
+		};
+		55EBB2EB14583D49004F71C0 /* Sell History Tab */ = {
+			isa = PBXGroup;
+			children = (
+				55A38B55145952BC00CB1763 /* SellHistoryViewController.h */,
+				55A38B56145952BC00CB1763 /* SellHistoryViewController.m */,
+				55A38B57145952BC00CB1763 /* SellHistoryViewController.xib */,
+				55A38B5A145953A700CB1763 /* SalesHistory.plist */,
+				55A38B5D145955E500CB1763 /* TableCell_SalesHistory.xib */,
+			);
+			name = "Sell History Tab";
+			sourceTree = "<group>";
+		};
+		55EBB2EF14588934004F71C0 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				55EBB2F0145889AC004F71C0 /* VisitOrderViewController.h */,
+				55EBB2F1145889AC004F71C0 /* VisitOrderViewController.m */,
+				55EBB2F2145889AC004F71C0 /* VisitOrderViewController.xib */,
+				55EBB2F81458900A004F71C0 /* TableCell_Order.xib */,
+				55EBB2F5145889EE004F71C0 /* Order.plist */,
+				5595CC7A1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.h */,
+				5595CC7B1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.m */,
+				5595CC7C1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.xib */,
+				5595CC7F1459C2DF00FD87E7 /* OrderAddProductDetailVCTRL.h */,
+				5595CC801459C2E000FD87E7 /* OrderAddProductDetailVCTRL.m */,
+				5595CC811459C2E100FD87E7 /* OrderAddProductDetailVCTRL.xib */,
+			);
+			name = Order;
+			sourceTree = "<group>";
+		};
+		55EBB2FB1458B132004F71C0 /* Market intelligence */ = {
+			isa = PBXGroup;
+			children = (
+				55EBB2FC1458B185004F71C0 /* VisitMarketIntViewController.h */,
+				55EBB2FD1458B185004F71C0 /* VisitMarketIntViewController.m */,
+				55EBB2FE1458B185004F71C0 /* VisitMarketIntViewController.xib */,
+				55EBB3011458B34D004F71C0 /* MarketIntelligence.plist */,
+				55EBB3041458B4C6004F71C0 /* TableCell_Market.xib */,
+			);
+			name = "Market intelligence";
+			sourceTree = "<group>";
+		};
+		55EBB3071458B7C6004F71C0 /* Sponsor request */ = {
+			isa = PBXGroup;
+			children = (
+				55EBB3081458B7F4004F71C0 /* SponsorRequest.plist */,
+				55EBB30B1458B87E004F71C0 /* VisitSponsorRequestViewController.h */,
+				55EBB30C1458B87E004F71C0 /* VisitSponsorRequestViewController.m */,
+				55EBB30D1458B87E004F71C0 /* VisitSponsorRequestViewController.xib */,
+			);
+			name = "Sponsor request";
+			sourceTree = "<group>";
+		};
+		55EBB3101458BA0B004F71C0 /* Market Survey */ = {
+			isa = PBXGroup;
+			children = (
+				55EBB3111458BA72004F71C0 /* VisitMarketSurveyViewController.h */,
+				55EBB3121458BA72004F71C0 /* VisitMarketSurveyViewController.m */,
+				55EBB3131458BA72004F71C0 /* VisitMarketSurveyViewController.xib */,
+				55EBB3161458BAD0004F71C0 /* TableCell_MarketSurvey.xib */,
+				55EBB3191458BF80004F71C0 /* MarketSurvey.plist */,
+				5595CC741459ADD200FD87E7 /* MarketSurvQuesViewCTRL.h */,
+				5595CC751459ADD200FD87E7 /* MarketSurvQuesViewCTRL.m */,
+				5595CC761459ADD200FD87E7 /* MarketSurvQuesViewCTRL.xib */,
+			);
+			name = "Market Survey";
+			sourceTree = "<group>";
+		};
+		55EBB31C1458C27F004F71C0 /* Customer complaint */ = {
+			isa = PBXGroup;
+			children = (
+				55EBB3201458C34E004F71C0 /* VisitCustomerComplaintViewController.h */,
+				55EBB3211458C34E004F71C0 /* VisitCustomerComplaintViewController.m */,
+				55EBB3221458C34E004F71C0 /* VisitCustomerComplaintViewController.xib */,
+				55EBB31D1458C2BC004F71C0 /* CustomerComplaint.plist */,
+				55EBB3251458C3DE004F71C0 /* TableCell_CustomerComplaint.xib */,
+			);
+			name = "Customer complaint";
+			sourceTree = "<group>";
+		};
+		55EBB3281458C53B004F71C0 /* Product evaluation request */ = {
+			isa = PBXGroup;
+			children = (
+				55EBB3291458C579004F71C0 /* TableCell_Product.xib */,
+				55EBB32C1458C5C2004F71C0 /* ProductEvaluationRequest.plist */,
+				55EBB32F1458C687004F71C0 /* VisitProductEvaluatViewController.h */,
+				55EBB3301458C687004F71C0 /* VisitProductEvaluatViewController.m */,
+				55EBB3311458C687004F71C0 /* VisitProductEvaluatViewController.xib */,
+				5595CC841459DB1B00FD87E7 /* CertifyViewController.h */,
+				5595CC851459DB1B00FD87E7 /* CertifyViewController.m */,
+				5595CC861459DB1C00FD87E7 /* CertifyViewController.xib */,
+				5595CC891459E29800FD87E7 /* ProductAddPopupVCTRL.h */,
+				5595CC8A1459E29A00FD87E7 /* ProductAddPopupVCTRL.m */,
+				5595CC8B1459E29D00FD87E7 /* ProductAddPopupVCTRL.xib */,
+				5595CC8E1459E47000FD87E7 /* ProductAddDetailPopupVCTRL.h */,
+				5595CC8F1459E47500FD87E7 /* ProductAddDetailPopupVCTRL.m */,
+				5595CC901459E48400FD87E7 /* ProductAddDetailPopupVCTRL.xib */,
+			);
+			name = "Product evaluation request";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		55995CD31438D4E10028B5FC /* TestSaleMJ2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55995CF81438D4E20028B5FC /* Build configuration list for PBXNativeTarget "TestSaleMJ2" */;
+			buildPhases = (
+				55995CD01438D4E10028B5FC /* Sources */,
+				55995CD11438D4E10028B5FC /* Frameworks */,
+				55995CD21438D4E10028B5FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestSaleMJ2;
+			productName = TestSaleMJ2;
+			productReference = 55995CD41438D4E10028B5FC /* TestSaleMJ2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		55995CCB1438D4E10028B5FC /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 55995CCE1438D4E10028B5FC /* Build configuration list for PBXProject "TestSaleMJ2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 55995CC91438D4E10028B5FC;
+			productRefGroup = 55995CD51438D4E10028B5FC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				55995CD31438D4E10028B5FC /* TestSaleMJ2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		55995CD21438D4E10028B5FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55995CE31438D4E20028B5FC /* InfoPlist.strings in Resources */,
+				55995CEC1438D4E20028B5FC /* MainWindow.xib in Resources */,
+				55995CF21438D4E20028B5FC /* DetailView.xib in Resources */,
+				559B3EDC1443759600CDFF31 /* TestRootView.xib in Resources */,
+				559518BF144411F70003097D /* CustomerDetail.xib in Resources */,
+				559518C9144436790003097D /* CallHistory.xib in Resources */,
+				559518CC144458920003097D /* NewCustomer.xib in Resources */,
+				559504DB1444B8870002EF42 /* th.png in Resources */,
+				559504E01444C5D90002EF42 /* CallHistoryDetail.xib in Resources */,
+				559504E31444D13A0002EF42 /* WorkplaceDetail.xib in Resources */,
+				55A3D669144630AF0064F4BB /* NewWorkPlace.xib in Resources */,
+				55A3D675144635B10064F4BB /* ChildDetail.xib in Resources */,
+				55A3D676144635B10064F4BB /* HobbyDetail.xib in Resources */,
+				55A3D677144635B10064F4BB /* NewChild.xib in Resources */,
+				55A3D678144635B10064F4BB /* NewHobby.xib in Resources */,
+				55F074111456290E001EC018 /* Blank.xib in Resources */,
+				559B5DBF14583A2100CF82FB /* VisitRecordCallViewController.xib in Resources */,
+				55EBB2EE14585059004F71C0 /* RecordCall.plist in Resources */,
+				55EBB2F4145889AC004F71C0 /* VisitOrderViewController.xib in Resources */,
+				55EBB2F7145889EE004F71C0 /* Order.plist in Resources */,
+				55EBB2FA1458900A004F71C0 /* TableCell_Order.xib in Resources */,
+				55EBB3001458B185004F71C0 /* VisitMarketIntViewController.xib in Resources */,
+				55EBB3031458B34E004F71C0 /* MarketIntelligence.plist in Resources */,
+				55EBB3061458B4C6004F71C0 /* TableCell_Market.xib in Resources */,
+				55EBB30A1458B7F4004F71C0 /* SponsorRequest.plist in Resources */,
+				55EBB30F1458B87E004F71C0 /* VisitSponsorRequestViewController.xib in Resources */,
+				55EBB3151458BA72004F71C0 /* VisitMarketSurveyViewController.xib in Resources */,
+				55EBB3181458BAD1004F71C0 /* TableCell_MarketSurvey.xib in Resources */,
+				55EBB31B1458BF81004F71C0 /* MarketSurvey.plist in Resources */,
+				55EBB31F1458C2BC004F71C0 /* CustomerComplaint.plist in Resources */,
+				55EBB3241458C34E004F71C0 /* VisitCustomerComplaintViewController.xib in Resources */,
+				55EBB3271458C3DE004F71C0 /* TableCell_CustomerComplaint.xib in Resources */,
+				55EBB32B1458C579004F71C0 /* TableCell_Product.xib in Resources */,
+				55EBB32E1458C5C2004F71C0 /* ProductEvaluationRequest.plist in Resources */,
+				55EBB3331458C687004F71C0 /* VisitProductEvaluatViewController.xib in Resources */,
+				55A38B4A1459352900CB1763 /* CallHistoryTab.plist in Resources */,
+				55A38B4E1459370600CB1763 /* TableCell_CallHistory.xib in Resources */,
+				55A38B5414593A9600CB1763 /* CallHistoryDetail.plist in Resources */,
+				55A38B59145952BC00CB1763 /* SellHistoryViewController.xib in Resources */,
+				55A38B5C145953A700CB1763 /* SalesHistory.plist in Resources */,
+				55A38B5F145955E500CB1763 /* TableCell_SalesHistory.xib in Resources */,
+				55A38B6214595C8800CB1763 /* TableCell_CustomerDetail.xib in Resources */,
+				55A38B6514595CA100CB1763 /* CustomerDetail.plist in Resources */,
+				5595CC781459ADD200FD87E7 /* MarketSurvQuesViewCTRL.xib in Resources */,
+				5595CC7E1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.xib in Resources */,
+				5595CC831459C2E200FD87E7 /* OrderAddProductDetailVCTRL.xib in Resources */,
+				5595CC881459DB1C00FD87E7 /* CertifyViewController.xib in Resources */,
+				5595CC8D1459E2A200FD87E7 /* ProductAddPopupVCTRL.xib in Resources */,
+				5595CC921459E48900FD87E7 /* ProductAddDetailPopupVCTRL.xib in Resources */,
+				5501F99D145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib in Resources */,
+				5543B06714706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		55995CD01438D4E10028B5FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55995CE61438D4E20028B5FC /* main.m in Sources */,
+				55995CE91438D4E20028B5FC /* TestSaleMJ2AppDelegate.m in Sources */,
+				55995CEF1438D4E20028B5FC /* DetailViewController.m in Sources */,
+				55995CF51438D4E20028B5FC /* RootViewController.m in Sources */,
+				559518CF14445A830003097D /* NewCustomerViewController.m in Sources */,
+				55A3D662144626060064F4BB /* CustomerDetailViewController.m in Sources */,
+				55A3D66614462AB60064F4BB /* CallHistoryViewController.m in Sources */,
+				55A3D66C1446319E0064F4BB /* NewWorkplaceViewController.m in Sources */,
+				55A3D67B144636140064F4BB /* NewChildViewController.m in Sources */,
+				55A3D67E1446364D0064F4BB /* NewHobbyViewController.m in Sources */,
+				559298C9144740B10090F36A /* HobbyDetailViewController.m in Sources */,
+				559B5DBE14583A2100CF82FB /* VisitRecordCallViewController.m in Sources */,
+				55EBB2F3145889AC004F71C0 /* VisitOrderViewController.m in Sources */,
+				55EBB2FF1458B185004F71C0 /* VisitMarketIntViewController.m in Sources */,
+				55EBB30E1458B87E004F71C0 /* VisitSponsorRequestViewController.m in Sources */,
+				55EBB3141458BA72004F71C0 /* VisitMarketSurveyViewController.m in Sources */,
+				55EBB3231458C34E004F71C0 /* VisitCustomerComplaintViewController.m in Sources */,
+				55EBB3321458C687004F71C0 /* VisitProductEvaluatViewController.m in Sources */,
+				55A38B5114593A3C00CB1763 /* CallHistoryDetailViewController.m in Sources */,
+				55A38B58145952BC00CB1763 /* SellHistoryViewController.m in Sources */,
+				5595CC771459ADD200FD87E7 /* MarketSurvQuesViewCTRL.m in Sources */,
+				5595CC7D1459C02B00FD87E7 /* OrderAddProductPopOverViewCTRL.m in Sources */,
+				5595CC821459C2E200FD87E7 /* OrderAddProductDetailVCTRL.m in Sources */,
+				5595CC871459DB1C00FD87E7 /* CertifyViewController.m in Sources */,
+				5595CC8C1459E2A200FD87E7 /* ProductAddPopupVCTRL.m in Sources */,
+				5595CC911459E48900FD87E7 /* ProductAddDetailPopupVCTRL.m in Sources */,
+				5501F99C145C153F00966434 /* VisitCustomerDetailPopupVCTRL.m in Sources */,
+				5594F6FA146FC7EB007393CD /* CustomerDataManager.m in Sources */,
+				5543B06614706B6C002936D8 /* CustomerTypePopoverViewCTRL.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		559504D91444B8870002EF42 /* th.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559504DA1444B8870002EF42 /* en */,
+			);
+			name = th.png;
+			sourceTree = "<group>";
+		};
+		559504DE1444C5D90002EF42 /* CallHistoryDetail.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559504DF1444C5D90002EF42 /* en */,
+			);
+			name = CallHistoryDetail.xib;
+			sourceTree = "<group>";
+		};
+		559504E11444D13A0002EF42 /* WorkplaceDetail.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559504E21444D13A0002EF42 /* en */,
+			);
+			name = WorkplaceDetail.xib;
+			sourceTree = "<group>";
+		};
+		559518BD144411F70003097D /* CustomerDetail.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559518BE144411F70003097D /* en */,
+			);
+			name = CustomerDetail.xib;
+			sourceTree = "<group>";
+		};
+		559518C7144436790003097D /* CallHistory.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559518C8144436790003097D /* en */,
+			);
+			name = CallHistory.xib;
+			sourceTree = "<group>";
+		};
+		559518CA144458920003097D /* NewCustomer.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559518CB144458920003097D /* en */,
+			);
+			name = NewCustomer.xib;
+			sourceTree = "<group>";
+		};
+		55995CE11438D4E20028B5FC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55995CE21438D4E20028B5FC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		55995CEA1438D4E20028B5FC /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55995CEB1438D4E20028B5FC /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		55995CF01438D4E20028B5FC /* DetailView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55995CF11438D4E20028B5FC /* en */,
+			);
+			name = DetailView.xib;
+			sourceTree = "<group>";
+		};
+		559B3EDA1443759600CDFF31 /* TestRootView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559B3EDB1443759600CDFF31 /* en */,
+			);
+			name = TestRootView.xib;
+			sourceTree = "<group>";
+		};
+		55A38B481459352900CB1763 /* CallHistoryTab.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A38B491459352900CB1763 /* en */,
+			);
+			name = CallHistoryTab.plist;
+			sourceTree = "<group>";
+		};
+		55A38B4C1459370600CB1763 /* TableCell_CallHistory.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A38B4D1459370600CB1763 /* en */,
+			);
+			name = TableCell_CallHistory.xib;
+			sourceTree = "<group>";
+		};
+		55A38B5214593A9600CB1763 /* CallHistoryDetail.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A38B5314593A9600CB1763 /* en */,
+			);
+			name = CallHistoryDetail.plist;
+			sourceTree = "<group>";
+		};
+		55A38B5A145953A700CB1763 /* SalesHistory.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A38B5B145953A700CB1763 /* en */,
+			);
+			name = SalesHistory.plist;
+			sourceTree = "<group>";
+		};
+		55A38B5D145955E500CB1763 /* TableCell_SalesHistory.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A38B5E145955E500CB1763 /* en */,
+			);
+			name = TableCell_SalesHistory.xib;
+			sourceTree = "<group>";
+		};
+		55A38B6014595C8800CB1763 /* TableCell_CustomerDetail.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A38B6114595C8800CB1763 /* en */,
+			);
+			name = TableCell_CustomerDetail.xib;
+			sourceTree = "<group>";
+		};
+		55A38B6314595CA100CB1763 /* CustomerDetail.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A38B6414595CA100CB1763 /* en */,
+			);
+			name = CustomerDetail.plist;
+			sourceTree = "<group>";
+		};
+		55A3D667144630AF0064F4BB /* NewWorkPlace.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A3D668144630AF0064F4BB /* en */,
+			);
+			name = NewWorkPlace.xib;
+			sourceTree = "<group>";
+		};
+		55A3D66D144635B10064F4BB /* ChildDetail.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A3D66E144635B10064F4BB /* en */,
+			);
+			name = ChildDetail.xib;
+			sourceTree = "<group>";
+		};
+		55A3D66F144635B10064F4BB /* HobbyDetail.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A3D670144635B10064F4BB /* en */,
+			);
+			name = HobbyDetail.xib;
+			sourceTree = "<group>";
+		};
+		55A3D671144635B10064F4BB /* NewChild.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A3D672144635B10064F4BB /* en */,
+			);
+			name = NewChild.xib;
+			sourceTree = "<group>";
+		};
+		55A3D673144635B10064F4BB /* NewHobby.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55A3D674144635B10064F4BB /* en */,
+			);
+			name = NewHobby.xib;
+			sourceTree = "<group>";
+		};
+		55EBB2EC14585059004F71C0 /* RecordCall.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB2ED14585059004F71C0 /* en */,
+			);
+			name = RecordCall.plist;
+			sourceTree = "<group>";
+		};
+		55EBB2F5145889EE004F71C0 /* Order.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB2F6145889EE004F71C0 /* en */,
+			);
+			name = Order.plist;
+			sourceTree = "<group>";
+		};
+		55EBB2F81458900A004F71C0 /* TableCell_Order.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB2F91458900A004F71C0 /* en */,
+			);
+			name = TableCell_Order.xib;
+			sourceTree = "<group>";
+		};
+		55EBB3011458B34D004F71C0 /* MarketIntelligence.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB3021458B34E004F71C0 /* en */,
+			);
+			name = MarketIntelligence.plist;
+			sourceTree = "<group>";
+		};
+		55EBB3041458B4C6004F71C0 /* TableCell_Market.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB3051458B4C6004F71C0 /* en */,
+			);
+			name = TableCell_Market.xib;
+			sourceTree = "<group>";
+		};
+		55EBB3081458B7F4004F71C0 /* SponsorRequest.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB3091458B7F4004F71C0 /* en */,
+			);
+			name = SponsorRequest.plist;
+			sourceTree = "<group>";
+		};
+		55EBB3161458BAD0004F71C0 /* TableCell_MarketSurvey.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB3171458BAD1004F71C0 /* en */,
+			);
+			name = TableCell_MarketSurvey.xib;
+			sourceTree = "<group>";
+		};
+		55EBB3191458BF80004F71C0 /* MarketSurvey.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB31A1458BF81004F71C0 /* en */,
+			);
+			name = MarketSurvey.plist;
+			sourceTree = "<group>";
+		};
+		55EBB31D1458C2BC004F71C0 /* CustomerComplaint.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB31E1458C2BC004F71C0 /* en */,
+			);
+			name = CustomerComplaint.plist;
+			sourceTree = "<group>";
+		};
+		55EBB3251458C3DE004F71C0 /* TableCell_CustomerComplaint.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB3261458C3DE004F71C0 /* en */,
+			);
+			name = TableCell_CustomerComplaint.xib;
+			sourceTree = "<group>";
+		};
+		55EBB3291458C579004F71C0 /* TableCell_Product.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB32A1458C579004F71C0 /* en */,
+			);
+			name = TableCell_Product.xib;
+			sourceTree = "<group>";
+		};
+		55EBB32C1458C5C2004F71C0 /* ProductEvaluationRequest.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55EBB32D1458C5C2004F71C0 /* en */,
+			);
+			name = ProductEvaluationRequest.plist;
+			sourceTree = "<group>";
+		};
+		55F0740F1456290E001EC018 /* Blank.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55F074101456290E001EC018 /* en */,
+			);
+			name = Blank.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		55995CF61438D4E20028B5FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Theprit Anongchanya (WPFRSEUJ79)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E8CF46B-7883-4052-ADF2-1FF13C0508B3";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		55995CF71438D4E20028B5FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Theprit Anongchanya (WPFRSEUJ79)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E8CF46B-7883-4052-ADF2-1FF13C0508B3";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		55995CF91438D4E20028B5FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Theprit Anongchanya (WPFRSEUJ79)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestSaleMJ2/TestSaleMJ2-Prefix.pch";
+				INFOPLIST_FILE = "TestSaleMJ2/TestSaleMJ2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E8CF46B-7883-4052-ADF2-1FF13C0508B3";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		55995CFA1438D4E20028B5FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Theprit Anongchanya (WPFRSEUJ79)";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestSaleMJ2/TestSaleMJ2-Prefix.pch";
+				INFOPLIST_FILE = "TestSaleMJ2/TestSaleMJ2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E8CF46B-7883-4052-ADF2-1FF13C0508B3";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		55995CCE1438D4E10028B5FC /* Build configuration list for PBXProject "TestSaleMJ2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55995CF61438D4E20028B5FC /* Debug */,
+				55995CF71438D4E20028B5FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55995CF81438D4E20028B5FC /* Build configuration list for PBXNativeTarget "TestSaleMJ2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55995CF91438D4E20028B5FC /* Debug */,
+				55995CFA1438D4E20028B5FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 55995CCB1438D4E10028B5FC /* Project object */;
+}
