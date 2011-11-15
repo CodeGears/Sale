@@ -1233,8 +1233,8 @@
 		<string>PrimaryDocumentVisibleCharacterRange</string>
 		<string>HideAllIssues</string>
 		<string>PrimaryDocumentSelectedCharacterRange</string>
-		<real>342996408.28337097</real>
-		<string>{1274, 1841}</string>
+		<real>342997167.96836102</real>
+		<string>{2230, 2095}</string>
 		<false/>
 		<string>{2230, 0}</string>
 		<string>-GetCustomerCurrentSelectName</string>
@@ -1280,7 +1280,7 @@
 				</dict>
 			</array>
 		</dict>
-		<string>{{0, 0}, {747, 644}}</string>
+		<string>{{0, 0}, {747, 666}}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -8218,8 +8218,8 @@
 				</dict>
 			</array>
 		</dict>
-		<real>342996408.282547</real>
-		<string>{1274, 1841}</string>
+		<real>342997167.96737099</real>
+		<string>{2230, 2095}</string>
 		<string>{2230, 0}</string>
 		<dict>
 			<key>$class</key>
