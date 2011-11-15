@@ -50,7 +50,7 @@
 {
     [super viewDidLoad];
     
-    NSArray* temp = [[CustomerDataManager sharedInstance] GetCustomerDetailEditChildInfo:@""];
+    NSArray* temp = [[CustomerDataManager sharedInstance] GetCustomerDetailEditChildInfo:@"" WithChild:@""];
     
     childenIDTextField.text = [temp objectAtIndex:0];
     childNameTextField.text = [temp objectAtIndex:1];

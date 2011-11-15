@@ -89,7 +89,21 @@ static CustomerDataManager* _sharedInstance = nil;
     
     if (_sharedInstance.nameKeys == nil) {
         
-        //Create Database+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        _sharedInstance.nameKeys = [[NSArray alloc] initWithObjects:@"ก",@"ข",@"ค",@"ง",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
+    }
+    
+    //Need one array of section header list
+    return _sharedInstance.nameKeys;
+}
+
+- (NSArray*) GetCustomerNameList:(NSString*)type{
+    
+    if (_sharedInstance.nameList == nil) {
+        
+        //Create dynamic array for the example
+        NSMutableArray* alist = [[NSMutableArray alloc] initWithCapacity:99];
+        
+        //Example Create Database+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         
         NSString* docsDir;
         NSArray* dirPaths;
@@ -112,6 +126,33 @@ static CustomerDataManager* _sharedInstance = nil;
                     NSLog(@"Failed to create table");
                 }
                 
+                //Searching Name begin with 'A'
+                sqlite3_stmt* statment;
+                NSString* querySQL = [NSString stringWithFormat:@"SELECT name FROM contacts WHERE name=\"a\""];
+                
+                const char* query_stmt = [querySQL UTF8String];
+                //Searching
+                if (sqlite3_prepare_v2(contactDB, query_stmt, -1, &statment, NULL) == SQLITE_OK) {
+                    
+                    if (sqlite3_step(statment) == SQLITE_ROW) {
+                        //Get Data from each column
+                        NSString* text = [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statment, 0)];
+                        
+                        //insert to list
+                        [alist addObject:text];
+                        //it get only one time
+                       
+                        
+                        NSLog(@"Search Found");
+                        
+                    }
+                    else{
+                        NSLog(@"Not Found");
+                       
+                    }
+                    sqlite3_finalize(statment); 
+                }
+                
                 sqlite3_close(contactDB);
             }
             else{
@@ -123,18 +164,10 @@ static CustomerDataManager* _sharedInstance = nil;
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         
-        _sharedInstance.nameKeys = [[NSArray alloc] initWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", nil];
-    }
-    
-    return _sharedInstance.nameKeys;
-}
-
-- (NSArray*) GetCustomerNameList{
-    
-    if (_sharedInstance.nameList == nil) {
-        NSArray* alist = [[NSArray alloc] initWithObjects: @"aa", @"aaa",nil];
-        NSArray* blist = [[NSArray alloc] initWithObjects: @"bb", @"aaa",nil];
-        NSArray* clist = [[NSArray alloc] initWithObjects: @"cc", @"aaa",nil];
+        
+        //NSArray* alist = [[NSArray alloc] initWithObjects: @"aa", @"aaa",nil];
+        NSArray* blist = [[NSArray alloc] initWithObjects: @"ขจรศักดิ็",nil];
+        NSArray* clist = [[NSArray alloc] initWithObjects: @"คนองนา", @"ครรลอง",nil];
         NSArray* dlist = [[NSArray alloc] initWithObjects: @"dd", @"aaa",nil];
         NSArray* elist = [[NSArray alloc] initWithObjects: @"ee", @"aaa",nil];
         NSArray* flist = [[NSArray alloc] initWithObjects: @"ff", @"aaa",nil];
@@ -190,11 +223,10 @@ static CustomerDataManager* _sharedInstance = nil;
         [alist release];
     }
     
+    
+    // Need Array of name objects for each section table
+    //How are type data and active status data use in this table
     return _sharedInstance.nameList;
-}
-
-- (NSString*) GetCustomerCurrentSelectName{
-    return @"";
 }
 
 - (NSArray*) GetCustomerType{
@@ -207,21 +239,21 @@ static CustomerDataManager* _sharedInstance = nil;
 }
 
 
-- (NSString*) GetPictureProfilePath{
+- (NSString*) GetPictureProfilePath:(NSString*)profileCode{
     return @"";
 }
 
-- (NSString*) GetCustomerDetailName{
+- (NSString*) GetCustomerDetailName:(NSString*)profileCode{
     _sharedInstance.customerName = @"ttttt   tttttt";
     return _sharedInstance.customerName;
 }
 
-- (NSString*) GetCustomerWorkName{
+- (NSString*) GetCustomerWorkName:(NSString*)profileCode{
     _sharedInstance.customerWorkName = @"work name";
     return _sharedInstance.customerWorkName;
 }
 
-- (NSArray*) GetCustomerDetailSystemInfo{
+- (NSArray*) GetCustomerDetailSystemInfo:(NSString*)profileCode{
     if (_sharedInstance.systemInfo == nil) {
         NSString* profileCode = [NSString stringWithFormat:@"1234"];
         NSString* profile1 = [NSString stringWithFormat:@"12345"];
@@ -233,7 +265,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.systemInfo;
 }
 
-- (NSArray*) GetCustomerDetailPersonalInfo{
+- (NSArray*) GetCustomerDetailPersonalInfo:(NSString*)profileCode{
     if (_sharedInstance.personalInfo == nil) {
         NSString* email = [NSString stringWithFormat:@"suthikiet#crm-c.com"];
         NSString* tel = [NSString stringWithFormat:@"0899999999"];
@@ -246,7 +278,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.personalInfo;
 }
 
-- (NSArray*) GetCustomerDetailLocation{
+- (NSArray*) GetCustomerDetailLocation:(NSString*)profileCode{
     if (_sharedInstance.locationInfo == nil) {
         NSString* latitude = [NSString stringWithFormat:@"1234"];
         NSString* longtitude = [NSString stringWithFormat:@"12345"];
@@ -257,7 +289,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.locationInfo;
 }
 
-- (NSArray*) GetCustomerDetailEducationInfo{
+- (NSArray*) GetCustomerDetailEducationInfo:(NSString*)profileCode{
     if (_sharedInstance.educationInfo == nil) {
         NSString* educationLevel = [NSString stringWithFormat:@"P.D."];
         NSString* educationMajor = [NSString stringWithFormat:@"Doctor"];
@@ -268,7 +300,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.educationInfo;
 }
 
-- (NSArray*) GetCustomerDetailFamilyInfo{
+- (NSArray*) GetCustomerDetailFamilyInfo:(NSString*)profileCode{
     if (_sharedInstance.familyInfo == nil) {
         NSString* martialStatus = [NSString stringWithFormat:@"Married"];
         NSString* spourse = [NSString stringWithFormat:@"Miss Sunchai"];
@@ -282,14 +314,14 @@ static CustomerDataManager* _sharedInstance = nil;
 }
 
 
-- (NSInteger) GetCustomerDetailChildCount{
+- (NSInteger) GetCustomerDetailChildCount:(NSString*)profileCode{
     return 3;
 }
 
-- (NSArray*) GetCustomerDetailChildInfo{
+- (NSArray*) GetCustomerDetailChildInfo:(NSString*)profileCode{
     if (_sharedInstance.childInfo == nil) {
         
-        NSInteger childCount = [_sharedInstance GetCustomerDetailChildCount];
+        NSInteger childCount = [_sharedInstance GetCustomerDetailChildCount:@""];
         
         _sharedInstance.childInfo = [[NSMutableArray alloc] initWithCapacity: 99];
         
@@ -304,14 +336,14 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.childInfo;
 }
 
-- (NSInteger) GetCustomerDetailHobbyInfoCount{
+- (NSInteger) GetCustomerDetailHobbyInfoCount:(NSString*)profileCode{
     return 2;
 }
 
-- (NSArray*) GetCustomerDetailHobbyInfo{
+- (NSArray*) GetCustomerDetailHobbyInfo:(NSString*)profileCode{
     if (_sharedInstance.hobbyInfo == nil) {
         
-        NSInteger hobbyCount = [_sharedInstance GetCustomerDetailHobbyInfoCount];
+        NSInteger hobbyCount = [_sharedInstance GetCustomerDetailHobbyInfoCount:@""];
         
         _sharedInstance.hobbyInfo = [[NSMutableArray alloc] initWithCapacity: 99];
         
@@ -326,14 +358,14 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.hobbyInfo;
 }
 
-- (NSInteger) GetCustomerDetailMemberDetailCount{
+- (NSInteger) GetCustomerDetailMemberDetailCount:(NSString*)profileCode{
     return 2;
 }
 
-- (NSArray*) GetCustomerDetailMemberDetail{
+- (NSArray*) GetCustomerDetailMemberDetail:(NSString*)profileCode{
     if (_sharedInstance.memberInfo == nil) {
         
-        NSInteger memberCount = [_sharedInstance GetCustomerDetailMemberDetailCount];
+        NSInteger memberCount = [_sharedInstance GetCustomerDetailMemberDetailCount:@""];
         
         _sharedInstance.memberInfo = [[NSMutableArray alloc] initWithCapacity: 99];
         
@@ -351,7 +383,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.memberInfo;
 }
 
-- (NSArray*) GetCustomerDetailHomeInfo{
+- (NSArray*) GetCustomerDetailHomeInfo:(NSString*)profileCode{
     if (_sharedInstance.homeInfo == nil) {
         NSString* address1 = [NSString stringWithFormat:@"Praramkao hospital"];
         NSString* address2 = [NSString stringWithFormat:@"99 parramkao"];
@@ -368,7 +400,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.homeInfo;
 }
 
-- (NSArray*) GetCustomerDetailClinicInfo{
+- (NSArray*) GetCustomerDetailClinicInfo:(NSString*)profileCode{
     if (_sharedInstance.clinicInfo == nil) {
         NSString* address1 = [NSString stringWithFormat:@"Praramkao hospital"];
         NSString* address2 = [NSString stringWithFormat:@"99 parramkao"];
@@ -385,14 +417,14 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.clinicInfo;
 }
 
-- (NSInteger) GetCustomerDetailWorkplaceDetailCount{
+- (NSInteger) GetCustomerDetailWorkplaceDetailCount:(NSString*)profileCode{
     return 2;
 }
 
-- (NSArray*) GetCustomerDetailWorkplaceDetail{
+- (NSArray*) GetCustomerDetailWorkplaceDetail:(NSString*)profileCode{
     if (_sharedInstance.workplaceDetail == nil) {
         
-        NSInteger workplaceCount = [_sharedInstance GetCustomerDetailWorkplaceDetailCount];
+        NSInteger workplaceCount = [_sharedInstance GetCustomerDetailWorkplaceDetailCount:@""];
         
         _sharedInstance.workplaceDetail = [[NSMutableArray alloc] initWithCapacity: 99];
         
@@ -407,7 +439,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.workplaceDetail;
 }
 
-- (NSArray*) GetCustomerDetailBussinessDetail{
+- (NSArray*) GetCustomerDetailBussinessDetail:(NSString*)profileCode{
     if (_sharedInstance.bussinessDetail == nil) {
         NSString* emarald = [NSString stringWithFormat:@"yes"];
         NSString* sapphire = [NSString stringWithFormat:@"yes"];
@@ -418,7 +450,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.bussinessDetail;
 }
 
-- (NSArray*) GetCustomerDetailCustomerPatient{
+- (NSArray*) GetCustomerDetailCustomerPatient:(NSString*)profileCode{
     if (_sharedInstance.customerPatient == nil) {
         NSString* stage0 = [NSString stringWithFormat:@"Stage 0"];
         NSString* stage0_1 = [NSString stringWithFormat:@"100"];
@@ -456,7 +488,7 @@ static CustomerDataManager* _sharedInstance = nil;
 }
 
 
-- (NSArray*) GetCustomerDetailProductRecommend{
+- (NSArray*) GetCustomerDetailProductRecommend:(NSString*)profileCode{
     if (_sharedInstance.productRecommend == nil) {
         NSString* snow = [NSString stringWithFormat:@"Snow"];
         NSString* snow_1 = [NSString stringWithFormat:@"1"];
@@ -471,7 +503,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.productRecommend;
 }
 
-- (NSArray*) GetCustomerDetailStatus{
+- (NSArray*) GetCustomerDetailStatus:(NSString*)profileCode{
     if (_sharedInstance.status == nil) {
         
         NSString* recommender = [NSString stringWithFormat:@"no"];
@@ -492,7 +524,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return _sharedInstance.status;
 }
 
-- (NSArray*) GetCustomerDetailSES{
+- (NSArray*) GetCustomerDetailSES:(NSString*)profileCode{
     if (_sharedInstance.ses == nil) {
         NSString* high = [NSString stringWithFormat:@"yes"];
         NSString* medium = [NSString stringWithFormat:@"yes"];
@@ -507,7 +539,7 @@ static CustomerDataManager* _sharedInstance = nil;
 
 //Sub
 
-- (NSArray*) GetCustomerDetailEditChildInfo:(NSString*)childID{
+- (NSArray*) GetCustomerDetailEditChildInfo:(NSString*)profileCode WithChild:(NSString *)childID{
    
         NSString* childnumber = [NSString stringWithFormat:@"1"];
         NSString* childname = [NSString stringWithFormat:@"xmen"];
@@ -520,17 +552,17 @@ static CustomerDataManager* _sharedInstance = nil;
     return aa;
 }
 
-- (bool) SaveEditingChildInfo:(NSString*)childID Name:(NSString*)childname Sex:(NSString*)sex BirthDay:(NSString*)bd{
+- (bool) SaveEditingChildInfo:(NSString*)profileCode withChild:(NSString*)childID Name:(NSString*)childname Sex:(NSString*)sex BirthDay:(NSString*)bd{
     
     return true;
 }
 
 
-- (bool) AddNewChildInfo:(NSString*)childID Name:(NSString*)childname Sex:(NSString*)sex BirthDay:(NSString*)bd{
+- (bool) AddNewChildInfo:(NSString*)profileCode withChild:(NSString *)childID Name:(NSString *)childname Sex:(NSString *)sex BirthDay:(NSString *)bd{
     return true;
 }
 
-- (NSArray*) GetCustomerDetailEditHobbyInfo:(NSString*)hobbyID{
+- (NSArray*) GetCustomerDetailEditHobbyInfo:(NSString*)profileCode withHobby:(NSString *)hobbyID{
     
     NSString* hobbyType = [NSString stringWithFormat:@"Swim"];
     NSString* description = [NSString stringWithFormat:@"sea"];
@@ -540,11 +572,11 @@ static CustomerDataManager* _sharedInstance = nil;
     return aa;
 }
 
-- (bool) SaveEditingHobbyInfo:(NSString*)hobbyID Type:(NSString*)hobbyType Description:(NSString*)desc{
+- (bool) SaveEditingHobbyInfo:(NSString*)profileCode withHobby:(NSString *)hobbyID Type:(NSString *)hobbyType Description:(NSString *)desc{
     return true;
 }
 
-- (bool) AddNewHobbyInfo:(NSString*)hobbyID Type:(NSString*)hobbyType Description:(NSString*)desc{
+- (bool) AddNewHobbyInfo:(NSString*)profileCode withHobby:(NSString *)hobbyID Type:(NSString *)hobbyType Description:(NSString *)desc{
     return true;
 }
 
@@ -559,7 +591,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return aa;
 }
 
-- (NSArray*) GetCustomerDetailEditWorkplaceDetail:(NSString*)workplaceID{
+- (NSArray*) GetCustomerDetailEditWorkplaceDetail:(NSString*)profileCode withWorkplace:(NSString *)workplaceID{
     
     NSString* hospital = [NSString stringWithFormat:@"ere"];
     NSString* department = [NSString stringWithFormat:@"dd"];
@@ -572,11 +604,11 @@ static CustomerDataManager* _sharedInstance = nil;
     return aa;
 }
 
-- (bool) SaveEditingWorkplaceDetail:(NSString*)workplaceID Hospital:(NSString*)hospitalName Department:(NSString*)DepartName Building:(NSString*)buildingName WorkTime:(NSString*)worktime{
+- (bool) SaveEditingWorkplaceDetail:(NSString*)profileCode withWorkplace:(NSString *)workplaceID Hospital:(NSString *)hospitalName Department:(NSString *)DepartName Building:(NSString *)buildingName WorkTime:(NSString *)worktime{
     return true;
 }
 
-- (bool) AddNewWorkplaceDetail:(NSString*)workplaceID Hospital:(NSString*)hospitalName Department:(NSString*)DepartName Building:(NSString*)buildingName WorkTime:(NSString*)worktime{
+- (bool) AddNewWorkplaceDetail:(NSString*)profileCode withWorkplace:(NSString *)workplaceID Hospital:(NSString *)hospitalName Department:(NSString *)DepartName Building:(NSString *)buildingName WorkTime:(NSString *)worktime{
     return true;
 }
 

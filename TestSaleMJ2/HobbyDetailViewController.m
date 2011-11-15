@@ -77,7 +77,7 @@
 {
     [super viewDidLoad];
     
-    NSArray* temp = [[CustomerDataManager sharedInstance] GetCustomerDetailEditHobbyInfo:@""];
+    NSArray* temp = [[CustomerDataManager sharedInstance] GetCustomerDetailEditHobbyInfo:@"" withHobby:@""];
     
     hobbyTypeTextField.text = [temp objectAtIndex:0];
     hobbyDescTextField.text = [temp objectAtIndex:1];

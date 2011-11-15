@@ -190,7 +190,7 @@
     [self.navigationItem setRightBarButtonItem:visitbt animated:YES];
     [visitbt release];
     
-    self.title = [[CustomerDataManager sharedInstance] GetCustomerDetailName];
+    self.title = [[CustomerDataManager sharedInstance] GetCustomerDetailName:@""];
 }
 
 
@@ -223,19 +223,19 @@
     
     //Child count + header
     if ([[keys objectAtIndex:section] isEqualToString:@"Child Info"] ) {
-        return [[CustomerDataManager sharedInstance] GetCustomerDetailChildCount]+1;
+        return [[CustomerDataManager sharedInstance] GetCustomerDetailChildCount:@""]+1;
     }
     //hobby
     else if ([[keys objectAtIndex:section] isEqualToString:@"Hobby Info"] ) {
-        return [[CustomerDataManager sharedInstance] GetCustomerDetailHobbyInfoCount]+1;
+        return [[CustomerDataManager sharedInstance] GetCustomerDetailHobbyInfoCount:@""]+1;
     }
     //memberDetail
     else if ([[keys objectAtIndex:section] isEqualToString:@"Member Detail"] ) {
-        return [[CustomerDataManager sharedInstance] GetCustomerDetailMemberDetailCount]+1;
+        return [[CustomerDataManager sharedInstance] GetCustomerDetailMemberDetailCount:@""]+1;
     }
     //Workplace
     else if ([[keys objectAtIndex:section] isEqualToString:@"Workplace Detail"] ) {
-        return [[CustomerDataManager sharedInstance] GetCustomerDetailWorkplaceDetailCount]+1;
+        return [[CustomerDataManager sharedInstance] GetCustomerDetailWorkplaceDetailCount:@""]+1;
     }
     else{
             
@@ -282,8 +282,8 @@
             self.cellPortaitInfo = nil;
         }
         
-        ((UILabel*)[cell viewWithTag:1]).text = [[CustomerDataManager sharedInstance] GetCustomerDetailName];
-        ((UILabel*)[cell viewWithTag:2]).text = [[CustomerDataManager sharedInstance] GetCustomerWorkName];
+        ((UILabel*)[cell viewWithTag:1]).text = [[CustomerDataManager sharedInstance] GetCustomerDetailName:@""];
+        ((UILabel*)[cell viewWithTag:2]).text = [[CustomerDataManager sharedInstance] GetCustomerWorkName:@""];
         //((UIImage*)[cell viewWithTag:3]);
     }
     else if ( [[keys objectAtIndex:[indexPath section]] isEqualToString:@"System Info"] ) {
@@ -298,7 +298,7 @@
         // Configure the cell...
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
-        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailSystemInfo] objectAtIndex:[indexPath row]];
+        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailSystemInfo:@""] objectAtIndex:[indexPath row]];
     }
     else if ( [[keys objectAtIndex:[indexPath section]] isEqualToString:@"Personal Info"] ) {
         
@@ -312,7 +312,7 @@
         // Configure the cell...
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
-        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailPersonalInfo] objectAtIndex:[indexPath row]];
+        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailPersonalInfo:@""] objectAtIndex:[indexPath row]];
     }
     else if ( [[keys objectAtIndex:[indexPath section]] isEqualToString:@"Location"] ) {
         
@@ -325,7 +325,7 @@
                 self.cellMapGPS = nil;
             }
             
-            ((UILabel*)[cell viewWithTag:2]).text = [[[CustomerDataManager sharedInstance] GetCustomerDetailLocation] objectAtIndex:[indexPath row]];
+            ((UILabel*)[cell viewWithTag:2]).text = [[[CustomerDataManager sharedInstance] GetCustomerDetailLocation:@""] objectAtIndex:[indexPath row]];
         }
         else{
             static NSString *CellIdentifier = @"CellProperty";
@@ -338,7 +338,7 @@
             // Configure the cell...
             cell.textLabel.text = [array objectAtIndex:[indexPath row]];
             cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
-            cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailLocation] objectAtIndex:[indexPath row]];
+            cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailLocation:@""] objectAtIndex:[indexPath row]];
         }
         
     }
@@ -354,7 +354,7 @@
         // Configure the cell...
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
-        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailEducationInfo] objectAtIndex:[indexPath row]];
+        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailEducationInfo:@""] objectAtIndex:[indexPath row]];
     }
     else if ( [[keys objectAtIndex:[indexPath section]] isEqualToString:@"Family Info"] ) {
         
@@ -368,7 +368,7 @@
         // Configure the cell...
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
-        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailFamilyInfo] objectAtIndex:[indexPath row]];
+        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailFamilyInfo:@""] objectAtIndex:[indexPath row]];
     }
     else if ( [[keys objectAtIndex:[indexPath section]] isEqualToString:@"Child Info"] ) {
         
@@ -390,7 +390,7 @@
             }
             
             // Configure the cell...
-            NSArray* childData = [[[CustomerDataManager sharedInstance] GetCustomerDetailChildInfo] objectAtIndex:[indexPath row]-1];
+            NSArray* childData = [[[CustomerDataManager sharedInstance] GetCustomerDetailChildInfo:@""] objectAtIndex:[indexPath row]-1];
             
             cell.textLabel.text = [childData objectAtIndex:0];
             cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
@@ -419,7 +419,7 @@
             }
             
             // Configure the cell...
-            NSArray* hobbyData = [[[CustomerDataManager sharedInstance] GetCustomerDetailHobbyInfo] objectAtIndex:[indexPath row]-1];
+            NSArray* hobbyData = [[[CustomerDataManager sharedInstance] GetCustomerDetailHobbyInfo:@""] objectAtIndex:[indexPath row]-1];
             
             cell.textLabel.text = [hobbyData objectAtIndex:0];
             cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
@@ -453,7 +453,7 @@
                 
                 self.cellMemberInfoDetail = nil;
                 
-                NSArray* memberData = [[[CustomerDataManager sharedInstance] GetCustomerDetailMemberDetail] objectAtIndex:[indexPath row]-1];
+                NSArray* memberData = [[[CustomerDataManager sharedInstance] GetCustomerDetailMemberDetail:@""] objectAtIndex:[indexPath row]-1];
                 
                 ((UILabel*)[cell viewWithTag:1]).text = [memberData objectAtIndex:0];
                 ((UILabel*)[cell viewWithTag:2]).text = [memberData objectAtIndex:1];
@@ -475,7 +475,7 @@
         // Configure the cell...
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
-        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailHomeInfo] objectAtIndex:[indexPath row]];
+        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailHomeInfo:@""] objectAtIndex:[indexPath row]];
     }
     else if ( [[keys objectAtIndex:[indexPath section]] isEqualToString:@"Clinic"] ) {
         
@@ -489,7 +489,7 @@
         // Configure the cell...
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
-        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailClinicInfo] objectAtIndex:[indexPath row]];
+        cell.detailTextLabel.text = [[[CustomerDataManager sharedInstance] GetCustomerDetailClinicInfo:@""] objectAtIndex:[indexPath row]];
     }
     else if ( [[keys objectAtIndex:[indexPath section]] isEqualToString:@"Workplace Detail"] ) {
         
@@ -514,7 +514,7 @@
             }
             
             // Configure the cell...
-            NSArray* workplaceData = [[[CustomerDataManager sharedInstance] GetCustomerDetailMemberDetail] objectAtIndex:[indexPath row]-1];
+            NSArray* workplaceData = [[[CustomerDataManager sharedInstance] GetCustomerDetailMemberDetail:@""] objectAtIndex:[indexPath row]-1];
             
            
             cell.textLabel.text = [workplaceData objectAtIndex:0];
@@ -537,7 +537,7 @@
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
         
-        if ([[[[CustomerDataManager sharedInstance] GetCustomerDetailBussinessDetail] objectAtIndex:[indexPath row]] isEqualToString:@"yes"]) {
+        if ([[[[CustomerDataManager sharedInstance] GetCustomerDetailBussinessDetail:@""] objectAtIndex:[indexPath row]] isEqualToString:@"yes"]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else{
@@ -568,7 +568,7 @@
                 self.cellCustomerPatientInfoDetail = nil;
                 
                 
-                NSArray* patientData = [[[CustomerDataManager sharedInstance] GetCustomerDetailCustomerPatient] objectAtIndex:[indexPath row]-1];
+                NSArray* patientData = [[[CustomerDataManager sharedInstance] GetCustomerDetailCustomerPatient:@""] objectAtIndex:[indexPath row]-1];
                 
                 ((UILabel*)[cell viewWithTag:1]).text = [patientData objectAtIndex:0];
                 ((UILabel*)[cell viewWithTag:2]).text = [patientData objectAtIndex:1];
@@ -597,7 +597,7 @@
                 
                 self.cellProductRecInfoDetail = nil;
                 
-                NSArray* productData = [[[CustomerDataManager sharedInstance] GetCustomerDetailProductRecommend] objectAtIndex:[indexPath row]-1];
+                NSArray* productData = [[[CustomerDataManager sharedInstance] GetCustomerDetailProductRecommend:@""] objectAtIndex:[indexPath row]-1];
                 
                 ((UILabel*)[cell viewWithTag:1]).text = [productData objectAtIndex:0];
                 ((UILabel*)[cell viewWithTag:2]).text = [productData objectAtIndex:1];
@@ -617,7 +617,7 @@
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
         
-        if ([[[[CustomerDataManager sharedInstance] GetCustomerDetailStatus] objectAtIndex:[indexPath row]] isEqualToString:@"yes"]) {
+        if ([[[[CustomerDataManager sharedInstance] GetCustomerDetailStatus:@""] objectAtIndex:[indexPath row]] isEqualToString:@"yes"]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else{
@@ -637,7 +637,7 @@
         cell.textLabel.text = [array objectAtIndex:[indexPath row]];
         cell.textLabel.adjustsFontSizeToFitWidth = TRUE;
         
-        if ([[[[CustomerDataManager sharedInstance] GetCustomerDetailSES] objectAtIndex:[indexPath row]] isEqualToString:@"yes"]) {
+        if ([[[[CustomerDataManager sharedInstance] GetCustomerDetailSES:@""] objectAtIndex:[indexPath row]] isEqualToString:@"yes"]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else{

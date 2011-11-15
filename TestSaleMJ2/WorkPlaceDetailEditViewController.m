@@ -52,7 +52,7 @@
 {
     [super viewDidLoad];
     
-    NSArray* temp = [[CustomerDataManager sharedInstance] GetCustomerDetailEditWorkplaceDetail:@""];
+    NSArray* temp = [[CustomerDataManager sharedInstance] GetCustomerDetailEditWorkplaceDetail:@"" withWorkplace:@""];
     
     hospitalTextField.text = [temp objectAtIndex:0];
     departmentTextField.text = [temp objectAtIndex:1];

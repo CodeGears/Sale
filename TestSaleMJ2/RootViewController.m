@@ -71,7 +71,7 @@
     
     
     localNameKeys = [[CustomerDataManager sharedInstance] GetCustomerNameKeys];
-    localNameList = [[CustomerDataManager sharedInstance] GetCustomerNameList];
+    localNameList = [[CustomerDataManager sharedInstance] GetCustomerNameList:@""];
 }
 
 		
