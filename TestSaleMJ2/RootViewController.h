@@ -33,6 +33,8 @@
 @property (nonatomic, retain) IBOutlet UINavigationBar* naviBar;
 
 
-@property (nonatomic, retain) DetailViewController* DetailView;
+@property (nonatomic, retain) DetailViewController* detailView;
+
+- (void) SetOwnDetailView:(DetailViewController*)view;
 
 @end

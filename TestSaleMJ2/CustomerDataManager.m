@@ -8,6 +8,14 @@
 
 #import "CustomerDataManager.h"
 
+@implementation ContactProfile
+
+@synthesize profileCode,name,group,isActive;
+
+@end
+
+
+
 
 @implementation CustomerDataManager
 @synthesize nameKeys,nameList, customerType;
@@ -121,7 +129,7 @@ static CustomerDataManager* _sharedInstance = nil;
             const char* dbpath = [databasePath_contactDB UTF8String];
             if (sqlite3_open(dbpath, &contactDB) == SQLITE_OK) {
                 char*errmsg;
-                const char*sql_stmt = "CREATE TABLE IF NOT EXISTS CONTACTS(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT)";
+                const char*sql_stmt = "CREATE TABLE IF NOT EXISTS CONTACTS(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, GROUP TEXT, ACTIVE BOOL)";
                 if (sqlite3_exec(contactDB, sql_stmt, NULL, NULL, &errmsg) != SQLITE_OK) {
                     NSLog(@"Failed to create table");
                 }
@@ -136,12 +144,22 @@ static CustomerDataManager* _sharedInstance = nil;
                     
                     if (sqlite3_step(statment) == SQLITE_ROW) {
                         //Get Data from each column
-                        NSString* text = [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statment, 0)];
+                        NSString* textCode = [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statment, 0)];
+                        NSString* textName = [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statment, 1)];
+                        NSString* textGroup = [[NSString alloc] initWithUTF8String:(const char*)sqlite3_column_text(statment, 2)];
+                        NSInteger active = sqlite3_column_int(statment, 3);
                         
                         //insert to list
-                        [alist addObject:text];
+                        ContactProfile* tempProfile = [[ContactProfile alloc] init];
+                        tempProfile.profileCode = textCode;
+                        tempProfile.name = textName;
+                        tempProfile.group = textGroup;
+                        tempProfile.isActive = active;
+                        
+                        
+                        [alist addObject:tempProfile];
                         //it get only one time
-                       
+                        
                         
                         NSLog(@"Search Found");
                         
@@ -164,36 +182,45 @@ static CustomerDataManager* _sharedInstance = nil;
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         
+        //Temp Code
+        
+        ContactProfile* tempProfile = [[ContactProfile alloc] init];
+        tempProfile.profileCode = @"001";
+        tempProfile.name = @"Test Name";
+        tempProfile.group = @"Group1";
+        tempProfile.isActive = 1;
         
         //NSArray* alist = [[NSArray alloc] initWithObjects: @"aa", @"aaa",nil];
-        NSArray* blist = [[NSArray alloc] initWithObjects: @"ขจรศักดิ็",nil];
-        NSArray* clist = [[NSArray alloc] initWithObjects: @"คนองนา", @"ครรลอง",nil];
-        NSArray* dlist = [[NSArray alloc] initWithObjects: @"dd", @"aaa",nil];
-        NSArray* elist = [[NSArray alloc] initWithObjects: @"ee", @"aaa",nil];
-        NSArray* flist = [[NSArray alloc] initWithObjects: @"ff", @"aaa",nil];
-        NSArray* glist = [[NSArray alloc] initWithObjects: @"gg", @"aaa",nil];
-        NSArray* hlist = [[NSArray alloc] initWithObjects: @"hh", @"aaa",nil];
-        NSArray* ilist = [[NSArray alloc] initWithObjects: @"ii", @"aaa",nil];
-        NSArray* jlist = [[NSArray alloc] initWithObjects: @"jj", @"aaa",nil];
-        NSArray* klist = [[NSArray alloc] initWithObjects: @"kk", @"aaa",nil];
-        NSArray* llist = [[NSArray alloc] initWithObjects: @"ll", @"aaa",nil];
-        NSArray* mlist = [[NSArray alloc] initWithObjects: @"mm", @"aaa",nil];
-        NSArray* nlist = [[NSArray alloc] initWithObjects: @"nn", @"aaa",nil];
-        NSArray* olist = [[NSArray alloc] initWithObjects: @"oo", @"aaa",nil];
-        NSArray* plist = [[NSArray alloc] initWithObjects: @"pp", @"aaa",nil];
-        NSArray* qlist = [[NSArray alloc] initWithObjects: @"qq", @"aaa",nil];
-        NSArray* rlist = [[NSArray alloc] initWithObjects: @"rr", @"aaa",nil];
-        NSArray* slist = [[NSArray alloc] initWithObjects: @"ss", @"aaa",nil];
-        NSArray* tlist = [[NSArray alloc] initWithObjects: @"tt", @"aaa",nil];
-        NSArray* ulist = [[NSArray alloc] initWithObjects: @"uu", @"aaa",nil];
-        NSArray* vlist = [[NSArray alloc] initWithObjects: @"vv", @"aaa",nil];
-        NSArray* wlist = [[NSArray alloc] initWithObjects: @"ww", @"aaa",nil];
-        NSArray* xlist = [[NSArray alloc] initWithObjects: @"xx", @"aaa",nil];
-        NSArray* ylist = [[NSArray alloc] initWithObjects: @"yy", @"aaa",nil];
-        NSArray* zlist = [[NSArray alloc] initWithObjects: @"zz", @"aaa",nil];
+        NSArray* blist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* clist = [[NSArray alloc] initWithObjects: tempProfile, tempProfile,nil];
+        NSArray* dlist = [[NSArray alloc] initWithObjects: tempProfile, tempProfile,nil];
+        NSArray* elist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* flist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* glist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* hlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* ilist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* jlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* klist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* llist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* mlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* nlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* olist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* plist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* qlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* rlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* slist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* tlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* ulist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* vlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* wlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* xlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* ylist = [[NSArray alloc] initWithObjects: tempProfile,nil];
+        NSArray* zlist = [[NSArray alloc] initWithObjects: tempProfile,nil];
         
         //Create Dictionary data
         _sharedInstance.nameList = [[NSArray alloc] initWithObjects:alist,blist,clist,dlist,elist,flist,glist,hlist,ilist,jlist,klist,llist,mlist,nlist,olist,plist,qlist,rlist,slist,tlist,ulist,vlist,wlist,xlist,ylist,zlist,nil];
+        
+        [tempProfile release];
         
         [zlist release];
         [ylist release];
@@ -224,8 +251,7 @@ static CustomerDataManager* _sharedInstance = nil;
     }
     
     
-    // Need Array of name objects for each section table
-    //How are type data and active status data use in this table
+    // Need Array of objects for each section table
     return _sharedInstance.nameList;
 }
 

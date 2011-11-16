@@ -17,8 +17,6 @@
     
     UIViewController* createNewViewCtrl;
     UIPopoverController* popOverCtrl;
-    
-    
 }
 
 
@@ -31,6 +29,6 @@
 
 - (IBAction) HitSegmentBt;
 
-
+- (void) LoadNewDetailView;
 
 @end

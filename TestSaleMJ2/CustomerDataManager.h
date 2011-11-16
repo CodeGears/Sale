@@ -9,13 +9,33 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
+@interface ContactProfile : NSObject {
+    NSString* profileCode;
+    NSString* name;
+    NSString* group;
+    BOOL      isActive;  
+}
+
+@property (retain, nonatomic) NSString* profileCode;
+@property (retain, nonatomic) NSString* name;
+@property (retain, nonatomic) NSString* group;
+@property (readwrite, nonatomic) BOOL isActive;
+
+
+@end
+
 @interface CustomerDataManager : NSObject {
+    
+    
+    
     
     //Database
     sqlite3* contactDB;
     NSString* databasePath_contactDB;
     
     //Local variable
+    
+    NSString* curSelectProfileCode;
     
     NSArray* nameKeys;
     NSArray* nameList;

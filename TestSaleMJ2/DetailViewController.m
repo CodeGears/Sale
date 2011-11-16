@@ -61,34 +61,39 @@
 }
 
 
+#pragma mark - Load Detail
+- (void) LoadNewDetailView{
+    [detailNavigation release];
+    
+    CustomerDetailViewController* createView = [[CustomerDetailViewController alloc] initWithNibName:@"CustomerDetail" bundle:nil];
+    [createView setTitle:@"Customer Detail"];
+    
+    
+    detailNavigation = [[UINavigationController alloc] initWithRootViewController:createView];
+    
+    [createView SetParentNavigator:detailNavigation];
+    [createView release];
+    
+    [detailNavigation setDelegate: self];
+    [detailNavigation setWantsFullScreenLayout:false];
+    [[detailNavigation view] setFrame:CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height-100)];
+    //[detailNavigation.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+    
+    //[self.view bringSubviewToFront:_toolbar];
+    
+    [self.view addSubview:detailNavigation.view];
+    
+    //Create Header
+    [detailNavigation setTitle:@"Customer Detail"];
+}
+
 #pragma mark - Handle seqmented button
 - (IBAction) HitSegmentBt{
     //NSLog(@"Hit it %d", [_segmentBar selectedSegmentIndex]);
     
     if ([_segmentBar selectedSegmentIndex] == 0) {
         
-        [detailNavigation release];
-        
-        CustomerDetailViewController* createView = [[CustomerDetailViewController alloc] initWithNibName:@"CustomerDetail" bundle:nil];
-        [createView setTitle:@"Customer Detail"];
-        
-        
-        detailNavigation = [[UINavigationController alloc] initWithRootViewController:createView];
-        
-        [createView SetParentNavigator:detailNavigation];
-        [createView release];
-        
-        [detailNavigation setDelegate: self];
-        [detailNavigation setWantsFullScreenLayout:false];
-        [[detailNavigation view] setFrame:CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height-100)];
-        //[detailNavigation.navigationBar setBarStyle:UIBarStyleBlackOpaque];
-        
-        //[self.view bringSubviewToFront:_toolbar];
-        
-        [self.view addSubview:detailNavigation.view];
-        
-        //Create Header
-        [detailNavigation setTitle:@"Customer Detail"];
+        [self LoadNewDetailView];
     }
     else if ([_segmentBar selectedSegmentIndex] == 1) {
         [detailNavigation release];

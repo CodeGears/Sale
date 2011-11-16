@@ -16,8 +16,12 @@
 @implementation RootViewController
 		
 @synthesize tableView, tabBar, naviBar;
-@synthesize DetailView;
+@synthesize detailView;
 
+
+- (void) SetOwnDetailView:(DetailViewController *)view{
+    detailView = view;
+}
 
 #pragma - POPOver Handle
 - (IBAction) CreatePopOverController:(id)sender{
@@ -125,13 +129,23 @@
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
 
     // Configure the cell.
     NSArray* array = [localNameList objectAtIndex:indexPath.section];
     
-    cell.textLabel.text = [array objectAtIndex:indexPath.row];
+    ContactProfile* profile = [array objectAtIndex:indexPath.row];
+
+    cell.textLabel.text = profile.name;  
+    cell.detailTextLabel.text = profile.group;
+    
+    if (profile.isActive) {
+        [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+    }
+    else{
+        [cell setAccessoryType:UITableViewCellAccessoryNone];
+    }
     		
     return cell;
 }
@@ -170,7 +184,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here -- for example, create and push another view controller.
-   
+    [detailView LoadNewDetailView];
 }
 
 #pragma - Destructor Handle
