@@ -23,7 +23,7 @@
 - (NSMutableArray*) getAllMembers: (NSString*) profileCode;
 - (NSMutableArray*) getAllWorkPlaces: (NSString*) profileCode;
 - (NSMutableArray*) getAllPatientType: (NSString*) profileCode;
-- (NSMutableArray*) getAllProductRecommendation: (NSString*) profileCode;
+- (CustomerStatus*) getAllProductRecommendation: (NSString*) profileCode;
 
 
 //- (NSString*)getDBPath;

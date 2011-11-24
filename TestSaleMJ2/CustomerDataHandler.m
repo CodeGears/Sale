@@ -16,7 +16,7 @@
 #import "CustomerMember.h"
 #import "CustomerWorkPlace.h"
 #import "CustomerPatient.h"
-
+#import "CustomerStatus.h"
 @implementation CustomerDataHandler
 
 - (id) init
@@ -352,6 +352,7 @@
 
 - (NSMutableArray*) getAllCustomerChildren: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+     [database open];
 
     NSMutableArray *childArray = [[NSMutableArray alloc]init ];
     
@@ -381,7 +382,7 @@
 
 - (NSMutableArray*) getAllHobbies: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+     [database open];
     NSMutableArray *hobbyArray = [[NSMutableArray alloc]init ];
     
     
@@ -410,7 +411,7 @@
 
 - (NSMutableArray*) getAllMembers: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+     [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
     
     
@@ -441,7 +442,7 @@
 
 - (NSMutableArray*) getAllWorkPlaces: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+     [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
     
     
@@ -471,7 +472,7 @@
 
 - (NSMutableArray*) getAllPatientTypeLabel: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+    [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
     
     
@@ -499,7 +500,7 @@
 // get real record to update the list, return in form of araay of CustomerPatient
 - (NSMutableArray*) getAllPatientType: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+    [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
     
     
@@ -523,37 +524,64 @@
     
     
 }
-/*
+
 // get real record to update the list, return in form of Product Recommendation
 
-- (*) getAllProductRecommendation: (NSString*) profileCode{
+- (CustomerStatus*) getAllProductRecommendation: (NSString*) profileCode{
    
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+   // NSMutableArray * array = [[NSMutableArray alloc]init ];
     
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
-    
-    
-    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT  patient_type_name , total_commercial , total_potential from mst_patient_type  LEFT OUTER JOIN txn_customer_patient ON txn_customer_patient.patient_type_code = mst_patient_type.patient_type_code  where txn_customer_patient.profile_code = '%@' ORDER BY  mst_patient_type.patient_type_code" , profileCode]];
+    CustomerStatus *cp = [[CustomerStatus alloc] init];
+    cp.Recommender = FALSE;
+    cp.RoCommPTC = FALSE;
+    cp.DepartmentHead = FALSE;
+    cp.KOL= FALSE;
+    cp.EndUseer = FALSE;
+    cp.DirecAsstDirec = FALSE;
+    cp.PedOBNurse = FALSE;
+    cp.PedOBDoctor = FALSE;
+    cp.Depo = FALSE;
+    cp.PregList = FALSE;
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT status_code from txn_customer_status  where profile_code ='%@' ORDER BY status_code" , profileCode]];
     
     while([results next]) 
         
     {
-        CustomerPatient *cp = [[CustomerPatient alloc] init];
+        NSString* temp1 = [results stringForColumn: @"status_code"];
         
-        cp.type = [results stringForColumn: @"patient_type_name"];
-        cp.totalBirth = [results stringForColumn: @"total_potential"];
-        cp.totalCommercial = [results stringForColumn: @"total_commercial"];
-        
-        
-        [array addObject: cp];
-        [cp release];
+        if([temp1 isEqualToString:@"01"]){
+            cp.Recommender = TRUE;
+        }else if ([temp1 isEqualToString:@"02"]){
+            cp.RoCommPTC = TRUE;
+        }else if ([temp1 isEqualToString:@"03"]){
+            cp.DepartmentHead = TRUE;
+        }else if ([temp1 isEqualToString:@"04"]){
+            cp.KOL = TRUE;
+        }else if ([temp1 isEqualToString:@"05"]){
+            cp.EndUseer = TRUE;
+        }else if ([temp1 isEqualToString:@"06"]){
+            cp.DirecAsstDirec = TRUE;
+        }else if ([temp1 isEqualToString:@"07"]){
+            cp.PedOBNurse = TRUE;
+        }else if ([temp1 isEqualToString:@"08"]){
+            cp.PedOBDoctor = TRUE;
+        }else if ([temp1 isEqualToString:@"09"]){
+            cp.Depo = TRUE;
+        }else if ([temp1 isEqualToString:@"10"]){
+            cp.PregList = TRUE;
+        }
+            
+            
+                
     } 
     [database close];
-    return array;
+    return cp;
 
     
 }
-*/
+
 
 
 
