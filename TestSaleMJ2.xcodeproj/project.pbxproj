@@ -104,6 +104,10 @@
 		C583E989147E1A720094A730 /* CustomerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E97F147E1A720094A730 /* CustomerStatus.m */; };
 		C583E98A147E1A720094A730 /* CustomerWorkPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E981147E1A720094A730 /* CustomerWorkPlace.m */; };
 		C583E98B147E1A720094A730 /* Hobby.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E983147E1A720094A730 /* Hobby.m */; };
+		C583E98D147E1AD50094A730 /* MJLite.db in Resources */ = {isa = PBXBuildFile; fileRef = C583E98C147E1AD50094A730 /* MJLite.db */; };
+		C583E990147E1B470094A730 /* CustomerDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E98F147E1B470094A730 /* CustomerDataHandler.m */; };
+		C583E993147E1B680094A730 /* MJUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E992147E1B680094A730 /* MJUtility.m */; };
+		C583E995147E1B7A0094A730 /* MJConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583E994147E1B7A0094A730 /* MJConfig.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -246,6 +250,12 @@
 		C583E981147E1A720094A730 /* CustomerWorkPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerWorkPlace.m; sourceTree = "<group>"; };
 		C583E982147E1A720094A730 /* Hobby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hobby.h; sourceTree = "<group>"; };
 		C583E983147E1A720094A730 /* Hobby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hobby.m; sourceTree = "<group>"; };
+		C583E98C147E1AD50094A730 /* MJLite.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = MJLite.db; sourceTree = "<group>"; };
+		C583E98E147E1B470094A730 /* CustomerDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDataHandler.h; sourceTree = "<group>"; };
+		C583E98F147E1B470094A730 /* CustomerDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDataHandler.m; sourceTree = "<group>"; };
+		C583E991147E1B680094A730 /* MJUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJUtility.h; sourceTree = "<group>"; };
+		C583E992147E1B680094A730 /* MJUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJUtility.m; sourceTree = "<group>"; };
+		C583E994147E1B7A0094A730 /* MJConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MJConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +287,7 @@
 		559504D51444B7790002EF42 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				C583E98C147E1AD50094A730 /* MJLite.db */,
 				559504D91444B8870002EF42 /* th.png */,
 			);
 			name = Res;
@@ -285,6 +296,10 @@
 		559518C11444180B0003097D /* Main App Files */ = {
 			isa = PBXGroup;
 			children = (
+				C583E991147E1B680094A730 /* MJUtility.h */,
+				C583E992147E1B680094A730 /* MJUtility.m */,
+				C583E98E147E1B470094A730 /* CustomerDataHandler.h */,
+				C583E98F147E1B470094A730 /* CustomerDataHandler.m */,
 				55995CE71438D4E20028B5FC /* TestSaleMJ2AppDelegate.h */,
 				55995CE81438D4E20028B5FC /* TestSaleMJ2AppDelegate.m */,
 				55F0740F1456290E001EC018 /* Blank.xib */,
@@ -340,6 +355,7 @@
 		55995CDF1438D4E10028B5FC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C583E994147E1B7A0094A730 /* MJConfig.plist */,
 				55995CE01438D4E10028B5FC /* TestSaleMJ2-Info.plist */,
 				55995CE11438D4E20028B5FC /* InfoPlist.strings */,
 				55995CE41438D4E20028B5FC /* TestSaleMJ2-Prefix.pch */,
@@ -700,6 +716,8 @@
 				5501F99D145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib in Resources */,
 				5543B06714706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib in Resources */,
 				5519CA8C1471849500D8C555 /* HobbyTypePopOverViewController.xib in Resources */,
+				C583E98D147E1AD50094A730 /* MJLite.db in Resources */,
+				C583E995147E1B7A0094A730 /* MJConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,6 +768,8 @@
 				C583E989147E1A720094A730 /* CustomerStatus.m in Sources */,
 				C583E98A147E1A720094A730 /* CustomerWorkPlace.m in Sources */,
 				C583E98B147E1A720094A730 /* Hobby.m in Sources */,
+				C583E990147E1B470094A730 /* CustomerDataHandler.m in Sources */,
+				C583E993147E1B680094A730 /* MJUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
