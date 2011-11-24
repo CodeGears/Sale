@@ -77,6 +77,8 @@
     BOOL medium;
     BOOL low;
     
+    // EDC
+    NSDate *EDC;
 }
 
 
@@ -146,5 +148,7 @@
 @property(nonatomic) BOOL high;
 @property(nonatomic) BOOL medium;
 @property(nonatomic) BOOL low;
+//EDC
+@property(nonatomic,retain) NSDate *EDC;
 
 @end

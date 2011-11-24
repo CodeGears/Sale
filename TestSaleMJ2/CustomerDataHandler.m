@@ -16,6 +16,8 @@
 #import "CustomerMember.h"
 #import "CustomerWorkPlace.h"
 #import "CustomerPatient.h"
+#import "CustomerStatus.h"
+#import "CustomerProduct.h"
 
 @implementation CustomerDataHandler
 
@@ -227,7 +229,7 @@
     
     [database open];
     
-    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT photo,ocup_code, cust_tname, cust_fname, cust_lname, profile_code, customer_code1,customer_code2,customer_code3,email,mobile,sex, bdate, idno,latitude,longitude, Position_date, edu_level_code, edu_major_code, edu_place_code, marry_status_code, spouse_tname, spouse_fname, spouse_lname, spouse_bdate,hhi_code from txn_customer WHERE is_active = 'Y' AND profile_code = '%@' ", profileCode]];
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT photo,ocup_code, cust_tname, cust_fname, cust_lname, profile_code, customer_code1,customer_code2,customer_code3,email,phone,sex, bdate, idno,latitude,longitude, Position_date, edu_level_code, edu_major_code, edu_place_code, marry_status_code, spouse_tname, spouse_fname, spouse_lname, spouse_bdate,hhi_code,edc_date from txn_customer WHERE is_active = 'Y' AND profile_code = '%@' ", profileCode]];
     
 
     while([results next]) 
@@ -245,16 +247,17 @@
         customer.customerCode2 = [results stringForColumn: @"customer_code2"];
         customer.customerCode3 = [results stringForColumn: @"customer_code3"];
         customer.email = [results stringForColumn: @"email" ];
-        customer.telephone = [results stringForColumn:@"mobile"];
+        customer.telephone = [results stringForColumn:@"phone"];
         customer.sex = [[MJUtility sharedInstance] getPicklistValueFromTable: @"Mst_sex" resultColumn:@"sex_name" codeColumn: @"sex_code" code:[results stringForColumn:@"sex"]];
-        customer.birthDay = [[MJUtility sharedInstance]convertStringDateToNSDate:[results stringForColumn: @"bdate"]];
+        customer.birthDay = [[MJUtility sharedInstance] convertStringDateToNSDate:[results stringForColumn: @"bdate"]];
+        //NSLog([NSString stringWithFormat: @" %@",[results stringForColumn:@"bdate"]]);
         customer.idNumber = [results stringForColumn:@"idno"];
         customer.latitude = [results stringForColumn:@"latitude"];
         customer.longtitude = [results stringForColumn: @"longitude"];
         customer.gpsupdateDate = [[MJUtility sharedInstance]convertStringDateToNSDate:[results stringForColumn: @"Position_date"]];
        customer.educationLevel = [[MJUtility sharedInstance] getPicklistValueFromTable: @"Mst_edu_level" resultColumn:@"edu_level_name" codeColumn: @"edu_level_code" code:[results stringForColumn:@"edu_level_code"]];
         customer.educationMajor = [[MJUtility sharedInstance] getPicklistValueFromTable: @"Mst_edu_major" resultColumn:@"edu_major_name" codeColumn: @"edu_major_code" code:[results stringForColumn:@"edu_major_code"]];
-        customer.educationLevel = [[MJUtility sharedInstance] getPicklistValueFromTable: @"Mst_edu_place" resultColumn:@"edu_place_name" codeColumn: @"edu_place_code" code:[results stringForColumn:@"edu_place_code"]];
+        customer.educationPlace = [[MJUtility sharedInstance] getPicklistValueFromTable: @"Mst_edu_place" resultColumn:@"edu_place_name" codeColumn: @"edu_place_code" code:[results stringForColumn:@"edu_place_code"]];
         
         customer.maritialStat = [[MJUtility sharedInstance] getPicklistValueFromTable: @"mst_marry_status" resultColumn:@"marry_status_name" codeColumn: @"marry_status_code" code:[results stringForColumn:@"marry_status_code"]];
         customer.spouseTitleName = [results stringForColumn:@"spouse_tname"];
@@ -263,7 +266,7 @@
         customer.spousebirthdate = [[MJUtility sharedInstance] convertStringDateToNSDate:[results stringForColumn:@"spouse_bdate"]];
        customer.hhIncome = [[MJUtility sharedInstance] getPicklistValueFromTable: @"mst_house_hold_income" resultColumn:@"hhi_name" codeColumn: @"hhi_code" code:[results stringForColumn:@"hhi_code"]];
         
-        
+        customer.EDC = [[MJUtility sharedInstance]convertStringDateToNSDate:[results stringForColumn: @"edc_date"]];
     }  
     results = [database executeQuery:[NSString stringWithFormat: @"SELECT addr1, addr2, sub_district, district, province, zip,  phone,    phone_ext, fax, contact_time from txn_customer_addr where address_type = 1 AND profile_code = '%@' ", profileCode]];
     //get home info
@@ -276,7 +279,7 @@
         customer.homeSubDistrict = [results stringForColumn:@"sub_district"];
         customer.homeDistrict = [results stringForColumn:@"district"];
         customer.homeProvince = [[MJUtility sharedInstance] getPicklistValueFromTable: @"mst_province" resultColumn:@"province_name" codeColumn: @"province_code" code:[results stringForColumn:@"province"]];
-        customer.homeZip = [results stringForColumn:@"zip "];
+        customer.homeZip = [results stringForColumn:@"zip"];
         customer.homePhone = [results stringForColumn:@"phone"];
         customer.homeExt = [results stringForColumn:@"phone_ext"];
         customer.homefax = [results stringForColumn:@"fax"];
@@ -295,7 +298,7 @@
         customer.clinicSubDistrict = [results stringForColumn:@"sub_district"];
         customer.clinicDistrict = [results stringForColumn:@"district"];
         customer.clinicProvince = [[MJUtility sharedInstance] getPicklistValueFromTable: @"mst_province" resultColumn:@"province_name" codeColumn: @"province_code" code:[results stringForColumn:@"province"]];
-        customer.clinicZip = [results stringForColumn:@"zip "];
+        customer.clinicZip = [results stringForColumn:@"zip"];
         customer.clinicPhone = [results stringForColumn:@"phone"];
         customer.clinicExt = [results stringForColumn:@"phone_ext"];
         customer.clinicfax = [results stringForColumn:@"fax"];
@@ -331,7 +334,7 @@
     while([results next]) 
         
     {   
-        NSString* temp2 = [results stringForColumn:@"business_code"];
+        NSString* temp2 = [results stringForColumn:@"ses_code"];
         if([temp2 isEqualToString:@"01"])
         {
             customer.high = TRUE;
@@ -346,12 +349,96 @@
 
     
     [database close];
+    // testing 
+    NSLog(@"name %@", customer.firstName);
+     //NSLog(@" %@", [customer. description]);
+  NSLog(@"name %@", customer.titleName);
+     NSLog(@" name %@", customer.firstName);
+     NSLog(@" name %@", customer.lastName);
+     NSLog(@" role %@", customer.role);
+    
+     NSLog(@"profile %@", customer.profileCode);
+     NSLog(@" cuscode1%@", customer.customerCode1);
+     NSLog(@" %@", customer.customerCode2);
+     NSLog(@" %@", customer.customerCode3);
+     NSLog(@" email %@", customer.email);
+     NSLog(@" tel %@", customer.telephone);
+     NSLog(@" sexx%@", customer.sex);
+     NSLog(@"  bd%@", [customer.birthDay description]);
+     NSLog(@" idno%@", customer.idNumber);
+     NSLog(@" lat%@", customer.latitude);
+     NSLog(@" long%@", customer.longtitude);
+     NSLog(@" gps%@", [customer.gpsupdateDate description]);
+     NSLog(@" edu%@", customer.educationLevel);
+     NSLog(@"  educationmaj%@", customer.educationMajor);
+     NSLog(@" place%@", customer.educationPlace);
+ NSLog(@"maritial %@", customer.maritialStat);
+     NSLog(@"spousetname %@", customer.spouseTitleName);
+    NSLog(@"spousefname %@", customer.spouseFirstName);
+    NSLog(@"spouselname %@", customer.spouseLastName);
+    
+     NSLog(@"spousebd %@", [customer.spousebirthdate description]);
+    //NSString* numberOfChild;
+    
+     NSLog(@"hhincome %@", customer.hhIncome);
+    
+    // home section
+     NSLog(@"homeaddress %@", customer.homeAddress1);
+     NSLog(@"homeaddress2 %@", customer.homeAddress2);
+     NSLog(@"homesubdistrict %@", customer.homeSubDistrict);
+     NSLog(@"home district %@", customer.homeDistrict);
+     NSLog(@" %@", customer.homeProvince);
+    NSLog(@" %@", customer.homeZip);
+    NSLog(@" %@", customer.homePhone);
+    NSLog(@" %@", customer. homeExt);
+    NSLog(@" %@", customer.homefax);
+     NSLog(@" %@", customer.homeConvenienceTime);
+    
+    //clinic section
+    
+    
+    NSLog(@" %@", customer.clinicAddress1);
+     NSLog(@" %@", customer.clinicAddress2);
+     NSLog(@" %@", customer.clinicSubDistrict);
+ NSLog(@" %@", customer.clinicDistrict);
+     NSLog(@" %@", customer.clinicProvince);
+ NSLog(@" %@", customer.clinicZip);
+ NSLog(@" %@", customer.clinicPhone);
+   NSLog(@" %@", customer. clinicExt);
+  NSLog(@" %@", customer.clinicfax);
+ NSLog(@" %@", customer. clinicConvenienceTime);
+    
+    if(customer.emerald)
+        NSLog(@" emerald Y");
+    if(customer.sapphire)
+        NSLog(@" sapphire Y");
+        
+    if(customer.high)
+        NSLog(@" high Y");
+    if(customer.medium)
+        NSLog(@" medium Y");
+    if(customer.low)
+        NSLog(@" low Y");
+    
+    /*
+    // Business
+    BOOL emerald;
+    BOOL sapphire;
+    // SES
+    BOOL high;
+    BOOL medium;
+    BOOL low;
+    */
+    // EDC
+     NSLog(@" %@", [customer.EDC description]);
+
     
     return customer;
 }
 
 - (NSMutableArray*) getAllCustomerChildren: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+     [database open];
 
     NSMutableArray *childArray = [[NSMutableArray alloc]init ];
     
@@ -381,20 +468,20 @@
 
 - (NSMutableArray*) getAllHobbies: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+     [database open];
     NSMutableArray *hobbyArray = [[NSMutableArray alloc]init ];
     
     
-    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT b.lifestyle_name ,a.description from  txn_customer_lifestyle a, Mst_lifestyle b  WHERE b.lifestyle_code = a.lifestyle_code AND a.profile_code = '108024' ", profileCode]];
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT b.lifestyle_name ,a.description from  txn_customer_lifestyle a, Mst_lifestyle b  WHERE b.lifestyle_code = a.lifestyle_code AND a.profile_code = '%@' ", profileCode]];
     
     while([results next]) 
         
     {
         Hobby *hobby = [[Hobby alloc] init];
         //cusList            //hospitalName = [results stringForColumn: @"hospital_name"];
-        hobby.description = [results stringForColumn: @"lifestyle_name"];
+        hobby.name = [results stringForColumn: @"lifestyle_name"];
       
-        hobby.name = [results stringForColumn: @"description"];
+        hobby.description = [results stringForColumn: @"description"];
 
         
         [hobbyArray addObject: hobby];
@@ -410,7 +497,7 @@
 
 - (NSMutableArray*) getAllMembers: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+     [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
     
     
@@ -441,7 +528,7 @@
 
 - (NSMutableArray*) getAllWorkPlaces: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+     [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
     
     
@@ -469,9 +556,9 @@
 
 // Get All patient type to initialize label, return in form of array of CustomerPatient
 
-- (NSMutableArray*) getAllPatientTypeLabel: (NSString*) profileCode{
+- (NSMutableArray*) getAllPatientTypeLabel{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
+    [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
     
     
@@ -499,62 +586,167 @@
 // get real record to update the list, return in form of araay of CustomerPatient
 - (NSMutableArray*) getAllPatientType: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
-    
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    [database open];
+    NSMutableArray * array = [self getAllPatientTypeLabel];    
+    //NSMutableArray * arrayLabel = [self getAllPatientTypeLabel];
+    NSString* typeTemp = [[NSString alloc] init];
+    NSString* totalBirthTemp = [[NSString alloc] init];
+    NSString* totalCommercialTemp =[[NSString alloc] init];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT  patient_type_name , total_commercial , total_potential from mst_patient_type  LEFT OUTER JOIN txn_customer_patient ON txn_customer_patient.patient_type_code = mst_patient_type.patient_type_code  where txn_customer_patient.profile_code = '%@' ORDER BY  mst_patient_type.patient_type_code" , profileCode]];
     
     while([results next]) 
         
-    {
-        CustomerPatient *cp = [[CustomerPatient alloc] init];
+    {   
+       // CustomerPatient *cp = [[CustomerPatient alloc] init];
+     //   NSEnumerator * enumerator = [array objectEnumerator];
+      //  CustomerPatient *cp = [[CustomerPatient alloc] init];
         
-        cp.type = [results stringForColumn: @"patient_type_name"];
-        cp.totalBirth = [results stringForColumn: @"total_potential"];
-        cp.totalCommercial = [results stringForColumn: @"total_commercial"];
-        
+        typeTemp = [results stringForColumn: @"patient_type_name"];
+        totalBirthTemp = [results stringForColumn: @"total_potential"];
+        totalCommercialTemp  = [results stringForColumn: @"total_commercial"];
 
-        [array addObject: cp];
-        [cp release];
+        for (CustomerPatient *cp in array) {
+            
+            
+            if ([cp.type isEqualToString:typeTemp])
+            {
+                cp.totalBirth = totalBirthTemp;
+                cp.totalCommercial =  totalCommercialTemp;
+            }
+            
+        }
+                    
+
     } 
+    
+    
     [database close];
+    [typeTemp release];
+    [totalBirthTemp release];
+    [totalCommercialTemp release];
+    
+    
     return array;
     
     
 }
-/*
-// get real record to update the list, return in form of Product Recommendation
 
-- (*) getAllProductRecommendation: (NSString*) profileCode{
+// get real record to update the list, return in form of Customer Status
+
+- (CustomerStatus*) getAllStatus: (NSString*) profileCode{
    
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+   // NSMutableArray * array = [[NSMutableArray alloc]init ];
     
+    CustomerStatus *cp = [[CustomerStatus alloc] init];
+    cp.Recommender = FALSE;
+    cp.RoCommPTC = FALSE;
+    cp.DepartmentHead = FALSE;
+    cp.KOL= FALSE;
+    cp.EndUseer = FALSE;
+    cp.DirecAsstDirec = FALSE;
+    cp.PedOBNurse = FALSE;
+    cp.PedOBDoctor = FALSE;
+    cp.Depo = FALSE;
+    cp.PregList = FALSE;
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT status_code from txn_customer_status  where profile_code ='%@' ORDER BY status_code" , profileCode]];
+    NSString* temp1 = [[NSString alloc] init];
+    while([results next]) 
+        
+    {
+        temp1 = [results stringForColumn: @"status_code"];
+        
+        if([temp1 isEqualToString:@"01"]){
+            cp.Recommender = TRUE;
+        }else if ([temp1 isEqualToString:@"02"]){
+            cp.RoCommPTC = TRUE;
+        }else if ([temp1 isEqualToString:@"03"]){
+            cp.DepartmentHead = TRUE;
+        }else if ([temp1 isEqualToString:@"04"]){
+            cp.KOL = TRUE;
+        }else if ([temp1 isEqualToString:@"05"]){
+            cp.EndUseer = TRUE;
+        }else if ([temp1 isEqualToString:@"06"]){
+            cp.DirecAsstDirec = TRUE;
+        }else if ([temp1 isEqualToString:@"07"]){
+            cp.PedOBNurse = TRUE;
+        }else if ([temp1 isEqualToString:@"08"]){
+            cp.PedOBDoctor = TRUE;
+        }else if ([temp1 isEqualToString:@"09"]){
+            cp.Depo = TRUE;
+        }else if ([temp1 isEqualToString:@"10"]){
+            cp.PregList = TRUE;
+        }
+            
+            
+                
+    } 
+    [temp1 release];
+    [database close];
+    return cp;
+
+    
+}
+
+// Get All Product Brand Label to initialize label, return in form of Arrray of NSString.
+
+- (NSMutableArray*) getAllProductBrandLabel {
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
+           
+    FMResultSet *results = [database executeQuery:@"SELECT DISTINCT mpb.prod_brand_name,mpb.prod_brand_code  FROM mst_product_brand mpb INNER JOIN Mst_patient_type mpt ON mpb.patient_type_code = mpt.patient_type_code WHERE mpb.is_recomment = 'Y' ORDER BY mpb.patient_type_code ASC "];
+    
+    while([results next]) 
+        
+    {CustomerProduct *cp = [[CustomerProduct alloc]init];
+
+        cp.name = [results stringForColumn:@"prod_brand_name"];
+        cp.code = [results stringForColumn:@"prod_brand_code"];
+        cp.recQty = @"0";
+        
+        [array addObject:cp];
+        [cp release];  
+    } 
+    [database close];
+    return array;
     
     
-    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT  patient_type_name , total_commercial , total_potential from mst_patient_type  LEFT OUTER JOIN txn_customer_patient ON txn_customer_patient.patient_type_code = mst_patient_type.patient_type_code  where txn_customer_patient.profile_code = '%@' ORDER BY  mst_patient_type.patient_type_code" , profileCode]];
+}
+// return in form of Array of CustomerProduct 
+
+- (NSMutableArray*) getAllProductBrand:(NSString*) profileCode 
+{    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [self getAllProductBrandLabel];
+   // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT prod_brand_code ,Recommended_qty from txn_customer_product WHERE profile_code = '%@'", profileCode]];
     
     while([results next]) 
         
     {
-        CustomerPatient *cp = [[CustomerPatient alloc] init];
+         NSString *temp1 = [results stringForColumn:@"prod_brand_code"];
+        NSString *temp2 = [results stringForColumn:@"Recommended_qty"];
+        for(CustomerProduct *cp in array)
+        {
+            if([cp.code isEqualToString: temp1])
+                cp.recQty = [NSString stringWithFormat:@"%@", temp2];
+        }
         
-        cp.type = [results stringForColumn: @"patient_type_name"];
-        cp.totalBirth = [results stringForColumn: @"total_potential"];
-        cp.totalCommercial = [results stringForColumn: @"total_commercial"];
-        
-        
-        [array addObject: cp];
-        [cp release];
     } 
+    
     [database close];
+    
     return array;
+    
+    
 
     
 }
-*/
-
 
 
 
