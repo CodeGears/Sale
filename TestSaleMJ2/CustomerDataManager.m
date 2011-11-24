@@ -7,6 +7,9 @@
 //
 
 #import "CustomerDataManager.h"
+#import "CustomerDataHandler.h"
+#import "MJUtility.h"
+#import "CustomerList.h"
 
 @implementation ContactProfile
 
@@ -180,7 +183,24 @@ static CustomerDataManager* _sharedInstance = nil;
         [filemgr release];
         
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //Test 
+        CustomerDataHandler *custhand = [[CustomerDataHandler alloc]init];
+        NSArray *customerArray = [custhand getCustometListByType:@"All Profile"];
+        if ([customerArray count] >0){
+            CustomerList *temp1 = [customerArray objectAtIndex: 0 ]; 
+            
+            //Temp Code
+            
+            ContactProfile* tempProfile = [[ContactProfile alloc] init];
+            tempProfile.profileCode = temp1.profileCode;
+            tempProfile.name = temp1.name;
+            tempProfile.group = temp1.grade;
+            tempProfile.isActive = temp1.isActive;
+            
+            [custhand release];
+            
+/*
         
         //Temp Code
         
@@ -189,6 +209,7 @@ static CustomerDataManager* _sharedInstance = nil;
         tempProfile.name = @"Test Name";
         tempProfile.group = @"Group1";
         tempProfile.isActive = 1;
+ */
         
         //NSArray* alist = [[NSArray alloc] initWithObjects: @"aa", @"aaa",nil];
         NSArray* blist = [[NSArray alloc] initWithObjects: tempProfile,nil];
@@ -248,6 +269,7 @@ static CustomerDataManager* _sharedInstance = nil;
         [clist release];
         [blist release];
         [alist release];
+        }
     }
     
     
@@ -257,12 +279,15 @@ static CustomerDataManager* _sharedInstance = nil;
 
 - (NSArray*) GetCustomerType{
     
-    if (_sharedInstance.customerType == nil) {
-        _sharedInstance.customerType = [[NSArray alloc] initWithObjects:@"Type A",@"Type B",@"Type C", nil];
-    }
+    // stk add
+    CustomerDataHandler *customerHandler = [[CustomerDataHandler alloc] init] ;
     
-    return _sharedInstance.customerType;
-}
+    if (_sharedInstance.customerType == nil) {
+        _sharedInstance.customerType = [customerHandler getAllCustomerType];
+    }
+    // stk add
+    [customerHandler release];
+    return _sharedInstance.customerType;}
 
 
 - (NSString*) GetPictureProfilePath:(NSString*)profileCode{
