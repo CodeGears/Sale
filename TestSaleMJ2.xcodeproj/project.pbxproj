@@ -96,6 +96,18 @@
 		55EBB3321458C687004F71C0 /* VisitProductEvaluatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB3301458C687004F71C0 /* VisitProductEvaluatViewController.m */; };
 		55EBB3331458C687004F71C0 /* VisitProductEvaluatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3311458C687004F71C0 /* VisitProductEvaluatViewController.xib */; };
 		55F074111456290E001EC018 /* Blank.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F0740F1456290E001EC018 /* Blank.xib */; };
+		C583E984147E1A720094A730 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E975147E1A720094A730 /* Customer.m */; };
+		C583E985147E1A720094A730 /* CustomerChild.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E977147E1A720094A730 /* CustomerChild.m */; };
+		C583E986147E1A720094A730 /* CustomerList.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E979147E1A720094A730 /* CustomerList.m */; };
+		C583E987147E1A720094A730 /* CustomerMember.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E97B147E1A720094A730 /* CustomerMember.m */; };
+		C583E988147E1A720094A730 /* CustomerPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E97D147E1A720094A730 /* CustomerPatient.m */; };
+		C583E989147E1A720094A730 /* CustomerStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E97F147E1A720094A730 /* CustomerStatus.m */; };
+		C583E98A147E1A720094A730 /* CustomerWorkPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E981147E1A720094A730 /* CustomerWorkPlace.m */; };
+		C583E98B147E1A720094A730 /* Hobby.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E983147E1A720094A730 /* Hobby.m */; };
+		C583E98D147E1AD50094A730 /* MJLite.db in Resources */ = {isa = PBXBuildFile; fileRef = C583E98C147E1AD50094A730 /* MJLite.db */; };
+		C583E990147E1B470094A730 /* CustomerDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E98F147E1B470094A730 /* CustomerDataHandler.m */; };
+		C583E993147E1B680094A730 /* MJUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E992147E1B680094A730 /* MJUtility.m */; };
+		C583E995147E1B7A0094A730 /* MJConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = C583E994147E1B7A0094A730 /* MJConfig.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -222,6 +234,28 @@
 		55EBB3301458C687004F71C0 /* VisitProductEvaluatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitProductEvaluatViewController.m; sourceTree = "<group>"; };
 		55EBB3311458C687004F71C0 /* VisitProductEvaluatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitProductEvaluatViewController.xib; sourceTree = "<group>"; };
 		55F074101456290E001EC018 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Blank.xib; sourceTree = "<group>"; };
+		C583E974147E1A720094A730 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
+		C583E975147E1A720094A730 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
+		C583E976147E1A720094A730 /* CustomerChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerChild.h; sourceTree = "<group>"; };
+		C583E977147E1A720094A730 /* CustomerChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerChild.m; sourceTree = "<group>"; };
+		C583E978147E1A720094A730 /* CustomerList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerList.h; sourceTree = "<group>"; };
+		C583E979147E1A720094A730 /* CustomerList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerList.m; sourceTree = "<group>"; };
+		C583E97A147E1A720094A730 /* CustomerMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerMember.h; sourceTree = "<group>"; };
+		C583E97B147E1A720094A730 /* CustomerMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerMember.m; sourceTree = "<group>"; };
+		C583E97C147E1A720094A730 /* CustomerPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerPatient.h; sourceTree = "<group>"; };
+		C583E97D147E1A720094A730 /* CustomerPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerPatient.m; sourceTree = "<group>"; };
+		C583E97E147E1A720094A730 /* CustomerStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerStatus.h; sourceTree = "<group>"; };
+		C583E97F147E1A720094A730 /* CustomerStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerStatus.m; sourceTree = "<group>"; };
+		C583E980147E1A720094A730 /* CustomerWorkPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerWorkPlace.h; sourceTree = "<group>"; };
+		C583E981147E1A720094A730 /* CustomerWorkPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerWorkPlace.m; sourceTree = "<group>"; };
+		C583E982147E1A720094A730 /* Hobby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hobby.h; sourceTree = "<group>"; };
+		C583E983147E1A720094A730 /* Hobby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hobby.m; sourceTree = "<group>"; };
+		C583E98C147E1AD50094A730 /* MJLite.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = MJLite.db; sourceTree = "<group>"; };
+		C583E98E147E1B470094A730 /* CustomerDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDataHandler.h; sourceTree = "<group>"; };
+		C583E98F147E1B470094A730 /* CustomerDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDataHandler.m; sourceTree = "<group>"; };
+		C583E991147E1B680094A730 /* MJUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJUtility.h; sourceTree = "<group>"; };
+		C583E992147E1B680094A730 /* MJUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJUtility.m; sourceTree = "<group>"; };
+		C583E994147E1B7A0094A730 /* MJConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MJConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +287,7 @@
 		559504D51444B7790002EF42 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				C583E98C147E1AD50094A730 /* MJLite.db */,
 				559504D91444B8870002EF42 /* th.png */,
 			);
 			name = Res;
@@ -261,6 +296,10 @@
 		559518C11444180B0003097D /* Main App Files */ = {
 			isa = PBXGroup;
 			children = (
+				C583E991147E1B680094A730 /* MJUtility.h */,
+				C583E992147E1B680094A730 /* MJUtility.m */,
+				C583E98E147E1B470094A730 /* CustomerDataHandler.h */,
+				C583E98F147E1B470094A730 /* CustomerDataHandler.m */,
 				55995CE71438D4E20028B5FC /* TestSaleMJ2AppDelegate.h */,
 				55995CE81438D4E20028B5FC /* TestSaleMJ2AppDelegate.m */,
 				55F0740F1456290E001EC018 /* Blank.xib */,
@@ -303,6 +342,7 @@
 		55995CDE1438D4E10028B5FC /* TestSaleMJ2 */ = {
 			isa = PBXGroup;
 			children = (
+				C583E972147E1A030094A730 /* Object */,
 				559BFAED145740EA001D28EC /* Customer Tab */,
 				559BFAEB145740C4001D28EC /* Spilt Main File */,
 				559518C11444180B0003097D /* Main App Files */,
@@ -315,6 +355,7 @@
 		55995CDF1438D4E10028B5FC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C583E994147E1B7A0094A730 /* MJConfig.plist */,
 				55995CE01438D4E10028B5FC /* TestSaleMJ2-Info.plist */,
 				55995CE11438D4E20028B5FC /* InfoPlist.strings */,
 				55995CE41438D4E20028B5FC /* TestSaleMJ2-Prefix.pch */,
@@ -553,6 +594,29 @@
 			name = "Product evaluation request";
 			sourceTree = "<group>";
 		};
+		C583E972147E1A030094A730 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				C583E974147E1A720094A730 /* Customer.h */,
+				C583E975147E1A720094A730 /* Customer.m */,
+				C583E976147E1A720094A730 /* CustomerChild.h */,
+				C583E977147E1A720094A730 /* CustomerChild.m */,
+				C583E978147E1A720094A730 /* CustomerList.h */,
+				C583E979147E1A720094A730 /* CustomerList.m */,
+				C583E97A147E1A720094A730 /* CustomerMember.h */,
+				C583E97B147E1A720094A730 /* CustomerMember.m */,
+				C583E97C147E1A720094A730 /* CustomerPatient.h */,
+				C583E97D147E1A720094A730 /* CustomerPatient.m */,
+				C583E97E147E1A720094A730 /* CustomerStatus.h */,
+				C583E97F147E1A720094A730 /* CustomerStatus.m */,
+				C583E980147E1A720094A730 /* CustomerWorkPlace.h */,
+				C583E981147E1A720094A730 /* CustomerWorkPlace.m */,
+				C583E982147E1A720094A730 /* Hobby.h */,
+				C583E983147E1A720094A730 /* Hobby.m */,
+			);
+			name = Object;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -652,6 +716,8 @@
 				5501F99D145C153F00966434 /* VisitCustomerDetailPopupVCTRL.xib in Resources */,
 				5543B06714706B6C002936D8 /* CustomerTypePopoverViewCTRL.xib in Resources */,
 				5519CA8C1471849500D8C555 /* HobbyTypePopOverViewController.xib in Resources */,
+				C583E98D147E1AD50094A730 /* MJLite.db in Resources */,
+				C583E995147E1B7A0094A730 /* MJConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +760,16 @@
 				5519CA86147182FA00D8C555 /* ChildDetailViewController.m in Sources */,
 				5519CA8B1471849500D8C555 /* HobbyTypePopOverViewController.m in Sources */,
 				5519CA8F14718D0200D8C555 /* WorkPlaceDetailEditViewController.m in Sources */,
+				C583E984147E1A720094A730 /* Customer.m in Sources */,
+				C583E985147E1A720094A730 /* CustomerChild.m in Sources */,
+				C583E986147E1A720094A730 /* CustomerList.m in Sources */,
+				C583E987147E1A720094A730 /* CustomerMember.m in Sources */,
+				C583E988147E1A720094A730 /* CustomerPatient.m in Sources */,
+				C583E989147E1A720094A730 /* CustomerStatus.m in Sources */,
+				C583E98A147E1A720094A730 /* CustomerWorkPlace.m in Sources */,
+				C583E98B147E1A720094A730 /* Hobby.m in Sources */,
+				C583E990147E1B470094A730 /* CustomerDataHandler.m in Sources */,
+				C583E993147E1B680094A730 /* MJUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

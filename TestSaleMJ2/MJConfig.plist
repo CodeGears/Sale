@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SalesCode</key>
+	<string></string>
+	<key>TerritoryCode</key>
+	<string></string>
+	<key>TerritoryName</key>
+	<string></string>
+	<key>TerritoryDescription</key>
+	<string></string>
+	<key>Version</key>
+	<string>3.0.7.4</string>
+	<key>WebServicePath</key>
+	<string></string>
+	<key>SyncToServer</key>
+	<string></string>
+	<key>SyncFromServer</key>
+	<string></string>
+	<key>SyncToFromServer</key>
+	<string></string>
+	<key>CallBackTime</key>
+	<string></string>
+	<key>PurgeDay</key>
+	<string></string>
+	<key>AutoShipTo</key>
+	<string></string>
+</dict>
+</plist>

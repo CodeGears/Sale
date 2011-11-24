@@ -10,6 +10,7 @@
 
 #import "RootViewController.h"
 #import "DetailViewController.h"
+#import "MJUtility.h"
 
 @implementation TestSaleMJ2AppDelegate
 
@@ -27,6 +28,7 @@
     // Override point for customization after application launch.
     // Add the split view controller's view to the window and display.
     //self.window.rootViewController = self.splitViewController;
+    [[MJUtility sharedInstance] initializeDB];
     
     RootViewController* masterView = [[[RootViewController alloc] initWithNibName:@"TestRootView" bundle:nil] autorelease];
     DetailViewController* detailView = [[[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil] autorelease];
