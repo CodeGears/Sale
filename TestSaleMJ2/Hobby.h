@@ -11,7 +11,7 @@
 @interface Hobby : NSObject
 
 {
-    NSString* mame;
+    NSString* name;
     NSString* description;
 }
 

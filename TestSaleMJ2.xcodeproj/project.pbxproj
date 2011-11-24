@@ -111,6 +111,7 @@
 		C583E9A1147E2A470094A730 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E99C147E2A470094A730 /* FMDatabase.m */; };
 		C583E9A2147E2A470094A730 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E99E147E2A470094A730 /* FMDatabaseAdditions.m */; };
 		C583E9A3147E2A470094A730 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E9A0147E2A470094A730 /* FMResultSet.m */; };
+		C583E9A9147E53B80094A730 /* CustomerProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E9A8147E53B80094A730 /* CustomerProduct.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -265,6 +266,8 @@
 		C583E99E147E2A470094A730 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		C583E99F147E2A470094A730 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		C583E9A0147E2A470094A730 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		C583E9A7147E53B80094A730 /* CustomerProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerProduct.h; sourceTree = "<group>"; };
+		C583E9A8147E53B80094A730 /* CustomerProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerProduct.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,6 +626,8 @@
 				C583E981147E1A720094A730 /* CustomerWorkPlace.m */,
 				C583E982147E1A720094A730 /* Hobby.h */,
 				C583E983147E1A720094A730 /* Hobby.m */,
+				C583E9A7147E53B80094A730 /* CustomerProduct.h */,
+				C583E9A8147E53B80094A730 /* CustomerProduct.m */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -796,6 +801,7 @@
 				C583E9A1147E2A470094A730 /* FMDatabase.m in Sources */,
 				C583E9A2147E2A470094A730 /* FMDatabaseAdditions.m in Sources */,
 				C583E9A3147E2A470094A730 /* FMResultSet.m in Sources */,
+				C583E9A9147E53B80094A730 /* CustomerProduct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

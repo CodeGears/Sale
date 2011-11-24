@@ -29,6 +29,7 @@ static MJUtility* _sharedInstance = nil;
 -(void)dealloc{
        
     [_sharedInstance release];
+    [super dealloc];
 }
 - (NSString*)getDBPath{
     
@@ -43,11 +44,12 @@ static MJUtility* _sharedInstance = nil;
 
 -(NSDate*) convertStringDateToNSDate: (NSString*)stringDate
 {
-        [stringDate substringToIndex:10];
+       // [stringDate substringToIndex:10];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat: @"yyyy-MM-dd"];  
+    [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];  
     
     NSDate *date = [dateFormatter dateFromString:stringDate];
+    //NSLog(@"Converted %@",[date description] );
     [dateFormatter release];
     return date; 
     
@@ -67,7 +69,7 @@ static MJUtility* _sharedInstance = nil;
         
        
         
-    } return nil;
+    }else return nil;
     
 }
 

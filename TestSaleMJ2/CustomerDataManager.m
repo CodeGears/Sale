@@ -10,10 +10,16 @@
 #import "CustomerDataHandler.h"
 #import "MJUtility.h"
 #import "CustomerList.h"
-
+#import "Customer.h"
+#import "CustomerChild.h"
+#import "Hobby.h"
+#import "CustomerWorkPlace.h"
+#import "CustomerPatient.h"
+#import "CustomerProduct.h"
 @implementation ContactProfile
 
 @synthesize profileCode,name,group,isActive;
+
 
 @end
 
@@ -62,7 +68,7 @@ static CustomerDataManager* _sharedInstance = nil;
     return NSUIntegerMax;
 }
 
--(void)release{
+-(void)dealloc{
     [nameKeys release];
     [nameList release];
     
@@ -86,8 +92,10 @@ static CustomerDataManager* _sharedInstance = nil;
     [productRecommend release];
     [status release];
     [ses release];
+    //[customer release];
     
     [_sharedInstance release];
+    [super dealloc];
 }
 
 - (id)autorelease{
@@ -198,8 +206,82 @@ static CustomerDataManager* _sharedInstance = nil;
             tempProfile.group = temp1.grade;
             tempProfile.isActive = temp1.isActive;
             
-            [custhand release];
             
+            // Testing cusdetail
+         [custhand getCustomerDetailbyProfileCode:@"101345"];
+            
+            // testing Cuschild
+            NSMutableArray *a = [custhand getAllCustomerChildren:@"101802"];
+            
+            
+            for(CustomerChild *c in a ){
+                NSLog(@"%@", c.number);
+                NSLog(@"%@", c.titleName);
+                 NSLog(@"%@", c.firstName);
+                 NSLog(@"%@", c.lastName);
+                 NSLog(@"%@", c.sex);
+                 NSLog(@"%@", [c.birthDate description]);
+            }
+            // testing hobby
+            NSMutableArray *b = [custhand getAllHobbies:@"101802"];
+            
+            
+            for(Hobby *d in b ){
+                NSLog(@"%@", d.name);
+                NSLog(@"%@", d.description);
+                            }
+            // testing Cuschild
+            NSMutableArray *e = [custhand getAllWorkPlaces:@"166705"];
+            
+            
+            for(CustomerWorkPlace *f in e ){
+                NSLog(@"%@", f.hospitalName);
+                NSLog(@"%@", f.workTime);
+                NSLog(@"%@", f.department);
+                NSLog(@"%@", f.building);
+              //  NSLog(@"%@", c.sex);
+                //NSLog(@"%@", [c.birthDate description]);
+            }
+            NSMutableArray *g = [custhand getAllPatientType:@"101802"];
+            
+            
+            for(CustomerPatient *q in g ){
+                NSLog(@"%@", q.type );
+                NSLog(@"%@", q.totalBirth);
+                NSLog(@"%@", q.totalCommercial);
+               // NSLog(@"%@", q.building);
+                //  NSLog(@"%@", c.sex);
+                //NSLog(@"%@", [c.birthDate description]);
+            }
+         /*
+            // test Customer Status
+            CustomerStatus *r = [custhand getAllStatus:@"101802"];
+            if(r.Recommender)
+                NSLog(@" recommender");
+            if(r.KOL)
+                NSLog(@" kol 04");
+            if(r.PedOBDoctor)
+                NSLog(@" oedobdocter");
+ */
+            /*
+            // get call product brand
+            NSMutableArray *t = [custhand getAllProductBrand:@"101802"];
+            
+            
+            for(CustomerProduct *u in t ){
+                NSLog(@"%@", u.name );
+                NSLog(@"%@", u.code);
+                NSLog(@"%@", u.recQty);
+                // NSLog(@"%@", q.building);
+                //  NSLog(@"%@", c.sex);
+                //NSLog(@"%@", [c.birthDate description]);
+            }
+*/
+            
+            
+            [custhand release];
+            //testing
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
 /*
         
         //Temp Code
@@ -269,6 +351,8 @@ static CustomerDataManager* _sharedInstance = nil;
         [clist release];
         [blist release];
         [alist release];
+            
+        
         }
     }
     
@@ -295,6 +379,7 @@ static CustomerDataManager* _sharedInstance = nil;
 }
 
 - (NSString*) GetCustomerDetailName:(NSString*)profileCode{
+    
     _sharedInstance.customerName = @"ttttt   tttttt";
     return _sharedInstance.customerName;
 }
