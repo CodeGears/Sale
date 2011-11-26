@@ -11,6 +11,7 @@
 #import "Customer.h"
 #import "CustomerChild.h"
 #import "MJUtility.h"
+#import "CustomerStatus.h"
 
 @interface CustomerDataHandler : NSObject
 
@@ -22,8 +23,11 @@
 - (NSMutableArray*) getAllHobbies: (NSString*) profileCode;
 - (NSMutableArray*) getAllMembers: (NSString*) profileCode;
 - (NSMutableArray*) getAllWorkPlaces: (NSString*) profileCode;
-- (NSMutableArray*) getAllPatientType: (NSString*) profileCode;
-- (NSMutableArray*) getAllProductRecommendation: (NSString*) profileCode;
+- (NSMutableArray*) getAllPatientTypeLabel;
+- (NSMutableArray*) getAllPatientType:(NSString*) profileCode;
+- (CustomerStatus*) getAllStatus: (NSString*) profileCode;
+- (NSMutableArray*) getAllProductBrandLabel;
+- (NSMutableArray*) getAllProductBrand:(NSString*) profileCode;
 
 
 //- (NSString*)getDBPath;

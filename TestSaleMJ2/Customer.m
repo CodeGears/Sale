@@ -72,6 +72,8 @@
 @synthesize medium;
 @synthesize low;
 
+@synthesize EDC;
+
 - (void)dealloc
 {
     [pic release];
@@ -129,7 +131,7 @@
     [clinicfax release];
     [clinicConvenienceTime release];
     
-
+    [EDC release];
     [super dealloc];
     
 }

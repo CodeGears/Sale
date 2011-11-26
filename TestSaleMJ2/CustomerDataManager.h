@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
+
 @interface ContactProfile : NSObject {
     NSString* profileCode;
     NSString* name;
@@ -61,6 +62,7 @@
     NSArray* productRecommend;
     NSArray* status;
     NSArray* ses;
+   // Customer* customer;
 }
 
 @property (retain,nonatomic) NSArray* nameKeys;
@@ -87,6 +89,7 @@
 @property (retain,nonatomic) NSArray* productRecommend;
 @property (retain,nonatomic) NSArray* status;
 @property (retain,nonatomic) NSArray* ses;
+//@property (retain, nonatomic) Customer* customer;
 
 
 + (CustomerDataManager*)sharedInstance;

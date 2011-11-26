@@ -9,5 +9,22 @@
 #import "CustomerStatus.h"
 
 @implementation CustomerStatus
+@synthesize Recommender;
+@synthesize  RoCommPTC;
+@synthesize  DepartmentHead;
+@synthesize  KOL;
+@synthesize  EndUseer;
+@synthesize  DirecAsstDirec;
+@synthesize  PedOBNurse;
+@synthesize  PedOBDoctor;
+@synthesize  Depo;
+@synthesize PregList;
+
+
+- (void)dealloc {
+    
+    [super dealloc];
+}
+
 
 @end
