@@ -5,7 +5,7 @@
 //  Created by CRM Charity on 11/21/54 BE.
 //  Copyright (c) 2554 __MyCompanyName__. All rights reserved.
 //
-#define temp @""
+
 #import <Foundation/Foundation.h>
 #import "FMDatabase.h"
 #import "Customer.h"
@@ -28,6 +28,23 @@
 - (CustomerStatus*) getAllStatus: (NSString*) profileCode;
 - (NSMutableArray*) getAllProductBrandLabel;
 - (NSMutableArray*) getAllProductBrand:(NSString*) profileCode;
+
+// picklist Value
+- (NSMutableArray*) getAllPickListTitleName;
+- (NSMutableArray*) getAllPickListRoleName;
+- (NSMutableArray*) getAllPickListEduLevelName;
+- (NSMutableArray*) getAllPickListEduMajorName;
+- (NSMutableArray*) getAllPickListEduPlaceName;
+- (NSMutableArray*) getAllPickListMaritialStatName;
+- (NSMutableArray*) getAllPickListHHIncomeName;
+- (NSMutableArray*) getAllPickListProvince;
+- (NSMutableArray*) getAllPickListSex;
+- (NSMutableArray*) getAllPickListHobbies;
+- (NSMutableArray*) getAllPickListHospital;
+- (NSMutableArray*) getAllPickListDepartment;
+
+-(NSMutableArray*) getAllCallHistory: (NSString* )profileCode;
+-(NSMutableArray*) getAllSalesHistory: (NSString* )profileCode;
 
 
 //- (NSString*)getDBPath;

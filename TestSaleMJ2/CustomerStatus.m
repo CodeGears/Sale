@@ -21,10 +21,6 @@
 @synthesize PregList;
 
 
-- (void)dealloc {
-    
-    [super dealloc];
-}
 
 
 @end

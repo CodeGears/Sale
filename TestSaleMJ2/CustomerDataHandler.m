@@ -18,21 +18,12 @@
 #import "CustomerPatient.h"
 #import "CustomerStatus.h"
 #import "CustomerProduct.h"
+#import "CallHistory.h"
+#import "FMDatabaseAdditions.h"
+#import "SalesHistory.h"
 
+// prod_brand_code in mst_product_brand is not clean, cuscode in dst_orderdaily is not claen
 @implementation CustomerDataHandler
-
-- (id) init
-{
-    if (self = [super init])
-    {
-         }
-    return self;
-}
-
--(void)dealloc{
-    
-    [super dealloc];
-}
 
 
 
@@ -589,9 +580,9 @@
     [database open];
     NSMutableArray * array = [self getAllPatientTypeLabel];    
     //NSMutableArray * arrayLabel = [self getAllPatientTypeLabel];
-    NSString* typeTemp = [[NSString alloc] init];
-    NSString* totalBirthTemp = [[NSString alloc] init];
-    NSString* totalCommercialTemp =[[NSString alloc] init];
+    NSString* typeTemp;
+    NSString* totalBirthTemp;
+    NSString* totalCommercialTemp;
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT  patient_type_name , total_commercial , total_potential from mst_patient_type  LEFT OUTER JOIN txn_customer_patient ON txn_customer_patient.patient_type_code = mst_patient_type.patient_type_code  where txn_customer_patient.profile_code = '%@' ORDER BY  mst_patient_type.patient_type_code" , profileCode]];
@@ -623,9 +614,9 @@
     
     
     [database close];
-    [typeTemp release];
-    [totalBirthTemp release];
-    [totalCommercialTemp release];
+    //[typeTemp release];
+    //[totalBirthTemp release];
+    //[totalCommercialTemp release];
     
     
     return array;
@@ -633,7 +624,7 @@
     
 }
 
-// get real record to update the list, return in form of Customer Status
+//////// get real record to update the list, return in form of Customer Status
 
 - (CustomerStatus*) getAllStatus: (NSString*) profileCode{
    
@@ -652,8 +643,10 @@
     cp.PedOBDoctor = FALSE;
     cp.Depo = FALSE;
     cp.PregList = FALSE;
+    
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT status_code from txn_customer_status  where profile_code ='%@' ORDER BY status_code" , profileCode]];
-    NSString* temp1 = [[NSString alloc] init];
+    NSString* temp1;
+    
     while([results next]) 
         
     {
@@ -681,10 +674,10 @@
             cp.PregList = TRUE;
         }
             
-            
+          
                 
-    } 
-    [temp1 release];
+    }
+    //[temp1 release];
     [database close];
     return cp;
 
@@ -697,26 +690,27 @@
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
     NSMutableArray * array = [[NSMutableArray alloc]init ];
-           
+        
     FMResultSet *results = [database executeQuery:@"SELECT DISTINCT mpb.prod_brand_name,mpb.prod_brand_code  FROM mst_product_brand mpb INNER JOIN Mst_patient_type mpt ON mpb.patient_type_code = mpt.patient_type_code WHERE mpb.is_recomment = 'Y' ORDER BY mpb.patient_type_code ASC "];
     
     while([results next]) 
         
-    {CustomerProduct *cp = [[CustomerProduct alloc]init];
-
+    {
+        CustomerProduct *cp = [[CustomerProduct alloc]init];  
         cp.name = [results stringForColumn:@"prod_brand_name"];
         cp.code = [results stringForColumn:@"prod_brand_code"];
         cp.recQty = @"0";
         
         [array addObject:cp];
-        [cp release];  
+          [cp release];
     } 
+    
     [database close];
     return array;
     
     
 }
-// return in form of Array of CustomerProduct 
+//////// return in form of Array of CustomerProduct 
 
 - (NSMutableArray*) getAllProductBrand:(NSString*) profileCode 
 {    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -724,21 +718,25 @@
     NSMutableArray * array = [self getAllProductBrandLabel];
    // =      NSString *temp2 = [[NSString alloc] init];                       
     
-    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT prod_brand_code ,Recommended_qty from txn_customer_product WHERE profile_code = '%@'", profileCode]];
-    
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT TRIM(prod_brand_code) ,recommended_qty from txn_customer_product WHERE profile_code = '%@'", profileCode]];
+    NSString *temp1;     
+    NSString *temp2;  
     while([results next]) 
         
     {
-         NSString *temp1 = [results stringForColumn:@"prod_brand_code"];
-        NSString *temp2 = [results stringForColumn:@"Recommended_qty"];
+         temp1 = [results stringForColumn:@"prod_brand_code"];
+         temp2 = [results stringForColumn:@"recommended_qty"];
+         //temp1 = [temp1 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+         //temp2 = [temp2 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         for(CustomerProduct *cp in array)
         {
-            if([cp.code isEqualToString: temp1])
-                cp.recQty = [NSString stringWithFormat:@"%@", temp2];
+            if([[NSString stringWithFormat:@"%@", temp1] isEqualToString: cp.code])
+                cp.recQty  = temp2;
         }
         
     } 
-    
+  //  [temp1 release];
+    //[temp2 release];
     [database close];
     
     return array;
@@ -747,9 +745,440 @@
 
     
 }
+//*********************************** Pick List Value **************************************************
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListTitleName{
+    
+   
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+        [database open];
+        NSMutableArray * array = [NSMutableArray array];
+        // =      NSString *temp2 = [[NSString alloc] init];                       
+        
+        FMResultSet *results = [database executeQuery:@"SELECT tname FROM mst_title_name"];
+        
+        while([results next]) 
+            
+        {
+             [array addObject:[results stringForColumn:@"tname"]];
+            
+            
+        } 
+        
+        [database close];
+         
+        return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListRoleName{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+ //   NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT ocup_name FROM mst_occupation ORDER BY ocup_code"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"ocup_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListEduLevelName{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+  //  NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT edu_level_name FROM mst_edu_level"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"edu_level_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListEduMajorName{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT edu_major_name FROM mst_edu_major"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"edu_major_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListEduPlaceName{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT edu_place_name FROM mst_edu_place"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"edu_place_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListMaritialStatName{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+  //  NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT marry_status_name FROM mst_marry_status"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"marry_status_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListHHIncomeName{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT hhi_name FROM mst_house_hold_income"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"hhi_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListProvince{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+   // NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT province_name FROM mst_province ORDER BY province_name"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"province_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListSex{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+   // NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT sex_name FROM mst_sex"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"sex_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListHobbies{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT lifestyle_name FROM mst_lifestyle"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"lifestyle_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListHospital{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+   // NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT hospital_name FROM txn_hospital"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"hospital_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return All picklist value in Array of NSString
+- (NSMutableArray*) getAllPickListDepartment{
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT department_name FROM mst_department"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"department_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
 
 
 
+//************************************* Call history ***********************************
+// return in form of Array of CallHistory
+-(NSMutableArray*) getAllCallHistory: (NSString* )profileCode{
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
 
+  //  NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"select tc.call_no, tc.call_date , tccp.call_product_code, tccp.call_objective_code ,tccp.call_result_code, tccp.call_complaint_code, tccp.call_sample , tcc.remark FROM txn_call_customer_product tccp, txn_call_customer tcc , txn_call tc WHERE tc.call_no = tcc.call_no AND tcc.call_no = tccp.call_no AND tcc.seq = tccp.seq AND tcc.profile_code = '%@' AND tcc.is_visit = 'Y'",profileCode ]];
+    
+    while([results next]) 
+        
+    {   CallHistory *callhist = [[CallHistory alloc] init];
+        callhist.number = [results stringForColumn:[NSString stringWithFormat:@"call_no"]];
+        callhist.date = [results stringForColumn:[NSString stringWithFormat:@"call_date"]];
+        callhist.product = [results stringForColumn:[NSString stringWithFormat:@"call_product_code"]];
+    
+        callhist.objective = [results stringForColumn:[NSString stringWithFormat:@"call_objective_code"]];
+        callhist.result =   [results stringForColumn:[NSString stringWithFormat:@"call_result_code"]];
+        callhist.complaint = [results stringForColumn:[NSString stringWithFormat:@"call_complain_code"]];
+        callhist.sample = [results stringForColumn:[NSString stringWithFormat:@"call_sample"]];
+        callhist.remark = [results stringForColumn:[NSString stringWithFormat:@"remark"]];
+
+        [array addObject: callhist];
+        
+        [callhist release];
+    }
+ 
+    for(CallHistory *ch in array){
+        ch.product = [database stringForQuery:[NSString stringWithFormat:@"select prod_brand_name from mst_product_brand Where prod_brand_code = '%@'",ch.product]];
+        ch.objective = [database stringForQuery:[NSString stringWithFormat:@"select call_objective_name from mst_call_objective Where call_objective_code = '%@'",ch.objective]];
+        ch.result = [database stringForQuery:[NSString stringWithFormat:@"select call_result_name from mst_call_result Where call_result_code = '%@'",ch.result]];
+        ch.complaint = [database stringForQuery:[NSString stringWithFormat:@"select call_complaint_name from mst_call_complaint Where call_complaint_code = '%@'",ch.complaint]];
+    
+        
+    }
+     
+       [database close];
+    return array;
+}
+
+
+//************************************* Sales history ***********************************
+// return in form of Array of SalesHistory
+-(NSMutableArray*) getAllSalesHistoryInvoice: (NSString* )custCode1 and: (NSString* )custCode2  and:(NSString* )custCode3 {
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    //  NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT docdate,ordno,edesc,qty,price, free,netwr FROM dst_orderdaily, dst_product WHERE TRIM(dst_product.matnr) = TRIM(dst_orderdaily.prdcode) AND TRIM(cuscode)  in ('%@','%@', '%@') ORDER BY docdate DESC ",custCode1,custCode2,custCode3 ]];
+    
+    while([results next]) 
+        
+    {   SalesHistory *saleshist = [[SalesHistory alloc] init];
+        
+        saleshist.number = [results stringForColumn:[NSString stringWithFormat:@"ordno"]];
+        saleshist.date = [results stringForColumn:[NSString stringWithFormat:@"docdate"]];
+        saleshist.product = [results stringForColumn:[NSString stringWithFormat:@"edesc"]];
+        saleshist.unitPrice = [results stringForColumn:[NSString stringWithFormat:@"price"]];
+        saleshist.quantity = [results stringForColumn:[NSString stringWithFormat:@"qty"]];
+        saleshist.amount =   [results stringForColumn:[NSString stringWithFormat:@"netwr"]];
+        saleshist.free = [results stringForColumn:[NSString stringWithFormat:@"free"]];
+      //  saleshist.sample = [results stringForColumn:[NSString stringWithFormat:@"call_sample"]];
+      //  saleshist.remark = [results stringForColumn:[NSString stringWithFormat:@"remark"]];
+        
+        [array addObject: saleshist];
+        
+        [saleshist release];
+    }
+    
+     
+    [database close];
+    return array;
+}
+// return in form of Array of SalesHistory
+-(NSMutableArray*) getAllSalesHistoryBackOrder: (NSString* )custCode1 and: (NSString* )custCode2  and:(NSString* )custCode3 {
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    //  NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT docdate,ordno,edesc,qty,price, free,netwr,TRIM(relate) FROM dst_backorder, dst_product WHERE TRIM(dst_product.matnr) = TRIM(dst_backorder.prdcode) AND TRIM(cuscode)  in ('%@','%@', '%@') ORDER BY docdate DESC ",custCode1,custCode2,custCode3 ]];
+    
+    while([results next]) 
+        
+    {   SalesHistory *saleshist = [[SalesHistory alloc] init];
+        
+        saleshist.number = [results stringForColumn:[NSString stringWithFormat:@"ordno"]];
+        saleshist.date = [results stringForColumn:[NSString stringWithFormat:@"docdate"]];
+        saleshist.product = [results stringForColumn:[NSString stringWithFormat:@"edesc"]];
+        saleshist.unitPrice = [results stringForColumn:[NSString stringWithFormat:@"price"]];
+        saleshist.quantity = [results stringForColumn:[NSString stringWithFormat:@"qty"]];
+        saleshist.amount =   [results stringForColumn:[NSString stringWithFormat:@"netwr"]];
+        saleshist.free = [results stringForColumn:[NSString stringWithFormat:@"free"]];
+        saleshist.reason = [results stringForColumn:[NSString stringWithFormat:@"relate"]];
+        //  saleshist.sample = [results stringForColumn:[NSString stringWithFormat:@"call_sample"]];
+        //  saleshist.remark = [results stringForColumn:[NSString stringWithFormat:@"remark"]];
+        
+        [array addObject: saleshist];
+        
+        [saleshist release];
+    }
+    for(SalesHistory *ch in array){
+        ch.reason = [database stringForQuery:[NSString stringWithFormat:@"select reason_name from mst_foc_reason Where reason_code = '%@' WHERE active = 'Y'",ch.reason]];
+        
+    }
+    
+    
+    [database close];
+    return array;
+}
 
 @end

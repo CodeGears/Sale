@@ -16,6 +16,7 @@
 #import "CustomerWorkPlace.h"
 #import "CustomerPatient.h"
 #import "CustomerProduct.h"
+
 @implementation ContactProfile
 
 @synthesize profileCode,name,group,isActive;
@@ -222,6 +223,7 @@ static CustomerDataManager* _sharedInstance = nil;
                  NSLog(@"%@", c.sex);
                  NSLog(@"%@", [c.birthDate description]);
             }
+            
             // testing hobby
             NSMutableArray *b = [custhand getAllHobbies:@"101802"];
             
@@ -242,6 +244,7 @@ static CustomerDataManager* _sharedInstance = nil;
               //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
             }
+            
             NSMutableArray *g = [custhand getAllPatientType:@"101802"];
             
             
@@ -253,7 +256,8 @@ static CustomerDataManager* _sharedInstance = nil;
                 //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
             }
-         /*
+             
+         
             // test Customer Status
             CustomerStatus *r = [custhand getAllStatus:@"101802"];
             if(r.Recommender)
@@ -262,8 +266,8 @@ static CustomerDataManager* _sharedInstance = nil;
                 NSLog(@" kol 04");
             if(r.PedOBDoctor)
                 NSLog(@" oedobdocter");
- */
-            /*
+ 
+            
             // get call product brand
             NSMutableArray *t = [custhand getAllProductBrand:@"101802"];
             
@@ -276,8 +280,7 @@ static CustomerDataManager* _sharedInstance = nil;
                 //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
             }
-*/
-            
+                     
             
             [custhand release];
             //testing

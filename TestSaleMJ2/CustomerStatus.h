@@ -22,16 +22,16 @@
     
 }
 
-@property (nonatomic)BOOL Recommender;
-@property (nonatomic) BOOL RoCommPTC;
-@property (nonatomic) BOOL DepartmentHead;
-@property (nonatomic) BOOL KOL;
-@property (nonatomic) BOOL EndUseer;
-@property (nonatomic) BOOL DirecAsstDirec;
-@property (nonatomic)BOOL PedOBNurse;
-@property (nonatomic)BOOL PedOBDoctor;
-@property (nonatomic)BOOL Depo;
-@property (nonatomic) BOOL PregList;
+@property (nonatomic,assign,readwrite)BOOL Recommender;
+@property (nonatomic,assign,readwrite) BOOL RoCommPTC;
+@property (nonatomic,assign,readwrite) BOOL DepartmentHead;
+@property (nonatomic,assign,readwrite) BOOL KOL;
+@property (nonatomic,assign,readwrite) BOOL EndUseer;
+@property (nonatomic,assign,readwrite) BOOL DirecAsstDirec;
+@property (nonatomic,assign, readwrite)BOOL PedOBNurse;
+@property (nonatomic,assign, readwrite)BOOL PedOBDoctor;
+@property (nonatomic,assign, readwrite)BOOL Depo;
+@property (nonatomic,assign , readwrite) BOOL PregList;
 
 
 
