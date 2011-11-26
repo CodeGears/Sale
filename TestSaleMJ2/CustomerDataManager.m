@@ -16,6 +16,7 @@
 #import "CustomerWorkPlace.h"
 #import "CustomerPatient.h"
 #import "CustomerProduct.h"
+
 @implementation ContactProfile
 
 @synthesize profileCode,name,group,isActive;
@@ -193,8 +194,8 @@ static CustomerDataManager* _sharedInstance = nil;
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         //Test 
-        CustomerDataHandler *custhand = [[CustomerDataHandler alloc]init];
-        NSArray *customerArray = [custhand getCustometListByType:@"All Profile"];
+       // CustomerDataHandler *custhand = [[CustomerDataHandler alloc]init];
+        NSArray *customerArray = [[CustomerDataHandler sharedInstance] getCustometListByType:@"All Profile"];
         if ([customerArray count] >0){
             CustomerList *temp1 = [customerArray objectAtIndex: 0 ]; 
             
@@ -208,10 +209,10 @@ static CustomerDataManager* _sharedInstance = nil;
             
             
             // Testing cusdetail
-         [custhand getCustomerDetailbyProfileCode:@"101345"];
+         [[CustomerDataHandler sharedInstance] getCustomerDetailbyProfileCode:@"101345"];
             
             // testing Cuschild
-            NSMutableArray *a = [custhand getAllCustomerChildren:@"101802"];
+            NSMutableArray *a = [[CustomerDataHandler sharedInstance] getAllCustomerChildren:@"101802"];
             
             
             for(CustomerChild *c in a ){
@@ -222,8 +223,9 @@ static CustomerDataManager* _sharedInstance = nil;
                  NSLog(@"%@", c.sex);
                  NSLog(@"%@", [c.birthDate description]);
             }
+            
             // testing hobby
-            NSMutableArray *b = [custhand getAllHobbies:@"101802"];
+            NSMutableArray *b = [[CustomerDataHandler sharedInstance] getAllHobbies:@"101802"];
             
             
             for(Hobby *d in b ){
@@ -231,7 +233,7 @@ static CustomerDataManager* _sharedInstance = nil;
                 NSLog(@"%@", d.description);
                             }
             // testing Cuschild
-            NSMutableArray *e = [custhand getAllWorkPlaces:@"166705"];
+            NSMutableArray *e = [[CustomerDataHandler sharedInstance]getAllWorkPlaces:@"166705"];
             
             
             for(CustomerWorkPlace *f in e ){
@@ -242,7 +244,8 @@ static CustomerDataManager* _sharedInstance = nil;
               //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
             }
-            NSMutableArray *g = [custhand getAllPatientType:@"101802"];
+            
+            NSMutableArray *g = [[CustomerDataHandler sharedInstance] getAllPatientType:@"101802"];
             
             
             for(CustomerPatient *q in g ){
@@ -253,19 +256,20 @@ static CustomerDataManager* _sharedInstance = nil;
                 //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
             }
-         /*
+             
+         
             // test Customer Status
-            CustomerStatus *r = [custhand getAllStatus:@"101802"];
+            CustomerStatus *r = [[CustomerDataHandler sharedInstance] getAllStatus:@"101802"];
             if(r.Recommender)
                 NSLog(@" recommender");
             if(r.KOL)
                 NSLog(@" kol 04");
             if(r.PedOBDoctor)
                 NSLog(@" oedobdocter");
- */
-            /*
+ 
+            
             // get call product brand
-            NSMutableArray *t = [custhand getAllProductBrand:@"101802"];
+            NSMutableArray *t = [[CustomerDataHandler sharedInstance] getAllProductBrand:@"101802"];
             
             
             for(CustomerProduct *u in t ){
@@ -276,10 +280,9 @@ static CustomerDataManager* _sharedInstance = nil;
                 //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
             }
-*/
+                     
             
-            
-            [custhand release];
+           // [custhand release];
             //testing
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    
 /*
@@ -364,13 +367,13 @@ static CustomerDataManager* _sharedInstance = nil;
 - (NSArray*) GetCustomerType{
     
     // stk add
-    CustomerDataHandler *customerHandler = [[CustomerDataHandler alloc] init] ;
+    //CustomerDataHandler *customerHandler = [[CustomerDataHandler alloc] init] ;
     
     if (_sharedInstance.customerType == nil) {
-        _sharedInstance.customerType = [customerHandler getAllCustomerType];
+        _sharedInstance.customerType = [[CustomerDataHandler sharedInstance] getAllCustomerType];
     }
     // stk add
-    [customerHandler release];
+    //[customerHandler release];
     return _sharedInstance.customerType;}
 
 
