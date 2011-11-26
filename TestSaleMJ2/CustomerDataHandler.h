@@ -14,7 +14,7 @@
 #import "CustomerStatus.h"
 
 @interface CustomerDataHandler : NSObject
-
++ (CustomerDataHandler*)sharedInstance;
 // Customer detail View
 - (NSMutableArray*)getAllCustomerType;
 
@@ -66,18 +66,15 @@
 - (NSMutableArray*) getAllPickListDepartment;
 
 // Call history and Sales History
-
-// return in form of Array of CallHistory
 -(NSMutableArray*) getAllCallHistory: (NSString* )profileCode;
 
+// return in form of Array of CallHistory
+-(NSMutableArray*) getAllSalesHistoryInvoice: (NSString* )custCode1 and: (NSString* )custCode2  and:(NSString* )custCode3;
+
 // return in form of Array of SalesHistory
--(NSMutableArray*) getAllSalesHistory: (NSString* )profileCode;
+-(NSMutableArray*) getAllSalesHistoryBackOrder: (NSString* )custCode1 and: (NSString* )custCode2  and:(NSString* )custCode3;
 
 
-//- (NSString*)getDBPath;
-//- (Customer*)getCustometListByType:(NSString*) type;
-//- ()getCustomerListByType: (NSString* )
-
-// get all customer workplace return in form of Array of CustomerWorkPlace
-
+-(BOOL) updateCustomerDetail:(Customer*) customer;
+//-(BOOL) updateCustomerGPS:(NSString*) profileCode withLat: (NSString*) latitute withLong:(NSString*) longtitute ;
 @end

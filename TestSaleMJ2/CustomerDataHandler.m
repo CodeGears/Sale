@@ -25,7 +25,25 @@
 // prod_brand_code in mst_product_brand is not clean, cuscode in dst_orderdaily is not claen
 @implementation CustomerDataHandler
 
+static CustomerDataHandler* _sharedInstance = nil;
 
+#pragma mark- Singleton method
++ (id) sharedInstance{
+    @synchronized(self){
+        if (_sharedInstance == nil) {
+            _sharedInstance = [[[self class] alloc] init];
+            
+        }
+    }
+    return _sharedInstance;
+}
+
+
+-(void)dealloc{
+    
+    [_sharedInstance release];
+    [super dealloc];
+}
 
 
 
@@ -724,7 +742,7 @@
     while([results next]) 
         
     {
-         temp1 = [results stringForColumn:@"prod_brand_code"];
+         temp1 = [results stringForColumn:@"TRIM(prod_brand_code)"];
          temp2 = [results stringForColumn:@"recommended_qty"];
          //temp1 = [temp1 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
          //temp2 = [temp2 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -1163,7 +1181,7 @@
         saleshist.quantity = [results stringForColumn:[NSString stringWithFormat:@"qty"]];
         saleshist.amount =   [results stringForColumn:[NSString stringWithFormat:@"netwr"]];
         saleshist.free = [results stringForColumn:[NSString stringWithFormat:@"free"]];
-        saleshist.reason = [results stringForColumn:[NSString stringWithFormat:@"relate"]];
+        saleshist.reason = [results stringForColumn:[NSString stringWithFormat:@"TRIM(relate)"]];
         //  saleshist.sample = [results stringForColumn:[NSString stringWithFormat:@"call_sample"]];
         //  saleshist.remark = [results stringForColumn:[NSString stringWithFormat:@"remark"]];
         
@@ -1179,6 +1197,122 @@
     
     [database close];
     return array;
+}
+
+// *****************************************Update***********************************************
+
+-(BOOL) updateCustomerDetail:(Customer*) customer
+{
+        
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    /*
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT photo,ocup_code, cust_tname, cust_fname, cust_lname, profile_code, customer_code1,customer_code2,customer_code3,email,phone,sex, bdate, idno,latitude,longitude, Position_date, edu_level_code, edu_major_code, edu_place_code, marry_status_code, spouse_tname, spouse_fname, spouse_lname, spouse_bdate,hhi_code,edc_date from txn_customer WHERE is_active = 'Y' AND profile_code = '%@' ", profileCode]];
+    */
+    
+   // customer.pic= [results dataForColumn: @"photo"];
+    //NSString *ocup_code = [results stringForColumn:@"ocup_code"]
+   
+    customer.role = [customer.role stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.role = [database stringForQuery:[NSString stringWithFormat: @"SELECT ocup_code FROM Mst_occupation WHERE TRIM(ocup_name) = '%@'",customer.role]];
+    
+    customer.sex  = [customer.sex stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.sex = [database stringForQuery:[NSString stringWithFormat: @"SELECT sex_code FROM Mst_sex WHERE TRIM(sex_name) = '%@'",customer.sex]];
+    
+    customer.educationLevel  = [customer.educationLevel stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.educationLevel= [database stringForQuery:[NSString stringWithFormat: @"SELECT edu_level_code FROM Mst_edu_level WHERE TRIM(edu_level_name) = '%@'",customer.educationLevel]];
+    
+    customer.educationMajor= [customer.educationMajor stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.educationMajor= [database stringForQuery:[NSString stringWithFormat: @"SELECT edu_major_code FROM Mst_edu_major WHERE TRIM(edu_major_name) = '%@'",customer.educationMajor]];
+    
+    customer.educationPlace  = [customer.educationPlace stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.educationPlace= [database stringForQuery:[NSString stringWithFormat: @"SELECT edu_place_code FROM Mst_edu_place WHERE TRIM(edu_place_name) = '%@'",customer.educationPlace]];
+
+    customer.maritialStat  = [customer.maritialStat stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.maritialStat= [database stringForQuery:[NSString stringWithFormat: @"SELECT marry_status_code FROM mst_marry_status WHERE TRIM(marry_status_name) = '%@'",customer.maritialStat]];
+    
+    customer.hhIncome  = [customer.hhIncome stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.hhIncome= [database stringForQuery:[NSString stringWithFormat: @"SELECT hhi_name FROM mst_house_hold_income WHERE TRIM(hhi_name) = '%@'",customer.hhIncome]];
+   
+    // update customer detail 
+   BOOL boolean1 = [database executeUpdate:@"update txn_customer SET photo = ? ,ocup_code = ?, cust_tname = ?, cust_fname = ? , cust_lname = ?, customer_code1 =?,customer_code2 =? ,customer_code3 = ? ,email = ?,phone = ? ,sex = ? , bdate = ? , idno =?, edu_level_code = ? , edu_major_code = ? , edu_place_code = ? , marry_status_code = ?, spouse_tname = ?, spouse_fname = ?, spouse_lname = ? , spouse_bdate = ?,hhi_code = ?,edc_date = ?, update_date = CURRENT_TIMESTAMP ,update_by = ?  WHERE profile_code = ?", customer.pic , customer.role,customer.titleName, customer.firstName,customer.lastName,customer.customerCode1,customer.customerCode2,customer.customerCode3, customer.email,customer.telephone ,customer.sex,customer.birthDay ,customer.idNumber ,customer.educationLevel,customer.educationMajor,customer.educationPlace,customer.maritialStat,customer.spouseTitleName,customer.spouseFirstName,customer.spouseLastName,customer.spousebirthdate, customer.hhIncome, customer.EDC, [[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"], customer.profileCode];
+
+    if(boolean1 == FALSE)
+    {
+        return FALSE;
+    }
+    // prep home province data
+    customer.homeProvince  = [customer.homeProvince stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.homeProvince = [database stringForQuery:[NSString stringWithFormat: @"SELECT province_code FROM mst_province WHERE TRIM(province_name) = '%@'",customer.homeProvince]];
+
+    
+    // update customer clinic addr 
+    BOOL boolean2 = [database executeUpdate:@"update txn_customer_addr SET addr1 = ? , addr2 = ? , sub_district = ?, district= ?, province =?, zip = ? ,  phone = ?,    phone_ext = ?, fax = ?, contact_time = ?  WHERE profile_code = ? AND address_type = 1",customer.homeAddress1, customer.homeAddress2 ,customer.homeSubDistrict ,customer.homeDistrict ,customer.homeProvince , customer.homeZip,customer.homePhone,customer.homeExt,customer.homefax,customer.homeConvenienceTime, customer.profileCode];
+    
+    
+    if(boolean2 == FALSE)
+    {
+        return FALSE;
+    }
+    
+    // prep clinic province data
+    customer.clinicProvince  = [customer.clinicProvince stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.clinicProvince = [database stringForQuery:[NSString stringWithFormat: @"SELECT province_code FROM mst_province WHERE TRIM(province_name) = '%@'",customer.clinicProvince]];
+    
+    
+    // update customer home addr 
+    BOOL boolean3 = [database executeUpdate:@"update txn_customer_addr SET addr1 = ? , addr2 = ? , sub_district = ?, district= ?, province =?, zip = ? ,  phone = ?,    phone_ext = ?, fax = ?, contact_time = ?  WHERE profile_code = ? AND address_type = 2",customer.clinicAddress1, customer.clinicAddress2 ,customer.clinicSubDistrict ,customer.clinicDistrict ,customer.clinicProvince , customer.clinicZip,customer.clinicPhone,customer.clinicExt,customer.clinicfax,customer.clinicConvenienceTime, customer.profileCode];
+    
+    
+    if(boolean3 == FALSE)
+    {
+        return FALSE;
+    }
+    
+    /*
+    // prep business data to update
+    NSString *emerald;
+    NSString *sapphire;
+    if(customer.emerald)
+        emerald = @"01";
+    if(customer.sapphire)
+        sapphire = @"02";
+    
+    // update data
+    BOOL boolean4 = [database executeUpdate:@"update txn_customer_business SET addr1 = ? , addr2 = ? , sub_district = ?, district= ?, province =?, zip = ? ,  phone = ?,    phone_ext = ?, fax = ?, contact_time = ?  WHERE profile_code = ? AND address_type = 2",customer.clinicAddress1, customer.clinicAddress2 ,customer.clinicSubDistrict ,customer.clinicDistrict ,customer.clinicProvince , customer.clinicZip,customer.clinicPhone,customer.clinicExt,customer.clinicfax,customer.clinicConvenienceTime, customer.profileCode];
+     */
+    
+    
+    // delete existing and insert new 
+    if(customer.high || customer.medium || customer.low){
+        [database executeUpdate:@"delete FROM txn_customer_ses WHERE profile_code = ?",customer.profileCode];
+    
+    // find max doc_num 
+    
+        NSString *max = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+
+    
+        if(customer.high){
+        
+        [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",max,customer.profileCode,@"01"];
+        }
+        if(customer.medium)
+        {
+        
+        [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",max,customer.profileCode,@"02"];
+        }
+        if(customer.low){
+        
+        [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",max,customer.profileCode,@"03"];
+        }
+       
+    }
+    
+    return TRUE;    
+    
+    
+    [database close];
 }
 
 @end
