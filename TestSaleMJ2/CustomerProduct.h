@@ -17,7 +17,7 @@
 
 @property(nonatomic, retain) NSString *name;
 
-@property(nonatomic, retain) NSString *code;
+@property(nonatomic, retain,readwrite) NSString *code;
 @property(nonatomic,retain) NSString *recQty;
 
 

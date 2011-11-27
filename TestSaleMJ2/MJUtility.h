@@ -15,6 +15,7 @@
 -(NSDate*) convertStringDateToNSDate: (NSString*)stringDate;
 -(NSString*)convertNSDateToString: (NSDate*) date;
 - (UIImage*)convertNSDataToUIImage: (NSData*) data;
+- (NSString* )convertBooleanToY: (BOOL) boolean;
 -(void) initializeDB;
 -(NSString*) getMJConfigInfo: (NSString*) key;
 -(NSString*) getPicklistValueFromTable: (NSString*) table resultColumn: (NSString*) resCol codeColumn:(NSString*) codeCol code: (NSString*) code; 

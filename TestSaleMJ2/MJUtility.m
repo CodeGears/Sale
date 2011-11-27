@@ -61,8 +61,8 @@ static MJUtility* _sharedInstance = nil;
         FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
         
         [database open];
-        
-        NSString* result = [database stringForQuery:[NSString stringWithFormat: @"select %@ from %@ WHERE %@ = '%@'", resCol, table, codeCol, code  ]];
+        code = [code stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString* result = [database stringForQuery:[NSString stringWithFormat: @"select %@ from %@ WHERE TRIM(%@) = '%@'", resCol, table, codeCol, code  ]];
        
          [database close];
         return result;
@@ -91,6 +91,13 @@ static MJUtility* _sharedInstance = nil;
     return image;
 }
 
+- (NSString* )convertBooleanToY: (BOOL) boolean
+{
+    if(boolean)
+    {
+      return @"Y";
+    }else return nil;
+}
 -(NSString*) getMJConfigInfo: (NSString*) key{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
@@ -198,5 +205,6 @@ static MJUtility* _sharedInstance = nil;
     // [configFinalPath release];
     
 }
+
 
 @end
