@@ -360,8 +360,9 @@
 		55995CDE1438D4E10028B5FC /* TestSaleMJ2 */ = {
 			isa = PBXGroup;
 			children = (
+				C5737C6A148294CF00025C78 /* OtherObject */,
 				C583E99A147E2A230094A730 /* FMDB */,
-				C583E972147E1A030094A730 /* Object */,
+				C583E972147E1A030094A730 /* CustomerObject */,
 				559BFAED145740EA001D28EC /* Customer Tab */,
 				559BFAEB145740C4001D28EC /* Spilt Main File */,
 				559518C11444180B0003097D /* Main App Files */,
@@ -613,7 +614,14 @@
 			name = "Product evaluation request";
 			sourceTree = "<group>";
 		};
-		C583E972147E1A030094A730 /* Object */ = {
+		C5737C6A148294CF00025C78 /* OtherObject */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = OtherObject;
+			sourceTree = "<group>";
+		};
+		C583E972147E1A030094A730 /* CustomerObject */ = {
 			isa = PBXGroup;
 			children = (
 				C583E974147E1A720094A730 /* Customer.h */,
@@ -639,7 +647,7 @@
 				C5C754791480B984007154F1 /* SalesHistory.h */,
 				C5C7547A1480B984007154F1 /* SalesHistory.m */,
 			);
-			name = Object;
+			name = CustomerObject;
 			sourceTree = "<group>";
 		};
 		C583E99A147E2A230094A730 /* FMDB */ = {

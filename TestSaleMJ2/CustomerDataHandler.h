@@ -12,7 +12,10 @@
 #import "CustomerChild.h"
 #import "MJUtility.h"
 #import "CustomerStatus.h"
-
+@class CustomerChild;
+@class Hobby;
+@class CustomerWorkPlace;
+@class CustomerPatient;
 @interface CustomerDataHandler : NSObject
 + (CustomerDataHandler*)sharedInstance;
 // Customer detail View
@@ -51,7 +54,7 @@
 // return in form of Array of CustomerProduct 
 - (NSMutableArray*) getAllProductBrand:(NSString*) profileCode;
 
-// picklist Value
+// picklist Value for using when editing 
 - (NSMutableArray*) getAllPickListTitleName;
 - (NSMutableArray*) getAllPickListRoleName;
 - (NSMutableArray*) getAllPickListEduLevelName;
@@ -62,7 +65,9 @@
 - (NSMutableArray*) getAllPickListProvince;
 - (NSMutableArray*) getAllPickListSex;
 - (NSMutableArray*) getAllPickListHobbies;
-- (NSMutableArray*) getAllPickListHospital;
+
+// **this will return the rest of hospital that not hae in workplace list
+- (NSMutableArray*) getAllPickListHospitalfor:(NSString*) profileCode;
 - (NSMutableArray*) getAllPickListDepartment;
 
 // Call history and Sales History
@@ -74,7 +79,53 @@
 // return in form of Array of SalesHistory
 -(NSMutableArray*) getAllSalesHistoryBackOrder: (NSString* )custCode1 and: (NSString* )custCode2  and:(NSString* )custCode3;
 
+///***************************** UPDATE *********************************
 
+//Customer Detail
+
+// return False if have a problem to insert to database
 -(BOOL) updateCustomerDetail:(Customer*) customer;
-//-(BOOL) updateCustomerGPS:(NSString*) profileCode withLat: (NSString*) latitute withLong:(NSString*) longtitute ;
+
+// new customer 
+-(BOOL) newCustomerDetail:(Customer*) customer;
+
+// return nil if cannot insert to table , if succeed return last updated date
+-(NSDate*) updateCustomerGPSProfileCode:(NSString*) profileCode withLat: (NSString*) latitute withLong:(NSString*) longtitute;
+
+
+//Customer Child
+
+- (BOOL) updateCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode;
+    
+- (BOOL) deleteCustomerChildByChildNumber: (NSString*) childNumber withProfileCode: (NSString*) profileCode;
+
+// new customer child 
+- (BOOL) newCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode;
+
+// Customer Hobbies
+- (BOOL) updateCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode;
+
+- (BOOL) deleteCustomerHobbyByHobbyName: (NSString*) hobbyName withProfileCode: (NSString*) profileCode;
+
+- (BOOL) newCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode;
+
+// update customer workplace // cannot update hospital name
+- (BOOL) updateCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode;
+
+// update customer workplace // cannot update hospital name
+- (BOOL) newCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode;
+
+// delete customer Workplace
+- (BOOL) deleteCustomerWorkPlaceByHospitalName: (NSString*) hospitalName withProfileCode: (NSString*) profileCode;
+
+//update customer patient ** recieve NSMutableArray of Customer Patients 
+- (BOOL) updateCustomerPatientwith: (NSMutableArray*) cp withProfileCode:(NSString*) profileCode;
+
+- (BOOL) updateCustomerStatus: (CustomerStatus*) customerStatus withProfileCode:(NSString*) profileCode
+
+//chweck validity of Patient and productrecommend
+- (BOOL) checkValidityPatient: (NSMutableArray*) cpArray withProductRecommend: (NSMutableArray*) prArray;
+
+//update customer patient ** recieve NSMutableArray of Customer Products
+- (BOOL) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode;
 @end

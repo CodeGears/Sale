@@ -40,6 +40,50 @@ static MJUtility* _sharedInstance = nil;
     
 }
 
+// for supporting saving transactin to txn_list 
+-(BOOL) checkInTxn: (NSString*) txn_no type: (NSString*) type{
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    txn_no = [txn_no stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* result = [database stringForQuery:[NSString stringWithFormat: @"select txn_no from txn_list WHERE txn_no = '%@' AND type = '%@' AND txn_status = 'P'",txn_no,type]];
+    if ([result isEqualToString:nil]){
+       
+        // create new record 
+        [database close];
+        return [self newTxn:txn_no type:@"CU" profileCode:txn_no customerCode:nil appStatus: @"WT"] ; 
+    
+    }else{
+        //update old record 
+        
+        BOOL boolean1 = [database executeUpdate:@"update txn_list SET txn_date = CURRENT_TIMESTAMP WHERE txn_no = ? AND txn_status = 'P'",txn_no];
+        
+        [database close];
+        return boolean1;
+    }
+        
+}
+// for creating new transaction record to txn_list 
+-(BOOL) newTxn: (NSString*) txn_no type: (NSString*) type profileCode:(NSString*) profileCode customerCode: (NSString*) customerCode appStatus: (NSString*) appStatus{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+   
+    //get max docnum 
+    int doc_num =[database intForQuery:@"SELECT MAX(doc_num) FROM txn_list"]+1;
+    NSString *max = [NSString stringWithFormat:@"%d",doc_num] ;
+    //NSString *max = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_list"];
+
+
+        BOOL boolean1 = [database executeUpdate:@"INSERT INTO txn_list(doc_num,txn_no,type,txn_date,txn_status,app_status,Prof_Code,customer_code,is_active)VALUES (?,?,?,CURRENT_TIMESTAMP,'P',?,?,?,'Y')",max,txn_no,type,appStatus,profileCode,customerCode];
+        
+        [database close];
+        return boolean1;
+    
+    
+}
+
 // convert string date from database to NSDate
 
 -(NSDate*) convertStringDateToNSDate: (NSString*)stringDate
@@ -108,7 +152,14 @@ static MJUtility* _sharedInstance = nil;
 
 }
 
-
+-(int) findNewDocnumForTable: (NSString*) table{
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    int doc_num = [database intForQuery:[NSString stringWithFormat: @"SELECT MAX(doc_num) FROM %@",table]]+1;
+    [database close];
+    return doc_num;
+}
 // call when program start 
 -(void) initializeDB
 {   //get path that database exist and send to FMDB to generate if none if Exist use this DB
@@ -205,6 +256,8 @@ static MJUtility* _sharedInstance = nil;
     // [configFinalPath release];
     
 }
+
+
 
 
 @end

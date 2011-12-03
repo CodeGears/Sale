@@ -207,9 +207,40 @@ static CustomerDataManager* _sharedInstance = nil;
             tempProfile.group = temp1.grade;
             tempProfile.isActive = temp1.isActive;
             
-            
+         /*   
             // Testing cusdetail
-         [[CustomerDataHandler sharedInstance] getCustomerDetailbyProfileCode:@"101345"];
+         Customer *custnew = [[CustomerDataHandler sharedInstance] getCustomerDetailbyProfileCode:@"101345"];
+            
+        
+            // test Add new customer
+        
+          BOOL boolean1 = [[CustomerDataHandler sharedInstance] newCustomerDetail:custnew];
+            
+            if(boolean1)
+                NSLog(@"new customer OK");
+            else  NSLog(@"new customer NO OK");
+          */  
+            // test update customer detail
+            
+            Customer *custnew2 = [[CustomerDataHandler sharedInstance] getCustomerDetailbyProfileCode:@"122314"];
+            custnew2.profileCode = @"010950";
+           /*
+            BOOL boolean2 = [[CustomerDataHandler sharedInstance] updateCustomerDetail:custnew2];
+            
+            if(boolean2)
+                NSLog(@"update customer OK");
+            else  NSLog(@"update customer NO OK");
+*/
+           /* 
+            // test Customer GPS update 
+            custnew2.longtitude = @"1213123";
+            custnew2.latitude = @"123892173";
+           NSDate *moddate = [[CustomerDataHandler sharedInstance] updateCustomerGPS:custnew2.profileCode withLat: custnew2.latitude withLong:custnew2.longtitude];
+            
+            NSLog([NSString stringWithFormat: @"update customerGPS OK moddate = %@ ",[[MJUtility sharedInstance]convertNSDateToString: moddate]]);
+           // else  NSLog(@"update customerGPS NO OK");
+            */
+            
             
             // testing Cuschild
             NSMutableArray *a = [[CustomerDataHandler sharedInstance] getAllCustomerChildren:@"101802"];
@@ -222,7 +253,38 @@ static CustomerDataManager* _sharedInstance = nil;
                  NSLog(@"%@", c.lastName);
                  NSLog(@"%@", c.sex);
                  NSLog(@"%@", [c.birthDate description]);
+                
+                /*
+                // test update Customer Child 
+                c.titleName = @"abc";
+                BOOL boolean1 = [[CustomerDataHandler sharedInstance] updateCustomerChild:c withProfileCode:@"101802"];
+                
+                if(boolean1)
+                    NSLog(@"new child OK");
+                else  NSLog(@"new child NO OK");
+                */
+                /*
+                //test new customer childT
+                BOOL boolean2 = [[CustomerDataHandler sharedInstance] deleteCustomerChildByChildNumber:c.number withProfileCode:@"010950"];
+                
+                if(boolean2)
+                    NSLog(@"delete child OK");
+                else  NSLog(@"delete child NO OK");
+            
+
+                
+                
+                c.titleName = @"abc";
+                BOOL boolean1 = [[CustomerDataHandler sharedInstance] newCustomerChild:c withProfileCode:@"010950"];
+                
+                if(boolean1)
+                    NSLog(@"new child OK");
+                else  NSLog(@"new child NO OK");
+                 */
             }
+            
+           
+            
             
             // testing hobby
             NSMutableArray *b = [[CustomerDataHandler sharedInstance] getAllHobbies:@"101802"];
@@ -231,6 +293,38 @@ static CustomerDataManager* _sharedInstance = nil;
             for(Hobby *d in b ){
                 NSLog(@"%@", d.name);
                 NSLog(@"%@", d.description);
+                
+                
+                
+                
+                     // test new Customer hobby
+                    // c.titleName = @"abc";
+              /*       BOOL boolean1 = [[CustomerDataHandler sharedInstance] newCustomerHobby:d withProfileCode: @"010950"];
+                     
+                     if(boolean1)
+                     NSLog(@"new hobby OK");
+                     else  NSLog(@"new hobby NO OK");
+                    
+                    
+                    
+                 */   
+                    
+                 /*   //testupdate
+                    
+                    d.description = @"abcdefg";
+                BOOL boolean3 = [[CustomerDataHandler sharedInstance] updateCustomerHobby:d withProfileCode: @"010950"];
+                                     if(boolean3)
+                        NSLog(@"update hopb OK");
+                    else  NSLog(@"update hob NO OK");
+                */
+                //test delete customer childT
+                /*
+                BOOL boolean2 = [[CustomerDataHandler sharedInstance] deleteCustomerHobbyByHobbyName: d.name withProfileCode: @"010950"];
+                
+                if(boolean2)
+                    NSLog(@"delete child OK");
+                else  NSLog(@"delete child NO OK");
+                */
                             }
             // testing Cuschild
             NSMutableArray *e = [[CustomerDataHandler sharedInstance]getAllWorkPlaces:@"166705"];
@@ -243,21 +337,45 @@ static CustomerDataManager* _sharedInstance = nil;
                 NSLog(@"%@", f.building);
               //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
+                /*
+                //test new workplace
+                //f.building = @"abakldf";
+                BOOL boolean2 = [[CustomerDataHandler sharedInstance] deleteCustomerWorkPlaceByHospitalName: f.hospitalName withProfileCode: @"010950"];
+                
+                if(boolean2)
+                    NSLog(@"update workplace  OK");
+                else  NSLog(@" new work plae OK");
+                
+                */
             }
             
             NSMutableArray *g = [[CustomerDataHandler sharedInstance] getAllPatientType:@"101802"];
             
             
             for(CustomerPatient *q in g ){
-                NSLog(@"%@", q.type );
-                NSLog(@"%@", q.totalBirth);
-                NSLog(@"%@", q.totalCommercial);
+                NSLog(@"%@ %@ %@", q.type,q.totalBirth ,q.totalCommercial );
+                //q.totalBirth =@"6";
+                //q.totalCommercial = @"3";
                // NSLog(@"%@", q.building);
                 //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
             }
-             
-         
+            /*
+            BOOL boolean2 = [[CustomerDataHandler sharedInstance] updateCustomerPatientwith:g with: @"010950"];           
+            if(boolean2)
+                NSLog(@"update patient  OK");
+            else  NSLog(@" new patient OK");
+                            
+             g = [[CustomerDataHandler sharedInstance] getAllPatientType:@"101802"];
+            
+            for(CustomerPatient *q in g ){
+                NSLog(@"result %@ %@ %@", q.type,q.totalBirth ,q.totalCommercial );
+                
+                // NSLog(@"%@", q.building);
+                //  NSLog(@"%@", c.sex);
+                //NSLog(@"%@", [c.birthDate description]);
+            }
+            */
             // test Customer Status
             CustomerStatus *r = [[CustomerDataHandler sharedInstance] getAllStatus:@"101802"];
             if(r.Recommender)
@@ -279,8 +397,20 @@ static CustomerDataManager* _sharedInstance = nil;
                 // NSLog(@"%@", q.building);
                 //  NSLog(@"%@", c.sex);
                 //NSLog(@"%@", [c.birthDate description]);
+                
             }
-                     
+            /*
+            BOOL boolean2 = [[CustomerDataHandler sharedInstance] updateCustomerProductwith:t  with:@"010950"];           
+            if(boolean2)
+                NSLog(@"update product OK");
+            else  NSLog(@" update no prouduct OK");     
+            */
+            
+            //check validity patient
+            BOOL boolean2 = [[CustomerDataHandler sharedInstance] checkValidityPatient:g withProductRecommend:t];           
+            if(boolean2)
+                NSLog(@"update product OK");
+            else  NSLog(@" update no prouduct OK");     
             
            // [custhand release];
             //testing
