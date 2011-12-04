@@ -385,8 +385,8 @@ static CustomerDataManager* _sharedInstance = nil;
             if(r.PedOBDoctor)
                 NSLog(@" oedobdocter");
             
-            BOOL boolean3 = [[CustomerDataHandler sharedInstance] updateCustomerStatus:r withProfileCode:@"010950"];           
-            if(boolean3)
+                       
+            if([[[[CustomerDataHandler sharedInstance] updateCustomerStatus:r withProfileCode:@"010950"] objectForKey:@"Status"] isEqualToString:@"Y"])
                 NSLog(@"update status OK");
             else  NSLog(@" update no status OK");   
         

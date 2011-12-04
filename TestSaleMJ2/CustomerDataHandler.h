@@ -83,49 +83,49 @@
 
 //Customer Detail
 
+// Return in form of NSMutableDictionary key(Status,ErrorMsg) Value(NSString,NSString)
+//Status @"Y" or  @"N"
 // return False if have a problem to insert to database
--(BOOL) updateCustomerDetail:(Customer*) customer;
+-(NSMutableDictionary*) updateCustomerDetail:(Customer*) customer;
 
 // new customer 
--(BOOL) newCustomerDetail:(Customer*) customer;
+-(NSMutableDictionary*) newCustomerDetail:(Customer*) customer;
 
 // return nil if cannot insert to table , if succeed return last updated date
 -(NSDate*) updateCustomerGPSProfileCode:(NSString*) profileCode withLat: (NSString*) latitute withLong:(NSString*) longtitute;
-
-
 //Customer Child
 
-- (BOOL) updateCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode;
-    
-- (BOOL) deleteCustomerChildByChildNumber: (NSString*) childNumber withProfileCode: (NSString*) profileCode;
+- (NSMutableDictionary*) updateCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode;
+
+- (NSMutableDictionary*) deleteCustomerChildByChildNumber: (NSString*) childNumber withProfileCode: (NSString*) profileCode;
 
 // new customer child 
-- (BOOL) newCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode;
+- (NSMutableDictionary*) newCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode;
 
 // Customer Hobbies
-- (BOOL) updateCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode;
+- (NSMutableDictionary*) updateCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode;
 
-- (BOOL) deleteCustomerHobbyByHobbyName: (NSString*) hobbyName withProfileCode: (NSString*) profileCode;
+- (NSMutableDictionary*) deleteCustomerHobbyByHobbyName: (NSString*) hobbyName withProfileCode: (NSString*) profileCode;
 
-- (BOOL) newCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode;
-
-// update customer workplace // cannot update hospital name
-- (BOOL) updateCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode;
+- ( NSMutableDictionary*) newCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode;
 
 // update customer workplace // cannot update hospital name
-- (BOOL) newCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode;
+- (NSMutableDictionary*) updateCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode;
+
+// update customer workplace // cannot update hospital name
+- (NSMutableDictionary*) newCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode;
 
 // delete customer Workplace
-- (BOOL) deleteCustomerWorkPlaceByHospitalName: (NSString*) hospitalName withProfileCode: (NSString*) profileCode;
+- (NSMutableDictionary*) deleteCustomerWorkPlaceByHospitalName: (NSString*) hospitalName withProfileCode: (NSString*) profileCode;
 
 //update customer patient ** recieve NSMutableArray of Customer Patients 
-- (BOOL) updateCustomerPatientwith: (NSMutableArray*) cp withProfileCode:(NSString*) profileCode;
+- (NSMutableDictionary*) updateCustomerPatientwith: (NSMutableArray*) cp withProfileCode:(NSString*) profileCode;
 
-- (BOOL) updateCustomerStatus: (CustomerStatus*) customerStatus withProfileCode:(NSString*) profileCode;
+- (NSMutableDictionary*) updateCustomerStatus: (CustomerStatus*) customerStatus withProfileCode:(NSString*) profileCode;
 
 //chweck validity of Patient and productrecommend
 - (BOOL) checkValidityPatient: (NSMutableArray*) cpArray withProductRecommend: (NSMutableArray*) prArray;
 
 //update customer patient ** recieve NSMutableArray of Customer Products
-- (BOOL) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode;
+- (NSMutableDictionary*) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode;
 @end

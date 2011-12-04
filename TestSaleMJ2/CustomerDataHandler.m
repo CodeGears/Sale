@@ -1214,9 +1214,10 @@ static CustomerDataHandler* _sharedInstance = nil;
 
 // *****************************************Update NEW DELETE***********************************************
 
--(BOOL) updateCustomerDetail:(Customer*) customer
+-(NSMutableDictionary*) updateCustomerDetail:(Customer*) customer
 {
-        
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
@@ -1257,8 +1258,12 @@ static CustomerDataHandler* _sharedInstance = nil;
     if(boolean1 == FALSE)
     {
         [database rollback];
+        
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
         [database close];
-        return FALSE;
+        
+        return output;
     }
     
    
@@ -1277,8 +1282,10 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     if(boolean2 == FALSE)
     {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
         [database close];
-        return FALSE;
+        return output;
     }
     
     }
@@ -1297,8 +1304,11 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     if(boolean3 == FALSE)
     {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+
         [database close];
-        return FALSE;
+        return output;
     }
     }
     
@@ -1345,16 +1355,29 @@ static CustomerDataHandler* _sharedInstance = nil;
        
     
     [is_active release];
-    [database close];
     
-    return [[MJUtility sharedInstance] checkInTxn:customer.profileCode type: @"CU"];
+    if([[MJUtility sharedInstance] checkInTxn:customer.profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+      //  [output setObject: nil forKey:@"ErrorMsg"];
+      
+       
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+                
+    }
+    [database close];
+    return output;
 
 }
 
 /// insert into new customer
--(BOOL) newCustomerDetail:(Customer*) customer
+-(NSMutableDictionary*) newCustomerDetail:(Customer*) customer
 {
-    
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
@@ -1409,8 +1432,11 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     if(boolean1 == FALSE)
     {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
         [database close];
-        return FALSE;
+        return output;
     }
     
     if(customer.homeAddress1 != nil && customer.homeAddress2 != nil && customer.homeSubDistrict != nil && customer.homeDistrict != nil && customer.homeProvince  != nil &&  customer.homeZip  != nil && customer.homePhone != nil &&  customer.homeExt != nil && customer.homefax != nil && customer.homeConvenienceTime != nil )
@@ -1429,8 +1455,11 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     if(boolean2 == FALSE)
     {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
         [database close];
-        return FALSE;
+        return output;
     }
     }
     
@@ -1448,8 +1477,11 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     if(boolean3 == FALSE)
     {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
         [database close];
-        return FALSE;
+        return output;
     }
     
     }
@@ -1472,9 +1504,12 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     
        if(boolean4 == FALSE)
-    {   [database rollback];
-        [database close];
-        return FALSE;
+       {   [database rollback];
+           [output setObject: @"N" forKey:@"Status"];
+           [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+           
+           [database close];
+           return output;
     }
     
     
@@ -1510,8 +1545,23 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     [database commit];
     [is_active release];
+    //[database close];
+    // return [[MJUtility sharedInstance] newTxn:customer.profileCode type:@"CU" profileCode:customer.profileCode customerCode:customer.customerCode1 appStatus:@"WT"]; 
+    
+    if([[MJUtility sharedInstance] newTxn:customer.profileCode type:@"CU" profileCode:customer.profileCode customerCode:customer.customerCode1 appStatus:@"WT"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+        //[output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        
+    }
     [database close];
-     return [[MJUtility sharedInstance] newTxn:customer.profileCode type:@"CU" profileCode:customer.profileCode customerCode:customer.customerCode1 appStatus:@"WT"]; 
+    return output;
 }
 
 
@@ -1537,9 +1587,10 @@ static CustomerDataHandler* _sharedInstance = nil;
 }
 
 // update customer child
-- (BOOL) updateCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode
+- (NSMutableDictionary*) updateCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode
 {
-   // NSString* date;
+  
+    // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
@@ -1547,36 +1598,83 @@ static CustomerDataHandler* _sharedInstance = nil;
     child.sex  = [child.sex stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     child.sex = [database stringForQuery:[NSString stringWithFormat: @"SELECT sex_code FROM Mst_sex WHERE TRIM(sex_name) = '%@'",child.sex]];
     
+    
     BOOL boolean1 = [database executeUpdate:@"update txn_child SET child_no = ? , child_tname = ?, child_fname = ?, child_lname = ?, sex = ? , bdate = ?,  update_date = CURRENT_TIMESTAMP ,update_by = ?  WHERE profile_code = ? AND child_no = ? ",child.number,child.titleName,child.firstName,child.lastName,child.sex,[[MJUtility sharedInstance] convertNSDateToString:child.birthDate],[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"] ,profileCode, child.number];
-      [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
-    return boolean1;
+  
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+  
+    
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+    //    [output setObject: nil forKey:@"ErrorMsg"];
+    
+    
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+        [database close];
+        return output;
+    
+    
+    //return boolean1;
   
     
 
 }
 // delete customer child
-- (BOOL) deleteCustomerChildByChildNumber: (NSString*) childNumber withProfileCode: (NSString*) profileCode
+- (NSMutableDictionary*) deleteCustomerChildByChildNumber: (NSString*) childNumber withProfileCode: (NSString*) profileCode
 {
-    // NSString* date;
+         // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
     
     BOOL boolean1 = [database executeUpdate:@"delete from txn_child  WHERE profile_code = ? AND child_no = ?",profileCode,childNumber];
     
-  [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
 
-    return boolean1;
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
     
     
     
 }
 
 // new customer child 
-- (BOOL) newCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode
-{
+- (NSMutableDictionary*) newCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode
+{   
+    
+
     // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
@@ -1586,17 +1684,37 @@ static CustomerDataHandler* _sharedInstance = nil;
     child.sex = [database stringForQuery:[NSString stringWithFormat: @"SELECT sex_code FROM Mst_sex WHERE TRIM(sex_name) = '%@'",child.sex]];
     
     BOOL boolean1 = [database executeUpdate:@"insert into txn_child(profile_code ,child_no,child_tname,child_fname, child_lname ,sex,bdate,record_date,record_by ) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)",profileCode,child.number,child.titleName,child.firstName,child.lastName,child.sex,[[MJUtility sharedInstance] convertNSDateToString:child.birthDate],[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"]];
-    [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
+   
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
 
-    return boolean1;
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
        
     
 }
 
 // update customer hobbies
-- (BOOL) updateCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode
-{
+- (NSMutableDictionary*) updateCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode
+{  
     // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
@@ -1606,17 +1724,36 @@ static CustomerDataHandler* _sharedInstance = nil;
     hobby.name = [database stringForQuery:[NSString stringWithFormat: @"SELECT lifestyle_code FROM Mst_lifestyle WHERE TRIM(lifestyle_name) = '%@'",hobby.name]];
     
     BOOL boolean1 = [database executeUpdate:@"update txn_customer_lifestyle SET lifestyle_code = ? , description = ? WHERE profile_code = ? AND lifestyle_code = ? ",hobby.name, hobby.description ,profileCode, hobby.name];
+   
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
     
     [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
-
-    return boolean1;
+    return output;
         
     
 }
 // delete customer hobbies
-- (BOOL) deleteCustomerHobbyByHobbyName: (NSString*) hobbyName withProfileCode: (NSString*) profileCode
-{
+- (NSMutableDictionary*) deleteCustomerHobbyByHobbyName: (NSString*) hobbyName withProfileCode: (NSString*) profileCode
+{   
     // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
@@ -1627,16 +1764,34 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_lifestyle  WHERE lifestyle_code = ? AND profile_code = ?",hobbyCode,profileCode];
     
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
     [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
-
-    return boolean1;
+    return output;
        
     
 }
 
 // new customer child 
-- (BOOL) newCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode
+- (NSMutableDictionary*) newCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode
 {
     // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -1651,18 +1806,36 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"insert into txn_customer_lifestyle (doc_num, profile_code ,lifestyle_code,description) VALUES (?,?,?,?)",[NSNumber numberWithInt: max],profileCode,hobby.name, hobby.description];
     
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
     
     [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
+    return output;
 
-    return boolean1;
     
     
     
 }
 
 // update customer workplace // cannot update hospital name
-- (BOOL) updateCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode
+- (NSMutableDictionary*) updateCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode
 {
     // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -1678,17 +1851,35 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"update txn_customer_addr SET  department_code = ?, building = ?, contact_time = ?  WHERE profile_code = ? AND hospital_code = ? AND address_type = 3" ,wp.department,wp.building ,wp.workTime, profileCode, wp.hospitalName];
     
-    [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
-
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
     
-    return boolean1;
+    [database close];
+    return output;
+
     
     
 }
 
 // delete customer Workplace
-- (BOOL) deleteCustomerWorkPlaceByHospitalName: (NSString*) hospitalName withProfileCode: (NSString*) profileCode
+- (NSMutableDictionary*) deleteCustomerWorkPlaceByHospitalName: (NSString*) hospitalName withProfileCode: (NSString*) profileCode
 {
     // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -1701,17 +1892,35 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_addr  WHERE hospital_code = ? AND profile_code = ? AND address_type = 3 ",hospitalName ,profileCode];
     
-    [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
-
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+     //   [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
     
-    return boolean1;
+    [database close];
+    return output;
+
     
     
 }
 
 // update customer workplace // cannot update hospital name
-- (BOOL) newCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode
+- (NSMutableDictionary*) newCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode
 {
     // NSString* date;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -1728,16 +1937,38 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"insert into txn_customer_addr(profile_code,seq,hospital_code,department_code,building,contact_time,address_type)  VALUES (?,?,?,?,?,?,3)",profileCode,[NSNumber numberWithInt: seq ],wp.hospitalName, wp.department, wp.building,wp.workTime];
     
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+      //  [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
     [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
+    return output;
+    
 
-    return boolean1;
     
     
 }
 
 //update customer patient ** recieve NSMutableArray of Customer Patients 
-- (BOOL) updateCustomerPatientwith: (NSMutableArray*) cpArray withProfileCode:(NSString*) profileCode{
+- (NSMutableDictionary*) updateCustomerPatientwith: (NSMutableArray*) cpArray withProfileCode:(NSString*) profileCode{
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    
     
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
@@ -1748,8 +1979,11 @@ static CustomerDataHandler* _sharedInstance = nil;
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_patient WHERE profile_code = ?",profileCode];
     if(boolean1 == FALSE){
         [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
         [database close];
-        return FALSE;
+        return output;
     }
     
     for (CustomerPatient* cp in cpArray){
@@ -1763,22 +1997,37 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_patient (doc_num, profile_code ,patient_type_code,total_potential,total_patient_g,total_commercial, total_commercial_g) VALUES (?,?,?,?,?,?,?)",[NSNumber numberWithInt: max ],profileCode,cp.type, cp.totalBirth,cp.totalBirth,cp.totalCommercial,cp.totalCommercial];
         
         if(boolean2 == FALSE){
-                [database rollback];
-                [database close];
-                return FALSE;
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
         }
             
     }
             
     }
     [database commit];
-    [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
-    return boolean2;
-}
-
-- (BOOL) updateCustomerStatus: (CustomerStatus*) cp withProfileCode:(NSString*) profileCode{
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+        //[output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
     
+    [database close];
+    return output;
+}
+- (NSMutableDictionary*) updateCustomerStatus: (CustomerStatus*) cp withProfileCode:(NSString*) profileCode{
+    
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+
+   
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
     [database beginTransaction];
@@ -1786,8 +2035,11 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     if(boolean1 == FALSE){
         [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
         [database close];
-        return FALSE;
+        return output;
     }  
     
         BOOL boolean2;
@@ -1797,8 +2049,11 @@ static CustomerDataHandler* _sharedInstance = nil;
        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"01"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
 
         
@@ -1809,8 +2064,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"02"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }
@@ -1820,9 +2078,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"03"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
-        }
+            return output;        }
         
     }
     if (cp.KOL == TRUE){
@@ -1831,8 +2091,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"04"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }
@@ -1842,8 +2105,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"05"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }
@@ -1853,8 +2119,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"06"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }if (cp.PedOBNurse == TRUE){
@@ -1863,8 +2132,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"07"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }
@@ -1874,8 +2146,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"08"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }
@@ -1885,8 +2160,11 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"09"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }
@@ -1896,16 +2174,29 @@ static CustomerDataHandler* _sharedInstance = nil;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"10"];
         if(boolean2 == FALSE){
             [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
             [database close];
-            return FALSE;
+            return output;
         }
         
     }
     
     [database commit];
-    [database close];
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
     
-    return  [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
+    [database close];
+    return output;
     
     
 }
@@ -1950,8 +2241,11 @@ static CustomerDataHandler* _sharedInstance = nil;
 }
 
 //update customer patient ** recieve NSMutableArray of Customer Products 
-- (BOOL) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode{
+- (NSMutableDictionary*) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode{
     
+    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    
+
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
@@ -1960,8 +2254,11 @@ static CustomerDataHandler* _sharedInstance = nil;
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_product WHERE profile_code = ?",profileCode];
     if(boolean1 == FALSE){
         [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
         [database close];
-        return FALSE;
+        return output;
     }
     for (CustomerProduct* pr in prArray){
         
@@ -1977,16 +2274,29 @@ static CustomerDataHandler* _sharedInstance = nil;
             
             if(boolean2 == FALSE){
                 [database rollback];
+                [output setObject: @"N" forKey:@"Status"];
+                [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+                
                 [database close];
-                return FALSE;
+                return output;
             }
         }  
     }
     
     [database commit];
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+      //  [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
     [database close];
-    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
-    return boolean2;
+    return output;
 }
 
 @end
