@@ -42,21 +42,21 @@ static MJUtility* _sharedInstance = nil;
 
 // for supporting saving transactin to txn_list 
 -(BOOL) checkInTxn: (NSString*) txn_no type: (NSString*) type{
-    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    FMDatabase *database = [FMDatabase databaseWithPath: [self getDBPath]]; 
     
     [database open];
     txn_no = [txn_no stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString* result = [database stringForQuery:[NSString stringWithFormat: @"select txn_no from txn_list WHERE txn_no = '%@' AND type = '%@' AND txn_status = 'P'",txn_no,type]];
-    if ([result isEqualToString:nil]){
+    int result = [database intForQuery: [NSString stringWithFormat: @"SELECT COUNT(Txn_no) FROM txn_list WHERE TRIM(Txn_no) = '%@' AND Type = '%@' AND Txn_status = 'P' ",txn_no,type]];
+    if (result == 0){
        
         // create new record 
         [database close];
-        return [self newTxn:txn_no type:@"CU" profileCode:txn_no customerCode:nil appStatus: @"WT"] ; 
+        return [self newTxn:txn_no type:type profileCode:txn_no customerCode:nil appStatus: @"WT"] ; 
     
     }else{
         //update old record 
         
-        BOOL boolean1 = [database executeUpdate:@"update txn_list SET txn_date = CURRENT_TIMESTAMP WHERE txn_no = ? AND txn_status = 'P'",txn_no];
+        BOOL boolean1 = [database executeUpdate:@"update txn_list SET txn_date = CURRENT_TIMESTAMP WHERE txn_no = ? AND txn_status = 'P' ",txn_no];
         
         [database close];
         return boolean1;

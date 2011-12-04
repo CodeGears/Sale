@@ -1250,12 +1250,14 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     customer.hhIncome  = [customer.hhIncome stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     customer.hhIncome= [database stringForQuery:[NSString stringWithFormat: @"SELECT hhi_name FROM mst_house_hold_income WHERE TRIM(hhi_name) = '%@'",customer.hhIncome]];
-   
+    [database beginTransaction];
     // update customer detail 
    BOOL boolean1 = [database executeUpdate:@"update txn_customer SET photo = ? ,ocup_code = ?, cust_tname = ?, cust_fname = ? , cust_lname = ?, customer_code1 =?,customer_code2 =? ,customer_code3 = ? ,email = ?,phone = ? ,sex = ? , bdate = ? , idno =?, edu_level_code = ? , edu_major_code = ? , edu_place_code = ? , marry_status_code = ?, spouse_tname = ?, spouse_fname = ?, spouse_lname = ? , spouse_bdate = ?,hhi_code = ?,edc_date = ?, update_date = CURRENT_TIMESTAMP ,update_by = ? , is_active = ? WHERE profile_code = ?", customer.pic , customer.role,customer.titleName, customer.firstName,customer.lastName,customer.customerCode1,customer.customerCode2,customer.customerCode3, customer.email,customer.telephone ,customer.sex,[[MJUtility sharedInstance] convertNSDateToString:customer.birthDay],customer.idNumber ,customer.educationLevel,customer.educationMajor,customer.educationPlace,customer.maritialStat,customer.spouseTitleName,customer.spouseFirstName,customer.spouseLastName,[[MJUtility sharedInstance] convertNSDateToString:customer.spousebirthdate], customer.hhIncome, customer.EDC, [[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"],is_active,customer.profileCode];
 
     if(boolean1 == FALSE)
     {
+        [database rollback];
+        [database close];
         return FALSE;
     }
     
@@ -1274,7 +1276,8 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     
     if(boolean2 == FALSE)
-    {
+    {   [database rollback];
+        [database close];
         return FALSE;
     }
     
@@ -1293,7 +1296,8 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     
     if(boolean3 == FALSE)
-    {
+    {   [database rollback];
+        [database close];
         return FALSE;
     }
     }
@@ -1319,24 +1323,25 @@ static CustomerDataHandler* _sharedInstance = nil;
     // find max doc_num 
     
         if(customer.high){
-            NSString *maxses1 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
-            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",maxses1,customer.profileCode,@"01"];
+            int maxses1 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses1 ],customer.profileCode,@"01"];
         }
         if(customer.medium)
         {
-            NSString *maxses2 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
-            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",maxses2,customer.profileCode,@"02"];
+            int maxses2 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses2 ],customer.profileCode,@"02"];
         }
         if(customer.low){
             
-            NSString *maxses3 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+            int maxses3 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
             
-            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",maxses3,customer.profileCode,@"03"];
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses3 ],customer.profileCode,@"03"];
         }
 
        
     }
     
+    [database commit];
        
     
     [is_active release];
@@ -1398,12 +1403,13 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     customer.hhIncome  = [customer.hhIncome stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     customer.hhIncome= [database stringForQuery:[NSString stringWithFormat: @"SELECT hhi_name FROM mst_house_hold_income WHERE TRIM(hhi_name) = '%@'",customer.hhIncome]];
-    
+    [database beginTransaction];
     // update customer detail 
     BOOL boolean1 = [database executeUpdate:@"insert into txn_customer(doc_num,photo,ocup_code, cust_tname, cust_fname, cust_lname, customer_code1,customer_code2,customer_code3 ,email,phone,sex, bdate, idno, edu_level_code , edu_major_code, edu_place_code , marry_status_code , spouse_tname , spouse_fname , spouse_lname , spouse_bdate,hhi_code ,edc_date, record_date,record_by , is_active ,profile_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,?,?)",[NSNumber numberWithInt:doc_num], customer.pic , customer.role,customer.titleName, customer.firstName,customer.lastName,customer.customerCode1,customer.customerCode2,customer.customerCode3, customer.email,customer.telephone ,customer.sex,[[MJUtility sharedInstance] convertNSDateToString:customer.birthDay] ,customer.idNumber ,customer.educationLevel,customer.educationMajor,customer.educationPlace,customer.maritialStat,customer.spouseTitleName,customer.spouseFirstName,customer.spouseLastName,[[MJUtility sharedInstance] convertNSDateToString:customer.spousebirthdate], customer.hhIncome, customer.EDC, [[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"],is_active,customer.profileCode];
     
     if(boolean1 == FALSE)
-    {
+    {   [database rollback];
+        [database close];
         return FALSE;
     }
     
@@ -1422,7 +1428,8 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     
     if(boolean2 == FALSE)
-    {
+    {   [database rollback];
+        [database close];
         return FALSE;
     }
     }
@@ -1440,7 +1447,8 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     
     if(boolean3 == FALSE)
-    {
+    {   [database rollback];
+        [database close];
         return FALSE;
     }
     
@@ -1449,21 +1457,23 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean4;
     if(customer.emerald){
-         NSString *maxbusiness1 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"];
+         int maxbusiness1 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"]+1;
         //emerald = @"01";
         // update data
         
-         boolean4 = [database executeUpdate:@"insert into txn_customer_business(doc_num,profile_code,business_code,rep_code,territory_name)VALUES (?,?,?,?,?)",maxbusiness1,customer.profileCode,[NSString stringWithFormat: @"01"],[[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"],[[MJUtility sharedInstance] getMJConfigInfo:@"territory_name"]];
+         boolean4 = [database executeUpdate:@"insert into txn_customer_business(doc_num,profile_code,business_code,rep_code,territory_name)VALUES (?,?,?,?,?)",[NSNumber numberWithInt:  maxbusiness1],customer.profileCode,[NSString stringWithFormat: @"01"],[[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"],[[MJUtility sharedInstance] getMJConfigInfo:@"territory_name"]];
     }
     if(customer.sapphire){
-        NSString *maxbusiness2 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"];
-        boolean4 = [database executeUpdate:@"insert into txn_customer_business(doc_num,profile_code,business_code,rep_code,territory_name)VALUES (?,?,?,?,?)",maxbusiness2,customer.profileCode,[NSString stringWithFormat: @"02"],[[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"],[[MJUtility sharedInstance] getMJConfigInfo:@"territory_name"]];
+       //NSString *maxbusiness2 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"];
+        int maxbusiness2 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"]+1;
+        boolean4 = [database executeUpdate:@"insert into txn_customer_business(doc_num,profile_code,business_code,rep_code,territory_name)VALUES (?,?,?,?,?)",[NSNumber numberWithInt: maxbusiness2],customer.profileCode,[NSString stringWithFormat: @"02"],[[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"],[[MJUtility sharedInstance] getMJConfigInfo:@"territory_name"]];
     // sapphire = @"02";
     } 
     
     
        if(boolean4 == FALSE)
-    {
+    {   [database rollback];
+        [database close];
         return FALSE;
     }
     
@@ -1477,25 +1487,28 @@ static CustomerDataHandler* _sharedInstance = nil;
         
         
         if(customer.high){
-             NSString *maxses1 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
-            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",maxses1,customer.profileCode,@"01"];
+            
+            //NSString *maxses1 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+             int maxses1 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses1],customer.profileCode,@"01"];
         }
         if(customer.medium)
         {
-             NSString *maxses2 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
-            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",maxses2,customer.profileCode,@"02"];
+             //NSString *maxses2 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+             int maxses2 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses2],customer.profileCode,@"02"];
         }
         if(customer.low){
             
-             NSString *maxses3 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
-            
-            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",maxses3,customer.profileCode,@"03"];
+            // NSString *maxses3 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+             int maxses3 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses3],customer.profileCode,@"03"];
         }
         
     }
     
     
-    
+    [database commit];
     [is_active release];
     [database close];
      return [[MJUtility sharedInstance] newTxn:customer.profileCode type:@"CU" profileCode:customer.profileCode customerCode:customer.customerCode1 appStatus:@"WT"]; 
@@ -1508,7 +1521,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
-
+    
     BOOL boolean1 = [database executeUpdate:@"update txn_customer SET latitude = ? ,longitude = ?, Position_date = CURRENT_TIMESTAMP,  update_date = CURRENT_TIMESTAMP ,update_by = ?  WHERE profile_code = ?", latitute,longtitute,[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"] ,profileCode];
     
     if(boolean1)
@@ -1730,21 +1743,35 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     [database open];
     BOOL boolean2 = TRUE;
+    
+    [database beginTransaction];
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_patient WHERE profile_code = ?",profileCode];
     if(boolean1 == FALSE){
+        [database rollback];
+        [database close];
         return FALSE;
     }
+    
     for (CustomerPatient* cp in cpArray){
         
-        if(!([cp.totalBirth isEqualToString:@"0"] && [cp.totalCommercial isEqualToString:@"0"])&& boolean2 ){
-          int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_patient"];
-
+        if(!([cp.totalBirth isEqualToString:@"0"] && [cp.totalCommercial isEqualToString:@"0"])){
+          //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_patient"];
+             int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_patient"]+1;
         cp.type  = [cp.type stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         cp.type = [database stringForQuery:[NSString stringWithFormat: @"SELECT patient_type_code FROM Mst_patient_type WHERE TRIM(patient_type_name) = '%@'",cp.type]];
          
         boolean2 = [database executeUpdate:@"insert into txn_customer_patient (doc_num, profile_code ,patient_type_code,total_potential,total_patient_g,total_commercial, total_commercial_g) VALUES (?,?,?,?,?,?,?)",[NSNumber numberWithInt: max ],profileCode,cp.type, cp.totalBirth,cp.totalBirth,cp.totalCommercial,cp.totalCommercial];
+        
+        if(boolean2 == FALSE){
+                [database rollback];
+                [database close];
+                return FALSE;
         }
+            
     }
+            
+    }
+    [database commit];
     [database close];
     [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
     return boolean2;
@@ -1754,85 +1781,131 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
-   
+    [database beginTransaction];
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_status WHERE profile_code = ?",profileCode];
+    
     if(boolean1 == FALSE){
+        [database rollback];
+        [database close];
         return FALSE;
-    }   
+    }  
+    
         BOOL boolean2;
     if(cp.Recommender == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+         int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"01"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
 
         
     }
     if (cp.RoCommPTC == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"02"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     if (cp.DepartmentHead == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"03"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     if (cp.KOL == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+     //   int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+       int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1; 
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"04"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     if (cp.EndUseer == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+       // int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"05"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     if (cp.DirecAsstDirec == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"06"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }if (cp.PedOBNurse == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"07"];
-        
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     if (cp.PedOBDoctor == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"08"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     if (cp.Depo == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+      //  int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"09"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     if (cp.PregList == TRUE){
-        int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
-        
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
         boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"10"];
-
+        if(boolean2 == FALSE){
+            [database rollback];
+            [database close];
+            return FALSE;
+        }
         
     }
     
-    
+    [database commit];
     [database close];
-    return boolean1;
+    
+    return  [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
     
     
 }
@@ -1847,7 +1920,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
-
+    
     for(CustomerProduct *pr in prArray){
         
         pr.code = [database stringForQuery:[NSString stringWithFormat: @"select patient_type_code  from mst_product_brand WHERE TRIM(prod_brand_name) = '%@'",pr.name]];
@@ -1882,9 +1955,12 @@ static CustomerDataHandler* _sharedInstance = nil;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
+    [database beginTransaction];
     BOOL boolean2 = TRUE;
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_product WHERE profile_code = ?",profileCode];
     if(boolean1 == FALSE){
+        [database rollback];
+        [database close];
         return FALSE;
     }
     for (CustomerProduct* pr in prArray){
@@ -1892,14 +1968,22 @@ static CustomerDataHandler* _sharedInstance = nil;
         if(![pr.recQty isEqualToString:@"0"] && boolean2 ){
             
             //NSString *max = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_patient"];
-             int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_product"];
-            
+             //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_product"];
+            int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_product"]+1;
             pr.name  = [pr.name stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
             pr.code = [database stringForQuery:[NSString stringWithFormat: @"SELECT prod_brand_code FROM Mst_product_brand WHERE TRIM(prod_brand_name) = '%@'",pr.name]];
             
             boolean2 = [database executeUpdate:@"insert into txn_customer_product (doc_num, profile_code ,prod_brand_code,Recommended_qty) VALUES (?,?,?,?)",[NSNumber numberWithInt: max],profileCode,pr.code, pr.recQty];
-        }
+            
+            if(boolean2 == FALSE){
+                [database rollback];
+                [database close];
+                return FALSE;
+            }
+        }  
     }
+    
+    [database commit];
     [database close];
     [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
     return boolean2;

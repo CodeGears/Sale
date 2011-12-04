@@ -121,7 +121,7 @@
 //update customer patient ** recieve NSMutableArray of Customer Patients 
 - (BOOL) updateCustomerPatientwith: (NSMutableArray*) cp withProfileCode:(NSString*) profileCode;
 
-- (BOOL) updateCustomerStatus: (CustomerStatus*) customerStatus withProfileCode:(NSString*) profileCode
+- (BOOL) updateCustomerStatus: (CustomerStatus*) customerStatus withProfileCode:(NSString*) profileCode;
 
 //chweck validity of Patient and productrecommend
 - (BOOL) checkValidityPatient: (NSMutableArray*) cpArray withProductRecommend: (NSMutableArray*) prArray;

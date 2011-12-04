@@ -384,10 +384,16 @@ static CustomerDataManager* _sharedInstance = nil;
                 NSLog(@" kol 04");
             if(r.PedOBDoctor)
                 NSLog(@" oedobdocter");
- 
             
+            BOOL boolean3 = [[CustomerDataHandler sharedInstance] updateCustomerStatus:r withProfileCode:@"010950"];           
+            if(boolean3)
+                NSLog(@"update status OK");
+            else  NSLog(@" update no status OK");   
+        
             // get call product brand
             NSMutableArray *t = [[CustomerDataHandler sharedInstance] getAllProductBrand:@"101802"];
+            
+            
             
             
             for(CustomerProduct *u in t ){
