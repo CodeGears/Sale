@@ -16,6 +16,7 @@
 
 
 @synthesize window=_window;
+@synthesize cacheDB;
 
 //@synthesize splitViewController=_splitViewController;
 
@@ -29,6 +30,11 @@
     // Add the split view controller's view to the window and display.
     //self.window.rootViewController = self.splitViewController;
     [[MJUtility sharedInstance] initializeDB];
+    
+    //initialize cacheDB for web service calls
+    CacheDBCommands *tmpCache = [[CacheDBCommands alloc] init];
+    self.cacheDB = tmpCache;
+    [tmpCache release];
     
     RootViewController* masterView = [[[RootViewController alloc] initWithNibName:@"TestRootView" bundle:nil] autorelease];
     DetailViewController* detailView = [[[DetailViewController alloc] initWithNibName:@"DetailView" bundle:nil] autorelease];

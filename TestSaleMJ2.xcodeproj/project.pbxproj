@@ -96,6 +96,13 @@
 		55EBB3321458C687004F71C0 /* VisitProductEvaluatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EBB3301458C687004F71C0 /* VisitProductEvaluatViewController.m */; };
 		55EBB3331458C687004F71C0 /* VisitProductEvaluatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55EBB3311458C687004F71C0 /* VisitProductEvaluatViewController.xib */; };
 		55F074111456290E001EC018 /* Blank.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F0740F1456290E001EC018 /* Blank.xib */; };
+		A0FEBD29148CAA2C001A4CF9 /* CacheDBCommands.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD20148CAA2C001A4CF9 /* CacheDBCommands.m */; };
+		A0FEBD2A148CAA2C001A4CF9 /* DataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD22148CAA2C001A4CF9 /* DataSet.m */; };
+		A0FEBD2B148CAA2C001A4CF9 /* SortingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD24148CAA2C001A4CF9 /* SortingHelper.m */; };
+		A0FEBD2C148CAA2C001A4CF9 /* WebServiceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD26148CAA2C001A4CF9 /* WebServiceHelper.m */; };
+		A0FEBD2D148CAA2C001A4CF9 /* XMLDataSetParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD28148CAA2C001A4CF9 /* XMLDataSetParser.m */; };
+		A0FEBD32148CAA52001A4CF9 /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD30148CAA52001A4CF9 /* SyncViewController.m */; };
+		A0FEBD33148CAA52001A4CF9 /* SyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0FEBD31148CAA52001A4CF9 /* SyncViewController.xib */; };
 		C583E984147E1A720094A730 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E975147E1A720094A730 /* Customer.m */; };
 		C583E985147E1A720094A730 /* CustomerChild.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E977147E1A720094A730 /* CustomerChild.m */; };
 		C583E986147E1A720094A730 /* CustomerList.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E979147E1A720094A730 /* CustomerList.m */; };
@@ -240,6 +247,19 @@
 		55EBB3301458C687004F71C0 /* VisitProductEvaluatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitProductEvaluatViewController.m; sourceTree = "<group>"; };
 		55EBB3311458C687004F71C0 /* VisitProductEvaluatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitProductEvaluatViewController.xib; sourceTree = "<group>"; };
 		55F074101456290E001EC018 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Blank.xib; sourceTree = "<group>"; };
+		A0FEBD1F148CAA2C001A4CF9 /* CacheDBCommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheDBCommands.h; sourceTree = "<group>"; };
+		A0FEBD20148CAA2C001A4CF9 /* CacheDBCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheDBCommands.m; sourceTree = "<group>"; };
+		A0FEBD21148CAA2C001A4CF9 /* DataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSet.h; sourceTree = "<group>"; };
+		A0FEBD22148CAA2C001A4CF9 /* DataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSet.m; sourceTree = "<group>"; };
+		A0FEBD23148CAA2C001A4CF9 /* SortingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortingHelper.h; sourceTree = "<group>"; };
+		A0FEBD24148CAA2C001A4CF9 /* SortingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortingHelper.m; sourceTree = "<group>"; };
+		A0FEBD25148CAA2C001A4CF9 /* WebServiceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServiceHelper.h; sourceTree = "<group>"; };
+		A0FEBD26148CAA2C001A4CF9 /* WebServiceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServiceHelper.m; sourceTree = "<group>"; };
+		A0FEBD27148CAA2C001A4CF9 /* XMLDataSetParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDataSetParser.h; sourceTree = "<group>"; };
+		A0FEBD28148CAA2C001A4CF9 /* XMLDataSetParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDataSetParser.m; sourceTree = "<group>"; };
+		A0FEBD2F148CAA52001A4CF9 /* SyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncViewController.h; sourceTree = "<group>"; };
+		A0FEBD30148CAA52001A4CF9 /* SyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncViewController.m; sourceTree = "<group>"; };
+		A0FEBD31148CAA52001A4CF9 /* SyncViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SyncViewController.xib; sourceTree = "<group>"; };
 		C583E974147E1A720094A730 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
 		C583E975147E1A720094A730 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
 		C583E976147E1A720094A730 /* CustomerChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerChild.h; sourceTree = "<group>"; };
@@ -360,6 +380,8 @@
 		55995CDE1438D4E10028B5FC /* TestSaleMJ2 */ = {
 			isa = PBXGroup;
 			children = (
+				A0FEBD2E148CAA36001A4CF9 /* Outbox and Sync Tab */,
+				A0FEBD1D148CAA12001A4CF9 /* NETDataset */,
 				C5737C6A148294CF00025C78 /* OtherObject */,
 				C583E99A147E2A230094A730 /* FMDB */,
 				C583E972147E1A030094A730 /* CustomerObject */,
@@ -614,6 +636,33 @@
 			name = "Product evaluation request";
 			sourceTree = "<group>";
 		};
+		A0FEBD1D148CAA12001A4CF9 /* NETDataset */ = {
+			isa = PBXGroup;
+			children = (
+				A0FEBD1F148CAA2C001A4CF9 /* CacheDBCommands.h */,
+				A0FEBD20148CAA2C001A4CF9 /* CacheDBCommands.m */,
+				A0FEBD21148CAA2C001A4CF9 /* DataSet.h */,
+				A0FEBD22148CAA2C001A4CF9 /* DataSet.m */,
+				A0FEBD23148CAA2C001A4CF9 /* SortingHelper.h */,
+				A0FEBD24148CAA2C001A4CF9 /* SortingHelper.m */,
+				A0FEBD25148CAA2C001A4CF9 /* WebServiceHelper.h */,
+				A0FEBD26148CAA2C001A4CF9 /* WebServiceHelper.m */,
+				A0FEBD27148CAA2C001A4CF9 /* XMLDataSetParser.h */,
+				A0FEBD28148CAA2C001A4CF9 /* XMLDataSetParser.m */,
+			);
+			name = NETDataset;
+			sourceTree = "<group>";
+		};
+		A0FEBD2E148CAA36001A4CF9 /* Outbox and Sync Tab */ = {
+			isa = PBXGroup;
+			children = (
+				A0FEBD2F148CAA52001A4CF9 /* SyncViewController.h */,
+				A0FEBD30148CAA52001A4CF9 /* SyncViewController.m */,
+				A0FEBD31148CAA52001A4CF9 /* SyncViewController.xib */,
+			);
+			name = "Outbox and Sync Tab";
+			sourceTree = "<group>";
+		};
 		C5737C6A148294CF00025C78 /* OtherObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -764,6 +813,7 @@
 				5519CA8C1471849500D8C555 /* HobbyTypePopOverViewController.xib in Resources */,
 				C583E98D147E1AD50094A730 /* MJLite.db in Resources */,
 				C583E995147E1B7A0094A730 /* MJConfig.plist in Resources */,
+				A0FEBD33148CAA52001A4CF9 /* SyncViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,6 +872,12 @@
 				C583E9A9147E53B80094A730 /* CustomerProduct.m in Sources */,
 				C59704F2147FAA1800B6C38C /* CallHistory.m in Sources */,
 				C5C7547B1480B984007154F1 /* SalesHistory.m in Sources */,
+				A0FEBD29148CAA2C001A4CF9 /* CacheDBCommands.m in Sources */,
+				A0FEBD2A148CAA2C001A4CF9 /* DataSet.m in Sources */,
+				A0FEBD2B148CAA2C001A4CF9 /* SortingHelper.m in Sources */,
+				A0FEBD2C148CAA2C001A4CF9 /* WebServiceHelper.m in Sources */,
+				A0FEBD2D148CAA2C001A4CF9 /* XMLDataSetParser.m in Sources */,
+				A0FEBD32148CAA52001A4CF9 /* SyncViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
