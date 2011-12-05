@@ -133,7 +133,8 @@
             }
         }
         
-        [HUD hide:YES afterDelay:2.0];
+        [database close];
+        [HUD hide:YES afterDelay:0.0];
     }
 
 }
