@@ -77,6 +77,9 @@
     
     localNameKeys = [[CustomerDataManager sharedInstance] GetCustomerNameKeys];
     localNameList = [[CustomerDataManager sharedInstance] GetCustomerNameList:@""];
+    
+    //sync
+    syncVC = [[SyncViewController alloc] init];
 }
 
 		

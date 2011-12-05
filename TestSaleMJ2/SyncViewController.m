@@ -66,6 +66,15 @@
     selectedSyncMode = buttonIndex;
 	if (buttonIndex == 0) {
 		//Retrieve All data
+        
+        HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:HUD];
+        
+        HUD.delegate = self;
+        HUD.labelText = @"Syncing...";
+        
+        [HUD show:YES];
+        
         TestSaleMJ2AppDelegate *delegate = (TestSaleMJ2AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.cacheDB = delegate.cacheDB;
         self.cacheDB.delegate = self;
@@ -87,14 +96,23 @@
 -(void)didFinishDownloading:(CacheDBCommands *)acacheDB
 {
     if (selectedSyncMode == 0) { //Retrieve All data
+        
         //delete all data
+        FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+        
+        if (![database open]) {
+            [database release];
+            return;
+        }
         
         //fetch data
-        NSLog(@"TEST SYNC");
         NSArray *allTableNames = [self.cacheDB.myDataset.Tables allKeys];
         NSString *tableName;
         for (tableName in allTableNames) {
             NSLog(@"<%@>", tableName);
+            
+            [database executeQueryWithFormat:@"DELETE FROM %@", tableName];
+            
             NSMutableDictionary *rows = [[NSMutableDictionary alloc] initWithDictionary:[self.cacheDB.myDataset getRowsForTable:tableName]];
             NSMutableArray *callData = (NSMutableArray *)[NSMutableArray arrayWithArray:[rows allValues]];
             
@@ -106,15 +124,28 @@
                 for (fieldName in allFieldsNames) {
                     if (![(NSString *)[row objectForKey:fieldName] isEqual:@""] && ![(NSString *)[row objectForKey:fieldName] isEqual:@"(null)"]) {
                         NSLog(@"%@ : %@", fieldName, (NSString *)[row objectForKey:fieldName]);
+                        
+                        //[database executeQueryWithFormat:@"DELETE FROM %@", tableName];
+                        [database executeUpdateWithFormat:@"INSERT INTO %@ (%@) VALUES (%@)", tableName, fieldName, (NSString *)[row objectForKey:fieldName]];
                     }
                 }
                 NSLog(@"->");
             }
         }
         
-        //save all data
+        [HUD hide:YES afterDelay:2.0];
     }
 
+}
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [HUD removeFromSuperview];
+    [HUD release];
+	HUD = nil;
 }
 
 @end

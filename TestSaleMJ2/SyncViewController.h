@@ -10,8 +10,13 @@
 #import "CacheDBCommands.h"
 #import "TestSaleMJ2AppDelegate.h"
 
-@interface SyncViewController : UIViewController <UIActionSheetDelegate, CacheDBDelegate> {
+#import "MJUtility.h"
+#import "FMDatabase.h"
+#import "MBProgressHUD.h"
+
+@interface SyncViewController : UIViewController <UIActionSheetDelegate, CacheDBDelegate, MBProgressHUDDelegate> {
     int selectedSyncMode;
+    MBProgressHUD *HUD;
 }
 
 @property (nonatomic, retain) CacheDBCommands *cacheDB;

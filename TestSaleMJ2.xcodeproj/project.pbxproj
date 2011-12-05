@@ -103,6 +103,8 @@
 		A0FEBD2D148CAA2C001A4CF9 /* XMLDataSetParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD28148CAA2C001A4CF9 /* XMLDataSetParser.m */; };
 		A0FEBD32148CAA52001A4CF9 /* SyncViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD30148CAA52001A4CF9 /* SyncViewController.m */; };
 		A0FEBD33148CAA52001A4CF9 /* SyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0FEBD31148CAA52001A4CF9 /* SyncViewController.xib */; };
+		A0FEBD44148CB076001A4CF9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FEBD43148CB076001A4CF9 /* MBProgressHUD.m */; };
+		A0FEBD46148CB59A001A4CF9 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FEBD45148CB59A001A4CF9 /* 37x-Checkmark.png */; };
 		C583E984147E1A720094A730 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E975147E1A720094A730 /* Customer.m */; };
 		C583E985147E1A720094A730 /* CustomerChild.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E977147E1A720094A730 /* CustomerChild.m */; };
 		C583E986147E1A720094A730 /* CustomerList.m in Sources */ = {isa = PBXBuildFile; fileRef = C583E979147E1A720094A730 /* CustomerList.m */; };
@@ -260,6 +262,9 @@
 		A0FEBD2F148CAA52001A4CF9 /* SyncViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncViewController.h; sourceTree = "<group>"; };
 		A0FEBD30148CAA52001A4CF9 /* SyncViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncViewController.m; sourceTree = "<group>"; };
 		A0FEBD31148CAA52001A4CF9 /* SyncViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SyncViewController.xib; sourceTree = "<group>"; };
+		A0FEBD42148CB076001A4CF9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		A0FEBD43148CB076001A4CF9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		A0FEBD45148CB59A001A4CF9 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		C583E974147E1A720094A730 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
 		C583E975147E1A720094A730 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
 		C583E976147E1A720094A730 /* CustomerChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerChild.h; sourceTree = "<group>"; };
@@ -380,6 +385,7 @@
 		55995CDE1438D4E10028B5FC /* TestSaleMJ2 */ = {
 			isa = PBXGroup;
 			children = (
+				A0FEBD40148CB060001A4CF9 /* HUD */,
 				A0FEBD2E148CAA36001A4CF9 /* Outbox and Sync Tab */,
 				A0FEBD1D148CAA12001A4CF9 /* NETDataset */,
 				C5737C6A148294CF00025C78 /* OtherObject */,
@@ -663,6 +669,16 @@
 			name = "Outbox and Sync Tab";
 			sourceTree = "<group>";
 		};
+		A0FEBD40148CB060001A4CF9 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				A0FEBD42148CB076001A4CF9 /* MBProgressHUD.h */,
+				A0FEBD43148CB076001A4CF9 /* MBProgressHUD.m */,
+				A0FEBD45148CB59A001A4CF9 /* 37x-Checkmark.png */,
+			);
+			name = HUD;
+			sourceTree = "<group>";
+		};
 		C5737C6A148294CF00025C78 /* OtherObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -814,6 +830,7 @@
 				C583E98D147E1AD50094A730 /* MJLite.db in Resources */,
 				C583E995147E1B7A0094A730 /* MJConfig.plist in Resources */,
 				A0FEBD33148CAA52001A4CF9 /* SyncViewController.xib in Resources */,
+				A0FEBD46148CB59A001A4CF9 /* 37x-Checkmark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +895,7 @@
 				A0FEBD2C148CAA2C001A4CF9 /* WebServiceHelper.m in Sources */,
 				A0FEBD2D148CAA2C001A4CF9 /* XMLDataSetParser.m in Sources */,
 				A0FEBD32148CAA52001A4CF9 /* SyncViewController.m in Sources */,
+				A0FEBD44148CB076001A4CF9 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1207,7 +1225,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Theprit Anongchanya (WPFRSEUJ79)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jarruspong Makkul (95RX3NHY98)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1215,7 +1233,7 @@
 				INFOPLIST_FILE = "TestSaleMJ2/TestSaleMJ2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E8CF46B-7883-4052-ADF2-1FF13C0508B3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7F269C48-7FA6-4477-8385-8A027D8E71B8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
