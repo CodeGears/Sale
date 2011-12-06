@@ -128,4 +128,26 @@
 
 //update customer patient ** recieve NSMutableArray of Customer Products
 - (NSMutableDictionary*) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode;
+
+// *********************************Customer Visit ***************************
+// return in form of Array of NSDate
+-(NSMutableArray*) getDateForRecordCall; 
+
+// return in form of NSString
+
+-(NSMutableArray*) getCallObjectiveRecordCall;
+
+// return in form of Array of string
+-(NSMutableArray*) getCallProductRecordCall;
+
+// return in form of Array of string
+-(NSMutableArray*) getCallResultRecordCall;
+
+// return in form of Array of string
+-(NSMutableArray*) getCallComplaintRecordCall;
+
+// return in form of Array of NSString
+-(NSMutableArray*) getSupervisorRecordCall;
+
+
 @end

@@ -23,4 +23,7 @@
 -(NSString*) getMJConfigInfo: (NSString*) key;
 -(NSString*) getPicklistValueFromTable: (NSString*) table resultColumn: (NSString*) resCol codeColumn:(NSString*) codeCol code: (NSString*) code; 
 -(int) findNewDocnumForTable: (NSString*) table;
+
+-(NSString*) generateVisitDocNumberbyVisitType:(NSString*) type; 
+-  (NSString*) convertMonthToABCFormat: (NSInteger) month;
 @end
