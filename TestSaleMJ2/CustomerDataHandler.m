@@ -47,10 +47,12 @@ static CustomerDataHandler* _sharedInstance = nil;
 
 
 
+#pragma mark- Customer Detail Get Method
 //Get All customer Type send back Array of TypeName 
+
 - (NSMutableArray*)getAllCustomerType
 {   
-    NSMutableArray *typeList = [[NSMutableArray alloc]init];
+    NSMutableArray *typeList = [NSMutableArray array] ;
     [typeList addObject: [NSString stringWithFormat: @"Today"]];
     [typeList addObject: [NSString stringWithFormat: @"All Profile"]];
     [typeList addObject: [NSString stringWithFormat:@"All DKSH"]];
@@ -88,7 +90,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     type = [type stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    NSMutableArray *customerListArray = [[NSMutableArray alloc]init ];
+    NSMutableArray *customerListArray = [NSMutableArray array];
     
     
     
@@ -450,7 +452,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
 
-    NSMutableArray *childArray = [[NSMutableArray alloc]init ];
+    NSMutableArray *childArray = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT child_no, child_tname, child_fname, child_lname, sex, bdate FROM txn_child where profile_code = '%@' ", profileCode]];
@@ -479,7 +481,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllHobbies: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
-    NSMutableArray *hobbyArray = [[NSMutableArray alloc]init ];
+    NSMutableArray *hobbyArray = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT b.lifestyle_name ,a.description from  txn_customer_lifestyle a, Mst_lifestyle b  WHERE b.lifestyle_code = a.lifestyle_code AND a.profile_code = '%@' ", profileCode]];
@@ -508,7 +510,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllMembers: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT member_no, member_name,end_date, begin_date  FROM Txn_customer_member cm inner join Mst_member c on cm.member_code=c.member_code where  cm.profile_code= '%@'and c.Full_info_required ='Y' Order by cm.member_no ", profileCode]];
@@ -539,7 +541,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllWorkPlaces: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT  hospital_name, department_name, building, contact_time from txn_customer_addr LEFT OUTER JOIN Mst_department ON mst_department.department_code = txn_customer_addr.department_code LEFT OUTER JOIN txn_hospital ON txn_hospital.hospital_code = txn_customer_addr.hospital_code where address_type = 3 AND txn_customer_addr.profile_code = '%@' ORDER BY seq" , profileCode]];
@@ -569,7 +571,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllPatientTypeLabel{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:@"SELECT  patient_type_name from mst_patient_type  ORDER BY patient_type_code"];
@@ -649,7 +651,7 @@ static CustomerDataHandler* _sharedInstance = nil;
    
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
-   // NSMutableArray * array = [[NSMutableArray alloc]init ];
+   // NSMutableArray * array = [NSMutableArray array];
     
     CustomerStatus *cp = [[CustomerStatus alloc] init];
     cp.Recommender = FALSE;
@@ -708,7 +710,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllProductBrandLabel {
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
         
     FMResultSet *results = [database executeQuery:@"SELECT DISTINCT mpb.prod_brand_name,mpb.prod_brand_code  FROM mst_product_brand mpb INNER JOIN Mst_patient_type mpt ON mpb.patient_type_code = mpt.patient_type_code WHERE mpb.is_recomment = 'Y' ORDER BY mpb.patient_type_code ASC "];
     
@@ -764,6 +766,9 @@ static CustomerDataHandler* _sharedInstance = nil;
 
     
 }
+
+
+#pragma mark-  Customer Detail PickList Value
 //*********************************** Pick List Value **************************************************
 
 // return All picklist value in Array of NSString
@@ -1212,11 +1217,14 @@ static CustomerDataHandler* _sharedInstance = nil;
     return array;
 }
 
+
+
+#pragma mark- Customer Detail  update new delete method
 // *****************************************Update NEW DELETE***********************************************
 
 -(NSMutableDictionary*) updateCustomerDetail:(Customer*) customer
 {
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
@@ -1376,7 +1384,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 /// insert into new customer
 -(NSMutableDictionary*) newCustomerDetail:(Customer*) customer
 {
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
 
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
@@ -1601,7 +1609,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"update txn_child SET child_no = ? , child_tname = ?, child_fname = ?, child_lname = ?, sex = ? , bdate = ?,  update_date = CURRENT_TIMESTAMP ,update_by = ?  WHERE profile_code = ? AND child_no = ? ",child.number,child.titleName,child.firstName,child.lastName,child.sex,[[MJUtility sharedInstance] convertNSDateToString:child.birthDate],[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"] ,profileCode, child.number];
   
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
   
     
     if (boolean1== FALSE) {
@@ -1642,7 +1650,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"delete from txn_child  WHERE profile_code = ? AND child_no = ?",profileCode,childNumber];
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
 
     if (boolean1== FALSE) {
         //[database rollback];
@@ -1685,7 +1693,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"insert into txn_child(profile_code ,child_no,child_tname,child_fname, child_lname ,sex,bdate,record_date,record_by ) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)",profileCode,child.number,child.titleName,child.firstName,child.lastName,child.sex,[[MJUtility sharedInstance] convertNSDateToString:child.birthDate],[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"]];
    
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
 
     if (boolean1== FALSE) {
         //[database rollback];
@@ -1725,7 +1733,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"update txn_customer_lifestyle SET lifestyle_code = ? , description = ? WHERE profile_code = ? AND lifestyle_code = ? ",hobby.name, hobby.description ,profileCode, hobby.name];
    
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
 
     if (boolean1== FALSE) {
         //[database rollback];
@@ -1764,7 +1772,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_lifestyle  WHERE lifestyle_code = ? AND profile_code = ?",hobbyCode,profileCode];
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     if (boolean1== FALSE) {
         //[database rollback];
         [output setObject: @"N" forKey:@"Status"];
@@ -1806,7 +1814,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"insert into txn_customer_lifestyle (doc_num, profile_code ,lifestyle_code,description) VALUES (?,?,?,?)",[NSNumber numberWithInt: max],profileCode,hobby.name, hobby.description];
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     if (boolean1== FALSE) {
         //[database rollback];
         [output setObject: @"N" forKey:@"Status"];
@@ -1851,7 +1859,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"update txn_customer_addr SET  department_code = ?, building = ?, contact_time = ?  WHERE profile_code = ? AND hospital_code = ? AND address_type = 3" ,wp.department,wp.building ,wp.workTime, profileCode, wp.hospitalName];
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     if (boolean1== FALSE) {
         //[database rollback];
         [output setObject: @"N" forKey:@"Status"];
@@ -1892,7 +1900,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_addr  WHERE hospital_code = ? AND profile_code = ? AND address_type = 3 ",hospitalName ,profileCode];
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     if (boolean1== FALSE) {
         //[database rollback];
         [output setObject: @"N" forKey:@"Status"];
@@ -1937,7 +1945,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     BOOL boolean1 = [database executeUpdate:@"insert into txn_customer_addr(profile_code,seq,hospital_code,department_code,building,contact_time,address_type)  VALUES (?,?,?,?,?,?,3)",profileCode,[NSNumber numberWithInt: seq ],wp.hospitalName, wp.department, wp.building,wp.workTime];
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     if (boolean1== FALSE) {
         //[database rollback];
         [output setObject: @"N" forKey:@"Status"];
@@ -1967,7 +1975,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 
 //update customer patient ** recieve NSMutableArray of Customer Patients 
 - (NSMutableDictionary*) updateCustomerPatientwith: (NSMutableArray*) cpArray withProfileCode:(NSString*) profileCode{
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     
     
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -2025,7 +2033,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 }
 - (NSMutableDictionary*) updateCustomerStatus: (CustomerStatus*) cp withProfileCode:(NSString*) profileCode{
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
 
    
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -2243,7 +2251,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 //update customer patient ** recieve NSMutableArray of Customer Products 
 - (NSMutableDictionary*) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode{
     
-    NSMutableDictionary *output = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
     
 
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -2298,5 +2306,163 @@ static CustomerDataHandler* _sharedInstance = nil;
     [database close];
     return output;
 }
+
+
+#pragma mark- Customer Visit method
+
+-(NSMutableArray*) getDateForRecordCall{
+    
+    int callbackdays = [[[MJUtility sharedInstance] getMJConfigInfo:@"CallBackTime"] integerValue];
+    NSMutableArray* datearray = [NSMutableArray array];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *comps =
+    [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
+                fromDate:[NSDate date]];
+    
+    
+    [datearray addObject:[calendar dateFromComponents:comps]];
+    
+    for (int y = 0 ;y < callbackdays ; y++){
+        comps.day--;
+        [datearray addObject:[calendar dateFromComponents:comps]];
+    }
+    
+    
+    
+    return datearray;
+    
+}
+
+// return in form of Array of string
+-(NSMutableArray*) getCallObjectiveRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT call_objective_name FROM Mst_call_objective"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"call_objective_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return in form of Array of string
+-(NSMutableArray*) getCallProductRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT prod_brand_name FROM Mst_product_brand"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"prod_brand_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+// return in form of Array of string
+-(NSMutableArray*) getCallResultRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT call_result_name FROM Mst_call_result"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"call_result_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return in form of Array of string
+-(NSMutableArray*) getCallComplaintRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT call_complaint_name FROM Mst_call_complaint"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"call_complaint_name"]];
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return in form of Array of NSString
+-(NSMutableArray*) getSupervisorRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    NSString *myself = [[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"];
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT TRIM(sale_fname) || "  " || TRIM(sale_lname) AS sales  FROM Mst_sale WHERE sale_code <> '%@' ", myself]];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"sales"]];
+        
+    } 
+       
+    [database close];
+    
+    return array;
+}
+
+
+
 
 @end
