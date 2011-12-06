@@ -135,6 +135,8 @@
         
         [database close];
         [HUD hide:YES afterDelay:0.0];
+        
+        //test
     }
 
 }
