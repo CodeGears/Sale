@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SyncViewController.h"
 
 @class DetailViewController;
 @class NewCustomerViewController;
@@ -20,6 +21,8 @@
     
     NSArray* localNameKeys;
     NSArray* localNameList;
+    
+    SyncViewController *syncVC;
 }
 
 
@@ -31,6 +34,7 @@
 @property (nonatomic, retain) IBOutlet UITableView*     tableView;
 @property (nonatomic, retain) IBOutlet UITabBar*        tabBar;
 @property (nonatomic, retain) IBOutlet UINavigationBar* naviBar;
+@property (retain, nonatomic) IBOutlet UIView *rootView;
 
 
 @property (nonatomic, retain) DetailViewController* detailView;

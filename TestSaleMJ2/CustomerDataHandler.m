@@ -47,10 +47,12 @@ static CustomerDataHandler* _sharedInstance = nil;
 
 
 
+#pragma mark- Customer Detail Get Method
 //Get All customer Type send back Array of TypeName 
+
 - (NSMutableArray*)getAllCustomerType
 {   
-    NSMutableArray *typeList = [[NSMutableArray alloc]init];
+    NSMutableArray *typeList = [NSMutableArray array] ;
     [typeList addObject: [NSString stringWithFormat: @"Today"]];
     [typeList addObject: [NSString stringWithFormat: @"All Profile"]];
     [typeList addObject: [NSString stringWithFormat:@"All DKSH"]];
@@ -88,7 +90,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     type = [type stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    NSMutableArray *customerListArray = [[NSMutableArray alloc]init ];
+    NSMutableArray *customerListArray = [NSMutableArray array];
     
     
     
@@ -439,9 +441,10 @@ static CustomerDataHandler* _sharedInstance = nil;
     BOOL low;
     */
     // EDC
-     NSLog(@" %@", [customer.EDC description]);
-
-    
+     NSLog(@"EDC %@", [customer.EDC description]);
+    NSLog(@"NEW %@",[[MJUtility sharedInstance] getMJConfigInfo:@"TerritoryCode"]);
+    NSLog(@"NEW %@",[[[MJUtility sharedInstance] getMJConfigInfo:@"TerritoryCode"] 
+                     stringByAppendingFormat: @"%@",customer.hhIncome]);
     return customer;
 }
 
@@ -449,7 +452,7 @@ static CustomerDataHandler* _sharedInstance = nil;
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
 
-    NSMutableArray *childArray = [[NSMutableArray alloc]init ];
+    NSMutableArray *childArray = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT child_no, child_tname, child_fname, child_lname, sex, bdate FROM txn_child where profile_code = '%@' ", profileCode]];
@@ -478,7 +481,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllHobbies: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
-    NSMutableArray *hobbyArray = [[NSMutableArray alloc]init ];
+    NSMutableArray *hobbyArray = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT b.lifestyle_name ,a.description from  txn_customer_lifestyle a, Mst_lifestyle b  WHERE b.lifestyle_code = a.lifestyle_code AND a.profile_code = '%@' ", profileCode]];
@@ -507,7 +510,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllMembers: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT member_no, member_name,end_date, begin_date  FROM Txn_customer_member cm inner join Mst_member c on cm.member_code=c.member_code where  cm.profile_code= '%@'and c.Full_info_required ='Y' Order by cm.member_no ", profileCode]];
@@ -538,7 +541,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllWorkPlaces: (NSString*) profileCode{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
      [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT  hospital_name, department_name, building, contact_time from txn_customer_addr LEFT OUTER JOIN Mst_department ON mst_department.department_code = txn_customer_addr.department_code LEFT OUTER JOIN txn_hospital ON txn_hospital.hospital_code = txn_customer_addr.hospital_code where address_type = 3 AND txn_customer_addr.profile_code = '%@' ORDER BY seq" , profileCode]];
@@ -568,7 +571,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllPatientTypeLabel{
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
     
     
     FMResultSet *results = [database executeQuery:@"SELECT  patient_type_name from mst_patient_type  ORDER BY patient_type_code"];
@@ -648,7 +651,7 @@ static CustomerDataHandler* _sharedInstance = nil;
    
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
-   // NSMutableArray * array = [[NSMutableArray alloc]init ];
+   // NSMutableArray * array = [NSMutableArray array];
     
     CustomerStatus *cp = [[CustomerStatus alloc] init];
     cp.Recommender = FALSE;
@@ -707,7 +710,7 @@ static CustomerDataHandler* _sharedInstance = nil;
 - (NSMutableArray*) getAllProductBrandLabel {
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     [database open];
-    NSMutableArray * array = [[NSMutableArray alloc]init ];
+    NSMutableArray * array = [NSMutableArray array];
         
     FMResultSet *results = [database executeQuery:@"SELECT DISTINCT mpb.prod_brand_name,mpb.prod_brand_code  FROM mst_product_brand mpb INNER JOIN Mst_patient_type mpt ON mpb.patient_type_code = mpt.patient_type_code WHERE mpb.is_recomment = 'Y' ORDER BY mpb.patient_type_code ASC "];
     
@@ -763,6 +766,9 @@ static CustomerDataHandler* _sharedInstance = nil;
 
     
 }
+
+
+#pragma mark-  Customer Detail PickList Value
 //*********************************** Pick List Value **************************************************
 
 // return All picklist value in Array of NSString
@@ -1025,7 +1031,8 @@ static CustomerDataHandler* _sharedInstance = nil;
 }
 
 // return All picklist value in Array of NSString
-- (NSMutableArray*) getAllPickListHospital{
+- (NSMutableArray*) getAllPickListHospitalfor:(NSString*) profileCode
+{
     
     
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
@@ -1042,6 +1049,17 @@ static CustomerDataHandler* _sharedInstance = nil;
     {
         [array addObject:[results stringForColumn:@"hospital_name"]];
         
+        
+    } 
+    results = [database executeQuery:[NSString stringWithFormat: @"SELECT hospital_name FROM txn_customer_addr LEFT OUTER JOIN txn_hospital ON txn_customer_addr.hospital_code = txn_hospital.hospital_code WHERE txn_customer_addr.profile_code = '%@' AND  txn_customer_addr.address_type = 3 ",profileCode]];
+    
+    while([results next]) 
+        
+    {
+        for(NSString* hn in array){
+            if([hn isEqualToString:[results stringForColumn:@"hospital_name"]])
+                [array removeObject:hn];
+        }
         
     } 
     
@@ -1199,20 +1217,27 @@ static CustomerDataHandler* _sharedInstance = nil;
     return array;
 }
 
-// *****************************************Update***********************************************
 
--(BOOL) updateCustomerDetail:(Customer*) customer
+
+#pragma mark- Customer Detail  update new delete method
+// *****************************************Update NEW DELETE***********************************************
+
+-(NSMutableDictionary*) updateCustomerDetail:(Customer*) customer
 {
-        
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    
     FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
     
     [database open];
-    /*
-    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT photo,ocup_code, cust_tname, cust_fname, cust_lname, profile_code, customer_code1,customer_code2,customer_code3,email,phone,sex, bdate, idno,latitude,longitude, Position_date, edu_level_code, edu_major_code, edu_place_code, marry_status_code, spouse_tname, spouse_fname, spouse_lname, spouse_bdate,hhi_code,edc_date from txn_customer WHERE is_active = 'Y' AND profile_code = '%@' ", profileCode]];
-    */
     
-   // customer.pic= [results dataForColumn: @"photo"];
-    //NSString *ocup_code = [results stringForColumn:@"ocup_code"]
+    //check is active
+    customer.customerCode1  = [customer.customerCode1 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* kunnr = [database stringForQuery:[NSString stringWithFormat: @"SELECT kunnr FROM dst_customer WHERE TRIM(kunnr) = '%@'",customer.customerCode1]];
+    
+    NSString* is_active;
+    if(kunnr != nil){
+        is_active = @"Y";
+    }else is_active = nil;
    
     customer.role = [customer.role stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     customer.role = [database stringForQuery:[NSString stringWithFormat: @"SELECT ocup_code FROM Mst_occupation WHERE TRIM(ocup_name) = '%@'",customer.role]];
@@ -1234,27 +1259,47 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     customer.hhIncome  = [customer.hhIncome stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     customer.hhIncome= [database stringForQuery:[NSString stringWithFormat: @"SELECT hhi_name FROM mst_house_hold_income WHERE TRIM(hhi_name) = '%@'",customer.hhIncome]];
-   
+    [database beginTransaction];
     // update customer detail 
-   BOOL boolean1 = [database executeUpdate:@"update txn_customer SET photo = ? ,ocup_code = ?, cust_tname = ?, cust_fname = ? , cust_lname = ?, customer_code1 =?,customer_code2 =? ,customer_code3 = ? ,email = ?,phone = ? ,sex = ? , bdate = ? , idno =?, edu_level_code = ? , edu_major_code = ? , edu_place_code = ? , marry_status_code = ?, spouse_tname = ?, spouse_fname = ?, spouse_lname = ? , spouse_bdate = ?,hhi_code = ?,edc_date = ?, update_date = CURRENT_TIMESTAMP ,update_by = ?  WHERE profile_code = ?", customer.pic , customer.role,customer.titleName, customer.firstName,customer.lastName,customer.customerCode1,customer.customerCode2,customer.customerCode3, customer.email,customer.telephone ,customer.sex,customer.birthDay ,customer.idNumber ,customer.educationLevel,customer.educationMajor,customer.educationPlace,customer.maritialStat,customer.spouseTitleName,customer.spouseFirstName,customer.spouseLastName,customer.spousebirthdate, customer.hhIncome, customer.EDC, [[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"], customer.profileCode];
+   BOOL boolean1 = [database executeUpdate:@"update txn_customer SET photo = ? ,ocup_code = ?, cust_tname = ?, cust_fname = ? , cust_lname = ?, customer_code1 =?,customer_code2 =? ,customer_code3 = ? ,email = ?,phone = ? ,sex = ? , bdate = ? , idno =?, edu_level_code = ? , edu_major_code = ? , edu_place_code = ? , marry_status_code = ?, spouse_tname = ?, spouse_fname = ?, spouse_lname = ? , spouse_bdate = ?,hhi_code = ?,edc_date = ?, update_date = CURRENT_TIMESTAMP ,update_by = ? , is_active = ? WHERE profile_code = ?", customer.pic , customer.role,customer.titleName, customer.firstName,customer.lastName,customer.customerCode1,customer.customerCode2,customer.customerCode3, customer.email,customer.telephone ,customer.sex,[[MJUtility sharedInstance] convertNSDateToString:customer.birthDay],customer.idNumber ,customer.educationLevel,customer.educationMajor,customer.educationPlace,customer.maritialStat,customer.spouseTitleName,customer.spouseFirstName,customer.spouseLastName,[[MJUtility sharedInstance] convertNSDateToString:customer.spousebirthdate], customer.hhIncome, customer.EDC, [[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"],is_active,customer.profileCode];
 
     if(boolean1 == FALSE)
     {
-        return FALSE;
+        [database rollback];
+        
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        [database close];
+        
+        return output;
     }
-    // prep home province data
-    customer.homeProvince  = [customer.homeProvince stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    customer.homeProvince = [database stringForQuery:[NSString stringWithFormat: @"SELECT province_code FROM mst_province WHERE TRIM(province_name) = '%@'",customer.homeProvince]];
-
     
+   
+
+    if(customer.homeAddress1 != nil && customer.homeAddress2 != nil && customer.homeSubDistrict != nil && customer.homeDistrict != nil && customer.homeProvince  != nil &&  customer.homeZip  != nil && customer.homePhone != nil &&  customer.homeExt != nil && customer.homefax != nil && customer.homeConvenienceTime != nil )
+    {
+        
+        
+        // prep home province data
+        customer.homeProvince  = [customer.homeProvince stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        customer.homeProvince = [database stringForQuery:[NSString stringWithFormat: @"SELECT province_code FROM mst_province WHERE TRIM(province_name) = '%@'",customer.homeProvince]];
+        
     // update customer clinic addr 
     BOOL boolean2 = [database executeUpdate:@"update txn_customer_addr SET addr1 = ? , addr2 = ? , sub_district = ?, district= ?, province =?, zip = ? ,  phone = ?,    phone_ext = ?, fax = ?, contact_time = ?  WHERE profile_code = ? AND address_type = 1",customer.homeAddress1, customer.homeAddress2 ,customer.homeSubDistrict ,customer.homeDistrict ,customer.homeProvince , customer.homeZip,customer.homePhone,customer.homeExt,customer.homefax,customer.homeConvenienceTime, customer.profileCode];
     
     
     if(boolean2 == FALSE)
-    {
-        return FALSE;
+    {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        [database close];
+        return output;
     }
+    
+    }
+    
+    
+    if(customer.clinicAddress1 != nil && customer.clinicAddress2 != nil && customer.clinicSubDistrict != nil && customer.clinicDistrict != nil && customer.clinicProvince != nil &&  customer.clinicZip!= nil && customer.clinicPhone!= nil && customer.clinicExt!= nil && customer.clinicfax!= nil && customer.clinicConvenienceTime!= nil &&  customer.profileCode){
     
     // prep clinic province data
     customer.clinicProvince  = [customer.clinicProvince stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -1266,8 +1311,13 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     
     if(boolean3 == FALSE)
-    {
-        return FALSE;
+    {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+
+        [database close];
+        return output;
+    }
     }
     
     /*
@@ -1290,29 +1340,1129 @@ static CustomerDataHandler* _sharedInstance = nil;
     
     // find max doc_num 
     
-        NSString *max = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
-
-    
         if(customer.high){
-        
-        [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",max,customer.profileCode,@"01"];
+            int maxses1 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses1 ],customer.profileCode,@"01"];
         }
         if(customer.medium)
         {
-        
-        [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",max,customer.profileCode,@"02"];
+            int maxses2 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses2 ],customer.profileCode,@"02"];
         }
         if(customer.low){
-        
-        [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",max,customer.profileCode,@"03"];
+            
+            int maxses3 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses3 ],customer.profileCode,@"03"];
         }
+
        
     }
     
-    return TRUE;    
+    [database commit];
+       
     
+    [is_active release];
+    
+    if([[MJUtility sharedInstance] checkInTxn:customer.profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+      //  [output setObject: nil forKey:@"ErrorMsg"];
+      
+       
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+                
+    }
+    [database close];
+    return output;
+
+}
+
+/// insert into new customer
+-(NSMutableDictionary*) newCustomerDetail:(Customer*) customer
+{
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    //check is active
+    customer.customerCode1  = [customer.customerCode1 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* kunnr = [database stringForQuery:[NSString stringWithFormat: @"SELECT kunnr FROM dst_customer WHERE TRIM(kunnr) = '%@'",customer.customerCode1]];
+    
+    NSString* is_active;
+    if(kunnr != nil){
+        is_active = @"Y";
+    }else is_active = nil;
+    
+    // get last and docnum
+    
+    int doc_num =[database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer"]+1;
+    NSString *max = [NSString stringWithFormat:@"%d",doc_num%1000] ;
+    
+    
+    
+    // generate new profile code 
+    
+    
+   customer.profileCode = [[[MJUtility sharedInstance] getMJConfigInfo:@"TerritoryCode"] stringByAppendingFormat: @"%@",max];
+    
+    
+    // find code from name to put info
+    
+    customer.role = [customer.role stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.role = [database stringForQuery:[NSString stringWithFormat: @"SELECT ocup_code FROM Mst_occupation WHERE TRIM(ocup_name) = '%@'",customer.role]];
+    
+    customer.sex  = [customer.sex stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.sex = [database stringForQuery:[NSString stringWithFormat: @"SELECT sex_code FROM Mst_sex WHERE TRIM(sex_name) = '%@'",customer.sex]];
+    
+    customer.educationLevel  = [customer.educationLevel stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.educationLevel= [database stringForQuery:[NSString stringWithFormat: @"SELECT edu_level_code FROM Mst_edu_level WHERE TRIM(edu_level_name) = '%@'",customer.educationLevel]];
+    
+    customer.educationMajor= [customer.educationMajor stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.educationMajor= [database stringForQuery:[NSString stringWithFormat: @"SELECT edu_major_code FROM Mst_edu_major WHERE TRIM(edu_major_name) = '%@'",customer.educationMajor]];
+    
+    customer.educationPlace  = [customer.educationPlace stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.educationPlace= [database stringForQuery:[NSString stringWithFormat: @"SELECT edu_place_code FROM Mst_edu_place WHERE TRIM(edu_place_name) = '%@'",customer.educationPlace]];
+    
+    customer.maritialStat  = [customer.maritialStat stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.maritialStat= [database stringForQuery:[NSString stringWithFormat: @"SELECT marry_status_code FROM mst_marry_status WHERE TRIM(marry_status_name) = '%@'",customer.maritialStat]];
+    
+    customer.hhIncome  = [customer.hhIncome stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.hhIncome= [database stringForQuery:[NSString stringWithFormat: @"SELECT hhi_name FROM mst_house_hold_income WHERE TRIM(hhi_name) = '%@'",customer.hhIncome]];
+    [database beginTransaction];
+    // update customer detail 
+    BOOL boolean1 = [database executeUpdate:@"insert into txn_customer(doc_num,photo,ocup_code, cust_tname, cust_fname, cust_lname, customer_code1,customer_code2,customer_code3 ,email,phone,sex, bdate, idno, edu_level_code , edu_major_code, edu_place_code , marry_status_code , spouse_tname , spouse_fname , spouse_lname , spouse_bdate,hhi_code ,edc_date, record_date,record_by , is_active ,profile_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,?,?)",[NSNumber numberWithInt:doc_num], customer.pic , customer.role,customer.titleName, customer.firstName,customer.lastName,customer.customerCode1,customer.customerCode2,customer.customerCode3, customer.email,customer.telephone ,customer.sex,[[MJUtility sharedInstance] convertNSDateToString:customer.birthDay] ,customer.idNumber ,customer.educationLevel,customer.educationMajor,customer.educationPlace,customer.maritialStat,customer.spouseTitleName,customer.spouseFirstName,customer.spouseLastName,[[MJUtility sharedInstance] convertNSDateToString:customer.spousebirthdate], customer.hhIncome, customer.EDC, [[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"],is_active,customer.profileCode];
+    
+    if(boolean1 == FALSE)
+    {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    
+    if(customer.homeAddress1 != nil && customer.homeAddress2 != nil && customer.homeSubDistrict != nil && customer.homeDistrict != nil && customer.homeProvince  != nil &&  customer.homeZip  != nil && customer.homePhone != nil &&  customer.homeExt != nil && customer.homefax != nil && customer.homeConvenienceTime != nil )
+    {
+        
+    
+    // prep home province data
+    customer.homeProvince  = [customer.homeProvince stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.homeProvince = [database stringForQuery:[NSString stringWithFormat: @"SELECT province_code FROM mst_province WHERE TRIM(province_name) = '%@'",customer.homeProvince]];
+    
+    
+    
+    // update customer clinic addr 
+    BOOL boolean2 = [database executeUpdate:@"insert into txn_customer_addr(addr1, addr2, sub_district, district, province, zip ,  phone,    phone_ext, fax, contact_time, profile_code ,address_type,seq) VALUES (?,?,?,?,?,?,?,?,?,?,?,'1','0')",customer.homeAddress1, customer.homeAddress2 ,customer.homeSubDistrict ,customer.homeDistrict ,customer.homeProvince , customer.homeZip,customer.homePhone,customer.homeExt,customer.homefax,customer.homeConvenienceTime, customer.profileCode];
+    
+    
+    if(boolean2 == FALSE)
+    {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    }
+    
+    if(customer.clinicAddress1 != nil && customer.clinicAddress2 != nil && customer.clinicSubDistrict != nil && customer.clinicDistrict != nil && customer.clinicProvince != nil &&  customer.clinicZip!= nil && customer.clinicPhone!= nil && customer.clinicExt!= nil && customer.clinicfax!= nil && customer.clinicConvenienceTime!= nil &&  customer.profileCode){
+    
+    
+    // prep clinic province data
+    customer.clinicProvince  = [customer.clinicProvince stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    customer.clinicProvince = [database stringForQuery:[NSString stringWithFormat: @"SELECT province_code FROM mst_province WHERE TRIM(province_name) = '%@'",customer.clinicProvince]];
+    
+    
+    // update customer home addr 
+    BOOL boolean3 = [database executeUpdate:@"insert into txn_customer_addr(addr1, addr2, sub_district, district, province, zip ,  phone,    phone_ext, fax, contact_time, profile_code ,address_type,seq) VALUES (?,?,?,?,?,?,?,?,?,?,?,'2','0')",customer.clinicAddress1, customer.clinicAddress2 ,customer.clinicSubDistrict ,customer.clinicDistrict ,customer.clinicProvince , customer.clinicZip,customer.clinicPhone,customer.clinicExt,customer.clinicfax,customer.clinicConvenienceTime, customer.profileCode];
+    
+    
+    if(boolean3 == FALSE)
+    {   [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    
+    }
+     // insert business data
+    
+    BOOL boolean4;
+    if(customer.emerald){
+         int maxbusiness1 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"]+1;
+        //emerald = @"01";
+        // update data
+        
+         boolean4 = [database executeUpdate:@"insert into txn_customer_business(doc_num,profile_code,business_code,rep_code,territory_name)VALUES (?,?,?,?,?)",[NSNumber numberWithInt:  maxbusiness1],customer.profileCode,[NSString stringWithFormat: @"01"],[[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"],[[MJUtility sharedInstance] getMJConfigInfo:@"territory_name"]];
+    }
+    if(customer.sapphire){
+       //NSString *maxbusiness2 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"];
+        int maxbusiness2 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_business"]+1;
+        boolean4 = [database executeUpdate:@"insert into txn_customer_business(doc_num,profile_code,business_code,rep_code,territory_name)VALUES (?,?,?,?,?)",[NSNumber numberWithInt: maxbusiness2],customer.profileCode,[NSString stringWithFormat: @"02"],[[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"],[[MJUtility sharedInstance] getMJConfigInfo:@"territory_name"]];
+    // sapphire = @"02";
+    } 
+    
+    
+       if(boolean4 == FALSE)
+       {   [database rollback];
+           [output setObject: @"N" forKey:@"Status"];
+           [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+           
+           [database close];
+           return output;
+    }
+    
+    
+    if(customer.high || customer.medium || customer.low){
+       
+        
+        // find max doc_num 
+        
+     
+        
+        
+        if(customer.high){
+            
+            //NSString *maxses1 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+             int maxses1 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses1],customer.profileCode,@"01"];
+        }
+        if(customer.medium)
+        {
+             //NSString *maxses2 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+             int maxses2 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses2],customer.profileCode,@"02"];
+        }
+        if(customer.low){
+            
+            // NSString *maxses3 = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"];
+             int maxses3 = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_ses"]+1;
+            [database executeUpdate:@"INSERT INTO txn_customer_ses(doc_num,profile_code,ses_code) VALUES (?,?,?)",[NSNumber numberWithInt: maxses3],customer.profileCode,@"03"];
+        }
+        
+    }
+    
+    
+    [database commit];
+    [is_active release];
+    //[database close];
+    // return [[MJUtility sharedInstance] newTxn:customer.profileCode type:@"CU" profileCode:customer.profileCode customerCode:customer.customerCode1 appStatus:@"WT"]; 
+    
+    if([[MJUtility sharedInstance] newTxn:customer.profileCode type:@"CU" profileCode:customer.profileCode customerCode:customer.customerCode1 appStatus:@"WT"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+        //[output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        
+    }
+    [database close];
+    return output;
+}
+
+
+-(NSDate*) updateCustomerGPSProfileCode:(NSString*) profileCode withLat: (NSString*) latitute withLong:(NSString*) longtitute 
+{
+    NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    BOOL boolean1 = [database executeUpdate:@"update txn_customer SET latitude = ? ,longitude = ?, Position_date = CURRENT_TIMESTAMP,  update_date = CURRENT_TIMESTAMP ,update_by = ?  WHERE profile_code = ?", latitute,longtitute,[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"] ,profileCode];
+    
+    if(boolean1)
+    {
+        date = [database stringForQuery: [NSString stringWithFormat:@"select position_date from txn_customer where profile_code = '%@'",profileCode] ];
+    
+    }
+     [database close];
+    [[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"];
+    return [[MJUtility sharedInstance] convertStringDateToNSDate:date];
+   
+
+}
+
+// update customer child
+- (NSMutableDictionary*) updateCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode
+{
+  
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    child.sex  = [child.sex stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    child.sex = [database stringForQuery:[NSString stringWithFormat: @"SELECT sex_code FROM Mst_sex WHERE TRIM(sex_name) = '%@'",child.sex]];
+    
+    
+    BOOL boolean1 = [database executeUpdate:@"update txn_child SET child_no = ? , child_tname = ?, child_fname = ?, child_lname = ?, sex = ? , bdate = ?,  update_date = CURRENT_TIMESTAMP ,update_by = ?  WHERE profile_code = ? AND child_no = ? ",child.number,child.titleName,child.firstName,child.lastName,child.sex,[[MJUtility sharedInstance] convertNSDateToString:child.birthDate],[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"] ,profileCode, child.number];
+  
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+  
+    
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+    //    [output setObject: nil forKey:@"ErrorMsg"];
+    
+    
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+        [database close];
+        return output;
+    
+    
+    //return boolean1;
+  
+    
+
+}
+// delete customer child
+- (NSMutableDictionary*) deleteCustomerChildByChildNumber: (NSString*) childNumber withProfileCode: (NSString*) profileCode
+{
+         // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    BOOL boolean1 = [database executeUpdate:@"delete from txn_child  WHERE profile_code = ? AND child_no = ?",profileCode,childNumber];
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
     
     [database close];
+    return output;
+    
+    
+    
 }
+
+// new customer child 
+- (NSMutableDictionary*) newCustomerChild: (CustomerChild*) child withProfileCode: (NSString*) profileCode
+{   
+    
+
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    child.sex  = [child.sex stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    child.sex = [database stringForQuery:[NSString stringWithFormat: @"SELECT sex_code FROM Mst_sex WHERE TRIM(sex_name) = '%@'",child.sex]];
+    
+    BOOL boolean1 = [database executeUpdate:@"insert into txn_child(profile_code ,child_no,child_tname,child_fname, child_lname ,sex,bdate,record_date,record_by ) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)",profileCode,child.number,child.titleName,child.firstName,child.lastName,child.sex,[[MJUtility sharedInstance] convertNSDateToString:child.birthDate],[[MJUtility sharedInstance]getMJConfigInfo:@"SalesCode"]];
+   
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+       
+    
+}
+
+// update customer hobbies
+- (NSMutableDictionary*) updateCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode
+{  
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    hobby.name  = [hobby.name stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    hobby.name = [database stringForQuery:[NSString stringWithFormat: @"SELECT lifestyle_code FROM Mst_lifestyle WHERE TRIM(lifestyle_name) = '%@'",hobby.name]];
+    
+    BOOL boolean1 = [database executeUpdate:@"update txn_customer_lifestyle SET lifestyle_code = ? , description = ? WHERE profile_code = ? AND lifestyle_code = ? ",hobby.name, hobby.description ,profileCode, hobby.name];
+   
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+        
+    
+}
+// delete customer hobbies
+- (NSMutableDictionary*) deleteCustomerHobbyByHobbyName: (NSString*) hobbyName withProfileCode: (NSString*) profileCode
+{   
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    hobbyName  = [hobbyName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *hobbyCode = [database stringForQuery: [NSString stringWithFormat:@"select lifestyle_code from mst_lifestyle where lifestyle_name = '%@'",hobbyName] ];
+    
+    BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_lifestyle  WHERE lifestyle_code = ? AND profile_code = ?",hobbyCode,profileCode];
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+       
+    
+}
+
+// new customer child 
+- (NSMutableDictionary*) newCustomerHobby: (Hobby*) hobby withProfileCode: (NSString*) profileCode
+{
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    hobby.name  = [hobby.name stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    hobby.name = [database stringForQuery:[NSString stringWithFormat: @"SELECT lifestyle_code FROM Mst_lifestyle WHERE TRIM(lifestyle_name) = '%@'",hobby.name]];
+    
+  //  NSString *max = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_lifestyle"];
+    int max = [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_lifestyle"];
+    
+    BOOL boolean1 = [database executeUpdate:@"insert into txn_customer_lifestyle (doc_num, profile_code ,lifestyle_code,description) VALUES (?,?,?,?)",[NSNumber numberWithInt: max],profileCode,hobby.name, hobby.description];
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+
+    
+    
+    
+}
+
+// update customer workplace // cannot update hospital name
+- (NSMutableDictionary*) updateCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode
+{
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    wp.department  = [wp.department stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    wp.department = [database stringForQuery:[NSString stringWithFormat: @"SELECT department_code FROM Mst_department WHERE TRIM(department_name) = '%@'",wp.department]];
+    
+    wp.hospitalName  = [wp.hospitalName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    wp.hospitalName= [database stringForQuery:[NSString stringWithFormat: @"SELECT hospital_code FROM txn_hospital WHERE TRIM(hospital_name) = '%@'",wp.hospitalName]];
+    
+    
+    BOOL boolean1 = [database executeUpdate:@"update txn_customer_addr SET  department_code = ?, building = ?, contact_time = ?  WHERE profile_code = ? AND hospital_code = ? AND address_type = 3" ,wp.department,wp.building ,wp.workTime, profileCode, wp.hospitalName];
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+
+    
+    
+}
+
+// delete customer Workplace
+- (NSMutableDictionary*) deleteCustomerWorkPlaceByHospitalName: (NSString*) hospitalName withProfileCode: (NSString*) profileCode
+{
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    
+    hospitalName  = [hospitalName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    hospitalName= [database stringForQuery:[NSString stringWithFormat: @"SELECT hospital_code FROM txn_hospital WHERE TRIM(hospital_name) = '%@'",hospitalName]];
+    
+    BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_addr  WHERE hospital_code = ? AND profile_code = ? AND address_type = 3 ",hospitalName ,profileCode];
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+     //   [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+
+    
+    
+}
+
+// update customer workplace // cannot update hospital name
+- (NSMutableDictionary*) newCustomerWorkPlace: (CustomerWorkPlace*) wp withProfileCode: (NSString*) profileCode
+{
+    // NSString* date;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    wp.department  = [wp.department stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    wp.department = [database stringForQuery:[NSString stringWithFormat: @"SELECT department_code FROM Mst_department WHERE TRIM(department_name) = '%@'",wp.department]];
+    
+    wp.hospitalName  = [wp.hospitalName stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    wp.hospitalName= [database stringForQuery:[NSString stringWithFormat: @"SELECT hospital_code FROM txn_hospital WHERE TRIM(hospital_name) = '%@'",wp.hospitalName]];
+    
+    int seq = [database intForQuery:[NSString stringWithFormat: @"SELECT MAX(seq) FROM txn_customer_addr WHERE profile_code = '%@'",profileCode]]+1;
+    
+    BOOL boolean1 = [database executeUpdate:@"insert into txn_customer_addr(profile_code,seq,hospital_code,department_code,building,contact_time,address_type)  VALUES (?,?,?,?,?,?,3)",profileCode,[NSNumber numberWithInt: seq ],wp.hospitalName, wp.department, wp.building,wp.workTime];
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    if (boolean1== FALSE) {
+        //[database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+      //  [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+    
+
+    
+    
+}
+
+//update customer patient ** recieve NSMutableArray of Customer Patients 
+- (NSMutableDictionary*) updateCustomerPatientwith: (NSMutableArray*) cpArray withProfileCode:(NSString*) profileCode{
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    BOOL boolean2 = TRUE;
+    
+    [database beginTransaction];
+    BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_patient WHERE profile_code = ?",profileCode];
+    if(boolean1 == FALSE){
+        [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    
+    for (CustomerPatient* cp in cpArray){
+        
+        if(!([cp.totalBirth isEqualToString:@"0"] && [cp.totalCommercial isEqualToString:@"0"])){
+          //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_patient"];
+             int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_patient"]+1;
+        cp.type  = [cp.type stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        cp.type = [database stringForQuery:[NSString stringWithFormat: @"SELECT patient_type_code FROM Mst_patient_type WHERE TRIM(patient_type_name) = '%@'",cp.type]];
+         
+        boolean2 = [database executeUpdate:@"insert into txn_customer_patient (doc_num, profile_code ,patient_type_code,total_potential,total_patient_g,total_commercial, total_commercial_g) VALUES (?,?,?,?,?,?,?)",[NSNumber numberWithInt: max ],profileCode,cp.type, cp.totalBirth,cp.totalBirth,cp.totalCommercial,cp.totalCommercial];
+        
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+            
+    }
+            
+    }
+    [database commit];
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+        //[output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+}
+- (NSMutableDictionary*) updateCustomerStatus: (CustomerStatus*) cp withProfileCode:(NSString*) profileCode{
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+
+   
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    [database beginTransaction];
+    BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_status WHERE profile_code = ?",profileCode];
+    
+    if(boolean1 == FALSE){
+        [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }  
+    
+        BOOL boolean2;
+    if(cp.Recommender == TRUE){
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+         int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+       boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"01"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+
+        
+    }
+    if (cp.RoCommPTC == TRUE){
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"02"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }
+    if (cp.DepartmentHead == TRUE){
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"03"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;        }
+        
+    }
+    if (cp.KOL == TRUE){
+     //   int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+       int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1; 
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"04"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }
+    if (cp.EndUseer == TRUE){
+       // int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"05"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }
+    if (cp.DirecAsstDirec == TRUE){
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"06"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }if (cp.PedOBNurse == TRUE){
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"07"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }
+    if (cp.PedOBDoctor == TRUE){
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"08"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }
+    if (cp.Depo == TRUE){
+      //  int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"09"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }
+    if (cp.PregList == TRUE){
+        //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_status"];
+        int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_status"]+1;
+        boolean2 = [database executeUpdate:@"insert into txn_customer_status (doc_num, profile_code ,status_code) VALUES (?,?,?)",[NSNumber numberWithInt: max ],profileCode,@"10"];
+        if(boolean2 == FALSE){
+            [database rollback];
+            [output setObject: @"N" forKey:@"Status"];
+            [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+            
+            [database close];
+            return output;
+        }
+        
+    }
+    
+    [database commit];
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+       // [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+    
+    
+}
+
+
+//chweck validity of Patient and productrecommend : Array of CustomerPatient and Array of CustomerProduct
+
+- (BOOL) checkValidityPatient: (NSMutableArray*) cpArray withProductRecommend: (NSMutableArray*) prArray
+
+{   int SumTotalRecQty= 0;
+    BOOL valid= FALSE;
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    
+    for(CustomerProduct *pr in prArray){
+        
+        pr.code = [database stringForQuery:[NSString stringWithFormat: @"select patient_type_code  from mst_product_brand WHERE TRIM(prod_brand_name) = '%@'",pr.name]];
+    }
+    // looping for check validity for each patient_type one by one
+    
+    for(CustomerPatient *cp in cpArray){
+        
+        NSString *typeName = [database stringForQuery:@"SELECT patient_type_code FROM mst_patient_type WHERE TRIM (patient_type_name) = ?",cp.type ];
+        SumTotalRecQty = 0;
+        
+        for(CustomerProduct *pr in prArray){
+            
+            if([pr.code isEqualToString: typeName])
+                SumTotalRecQty = SumTotalRecQty + [pr.recQty integerValue] ;
+        }
+            
+        if(SumTotalRecQty <= [cp.totalCommercial integerValue]){
+                valid = TRUE;
+        }else {
+                valid = FALSE;
+                break;
+        }
+    }
+    
+    return valid;
+}
+
+//update customer patient ** recieve NSMutableArray of Customer Products 
+- (NSMutableDictionary*) updateCustomerProductwith: (NSMutableArray*) prArray withProfileCode:(NSString*) profileCode{
+    
+    NSMutableDictionary *output = [NSMutableDictionary dictionary ];
+    
+
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    
+    [database open];
+    [database beginTransaction];
+    BOOL boolean2 = TRUE;
+    BOOL boolean1 = [database executeUpdate:@"delete from txn_customer_product WHERE profile_code = ?",profileCode];
+    if(boolean1 == FALSE){
+        [database rollback];
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+        
+        [database close];
+        return output;
+    }
+    for (CustomerProduct* pr in prArray){
+        
+        if(![pr.recQty isEqualToString:@"0"] && boolean2 ){
+            
+            //NSString *max = [database stringForQuery:@"SELECT MAX(doc_num) FROM txn_customer_patient"];
+             //int max =  [[MJUtility sharedInstance] findNewDocnumForTable:@"txn_customer_product"];
+            int max = [database intForQuery:@"SELECT MAX(doc_num) FROM txn_customer_product"]+1;
+            pr.name  = [pr.name stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            pr.code = [database stringForQuery:[NSString stringWithFormat: @"SELECT prod_brand_code FROM Mst_product_brand WHERE TRIM(prod_brand_name) = '%@'",pr.name]];
+            
+            boolean2 = [database executeUpdate:@"insert into txn_customer_product (doc_num, profile_code ,prod_brand_code,Recommended_qty) VALUES (?,?,?,?)",[NSNumber numberWithInt: max],profileCode,pr.code, pr.recQty];
+            
+            if(boolean2 == FALSE){
+                [database rollback];
+                [output setObject: @"N" forKey:@"Status"];
+                [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+                
+                [database close];
+                return output;
+            }
+        }  
+    }
+    
+    [database commit];
+    if([[MJUtility sharedInstance] checkInTxn:profileCode type: @"CU"])
+    {
+        [output setObject: @"Y" forKey:@"Status"];
+      //  [output setObject: nil forKey:@"ErrorMsg"];
+        
+        
+    }else{
+        [output setObject: @"N" forKey:@"Status"];
+        [output setObject:[database lastErrorMessage] forKey:@"ErrorMsg"];
+    }
+    
+    [database close];
+    return output;
+}
+
+
+#pragma mark- Customer Visit method
+
+-(NSMutableArray*) getDateForRecordCall{
+    
+    int callbackdays = [[[MJUtility sharedInstance] getMJConfigInfo:@"CallBackTime"] integerValue];
+    NSMutableArray* datearray = [NSMutableArray array];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *comps =
+    [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
+                fromDate:[NSDate date]];
+    
+    
+    [datearray addObject:[calendar dateFromComponents:comps]];
+    
+    for (int y = 0 ;y < callbackdays ; y++){
+        comps.day--;
+        [datearray addObject:[calendar dateFromComponents:comps]];
+    }
+    
+    
+    
+    return datearray;
+    
+}
+
+// return in form of Array of string
+-(NSMutableArray*) getCallObjectiveRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT call_objective_name FROM Mst_call_objective"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"call_objective_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return in form of Array of string
+-(NSMutableArray*) getCallProductRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT prod_brand_name FROM Mst_product_brand"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"prod_brand_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+// return in form of Array of string
+-(NSMutableArray*) getCallResultRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT call_result_name FROM Mst_call_result"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"call_result_name"]];
+        
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return in form of Array of string
+-(NSMutableArray*) getCallComplaintRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:@"SELECT call_complaint_name FROM Mst_call_complaint"];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"call_complaint_name"]];
+        
+    } 
+    
+    [database close];
+    
+    return array;
+}
+
+// return in form of Array of NSString
+-(NSMutableArray*) getSupervisorRecordCall{
+    
+    FMDatabase *database = [FMDatabase databaseWithPath: [[MJUtility sharedInstance] getDBPath]]; 
+    [database open];
+    NSMutableArray * array = [NSMutableArray array];
+    
+    NSString *myself = [[MJUtility sharedInstance] getMJConfigInfo:@"SalesCode"];
+    //NSMutableArray * array = [self getAllProductBrandLabel];
+    // =      NSString *temp2 = [[NSString alloc] init];                       
+    
+    FMResultSet *results = [database executeQuery:[NSString stringWithFormat: @"SELECT TRIM(sale_fname) || "  " || TRIM(sale_lname) AS sales  FROM Mst_sale WHERE sale_code <> '%@' ", myself]];
+    
+    while([results next]) 
+        
+    {
+        [array addObject:[results stringForColumn:@"sales"]];
+        
+    } 
+       
+    [database close];
+    
+    return array;
+}
+
+
+
 
 @end

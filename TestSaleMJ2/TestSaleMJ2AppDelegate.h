@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CacheDBCommands.h"
 
 //@class RootViewController;
 
@@ -17,7 +18,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-
+@property (nonatomic, retain) CacheDBCommands *cacheDB;
 //@property (nonatomic, retain) IBOutlet UISplitViewController *splitViewController;
 
 //@property (nonatomic, retain) IBOutlet RootViewController *rootViewController;

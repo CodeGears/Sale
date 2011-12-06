@@ -17,6 +17,7 @@
 		
 @synthesize tableView, tabBar, naviBar;
 @synthesize detailView;
+@synthesize rootView;
 
 
 - (void) SetOwnDetailView:(DetailViewController *)view{
@@ -76,6 +77,9 @@
     
     localNameKeys = [[CustomerDataManager sharedInstance] GetCustomerNameKeys];
     localNameList = [[CustomerDataManager sharedInstance] GetCustomerNameList:@""];
+    
+    //sync
+    syncVC = [[SyncViewController alloc] init];
 }
 
 		
@@ -208,6 +212,18 @@
     [popOverCtrl release];
     [createNewViewCtrl release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Tapbar Delegate
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    
+    if ([item.title isEqual:@"Outbox"]) {
+        [self.rootView addSubview:syncVC.view];
+    }
+    else if ([item.title isEqual:@"Customer"]) {
+        [syncVC.view removeFromSuperview];
+    }
 }
 
 @end

@@ -12,6 +12,9 @@
 
 + (MJUtility*)sharedInstance;
 - (NSString*)getDBPath;
+-(BOOL) checkInTxn: (NSString*) txn_no type: (NSString*) type;
+// for creating new transaction record to txn_list 
+-(BOOL) newTxn: (NSString*) txn_no type: (NSString*) type profileCode:(NSString*) profileCode customerCode: (NSString*) customerCode appStatus: (NSString*) appStatus;
 -(NSDate*) convertStringDateToNSDate: (NSString*)stringDate;
 -(NSString*)convertNSDateToString: (NSDate*) date;
 - (UIImage*)convertNSDataToUIImage: (NSData*) data;
@@ -19,4 +22,8 @@
 -(void) initializeDB;
 -(NSString*) getMJConfigInfo: (NSString*) key;
 -(NSString*) getPicklistValueFromTable: (NSString*) table resultColumn: (NSString*) resCol codeColumn:(NSString*) codeCol code: (NSString*) code; 
+-(int) findNewDocnumForTable: (NSString*) table;
+
+-(NSString*) generateVisitDocNumberbyVisitType:(NSString*) type; 
+-  (NSString*) convertMonthToABCFormat: (NSInteger) month;
 @end
